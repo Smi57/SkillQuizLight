@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillQuizLight", "SkillQuizLight\SkillQuizLight.csproj", "{A9505CD8-3419-407A-9C54-CECEC55F97C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillQuizLight", "SkillQuizLight\SkillQuizLight.csproj", "{A9505CD8-3419-407A-9C54-CECEC55F97C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillQuizLightWpf", "SkillQuizLightWpf\SkillQuizLightWpf.csproj", "{3BAE84E2-411D-433B-8881-90101C40F09C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A9505CD8-3419-407A-9C54-CECEC55F97C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9505CD8-3419-407A-9C54-CECEC55F97C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9505CD8-3419-407A-9C54-CECEC55F97C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BAE84E2-411D-433B-8881-90101C40F09C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BAE84E2-411D-433B-8881-90101C40F09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BAE84E2-411D-433B-8881-90101C40F09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BAE84E2-411D-433B-8881-90101C40F09C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
