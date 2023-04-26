@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkillQuizLight", "SkillQuizLight\SkillQuizLight.csproj", "{A9505CD8-3419-407A-9C54-CECEC55F97C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3BAE84E2-411D-433B-8881-90101C40F09C} = {3BAE84E2-411D-433B-8881-90101C40F09C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillQuizLightWpf", "SkillQuizLightWpf\SkillQuizLightWpf.csproj", "{3BAE84E2-411D-433B-8881-90101C40F09C}"
 EndProject
