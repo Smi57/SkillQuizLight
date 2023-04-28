@@ -28,4 +28,5 @@ public partial class Usr
     public byte IsActive { get; set; }
 
     public byte IsDeleted { get; set; }
+
 }

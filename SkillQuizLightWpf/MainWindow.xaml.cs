@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,11 +22,32 @@ namespace SkillQuizLightWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        HttpClient client = new HttpClient();
+
         public MainWindow()
         {
             InitializeComponent();
             Login login = new Login();
             login.ShowDialog();
+        }
+        private void Navigate(string page)
+        {
+            MainFrame.Navigate(new Uri(page, UriKind.RelativeOrAbsolute));
+        }
+
+        //private void MenuItem_Click(object sender, RoutedEventArgs e)
+        //{
+        //    client.BaseAddress = new Uri("https://localhost:7216");
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //    //HttpResponseMessage response = client.GetAsync("/api/GetUsrs").Result;
+            
+        //}
+
+        private void AppExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Navigate("Pages/Page1.xaml");
         }
     }
 }
