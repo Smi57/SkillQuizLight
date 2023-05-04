@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SkillQuizLight\SkillQuizLight.csproj" />
+  </ItemGroup>
+
 </Project>

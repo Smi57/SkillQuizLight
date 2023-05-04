@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using SkillQuizLight.Models;
 
 namespace SkillQuizLightWpf
 {
@@ -36,18 +37,15 @@ namespace SkillQuizLightWpf
             MainFrame.Navigate(new Uri(page, UriKind.RelativeOrAbsolute));
         }
 
-        //private void MenuItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //    client.BaseAddress = new Uri("https://localhost:7216");
-        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-        //    //HttpResponseMessage response = client.GetAsync("/api/GetUsrs").Result;
-            
-        //}
-
-        private void AppExit_Click(object sender, RoutedEventArgs e)
+        private void AppUser_Click(object sender, RoutedEventArgs e)
         {
             this.Navigate("Pages/Page1.xaml");
         }
+
+        private void AppMenuStart_Click(object sender, RoutedEventArgs e)
+        {
+            this.Navigate("Pages/PageHome.xaml");
+        }
+
     }
 }
