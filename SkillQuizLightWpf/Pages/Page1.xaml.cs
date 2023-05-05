@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Azure;
 using Microsoft.AspNetCore.Http;
 using SkillQuizLight.Controllers;
 using SkillQuizLight.Models;
@@ -54,12 +55,14 @@ namespace SkillQuizLightWpf.Pages
             HttpResponseMessage response = client.GetAsync("/api/Usr/getUsr").Result;
             if (response.IsSuccessStatusCode)
             {
+                DG1.ItemsSource = null;
                 var UsrList = response.Content.ReadFromJsonAsync<IEnumerable<UsrToShow>>().Result;
                 DG1.ItemsSource = UsrList.AsEnumerable();
             }
         }
         private void initTxtbox()
         {
+            LoginID.Text = "";
             LoginTxt.Text = "";
             FirstName.Text = "";
             LastName.Text = "";
@@ -74,16 +77,21 @@ namespace SkillQuizLightWpf.Pages
 
             if (response.IsSuccessStatusCode)
             {
-                UsrToShow RowSelectedTmp = (UsrToShow)DG1.SelectedItem;
+                var RowSelectedTmp = (UsrToShow)DG1.SelectedItem;
                 var UsrList = response.Content.ReadFromJsonAsync<IEnumerable<UsrToShow>>().Result;
-                UsrToShow usr = UsrList
-                                .Where(b => b.LoginTxt == RowSelectedTmp.LoginTxt)
-                                .FirstOrDefault();
-                LoginTxt.Text = usr.LoginTxt;
-                FirstName.Text = usr.FirstName;
-                LastName.Text = usr.LastName;
-                Email.Text = usr.Email;
-                Comment.Text = usr.Comment;
+                if (RowSelectedTmp != null)
+                {
+                    UsrToShow usr = UsrList
+                                    .Where(b => b.LoginId == RowSelectedTmp.LoginId)
+                                    .FirstOrDefault();
+                    LoginID.Text = usr.LoginId.ToString();
+                    LoginTxt.Text = usr.LoginTxt;
+                    FirstName.Text = usr.FirstName;
+                    LastName.Text = usr.LastName;
+                    Email.Text = usr.Email;
+                    Comment.Text = usr.Comment;
+                    stat = StatUpd;
+                }
             }
         }
 
@@ -101,14 +109,29 @@ namespace SkillQuizLightWpf.Pages
             {
                 case StatAdd:
 
+                    Usr usrTmpAdd = new Usr();
+                    usrTmpAdd.LoginTxt = LoginTxt.Text;
+                    usrTmpAdd.FirstName = FirstName.Text;
+                    usrTmpAdd.LastName = LastName.Text;
+                    usrTmpAdd.Email = Email.Text;
+                    usrTmpAdd.Comment = Comment.Text;
+                    HttpResponseMessage responseAdd = await client.PostAsJsonAsync("api/Usr/postUsr", usrTmpAdd);
 
-                    Usr usrTmp = new Usr();
-                    usrTmp.LoginTxt = LoginTxt.Text;
-                    usrTmp.FirstName = FirstName.Text;
-                    usrTmp.LastName = LastName.Text;
-                    usrTmp.Email = Email.Text;
-                    usrTmp.Comment = Comment.Text;
-                    HttpResponseMessage response = await client.PostAsJsonAsync("api/Usr/postUsr", usrTmp);
+                    refreshDataGrid();
+                    initTxtbox();
+
+                    break;
+
+                case StatUpd:
+
+                    Usr usrTmpUpd = new Usr();
+                    usrTmpUpd.LoginId = Convert.ToInt32(LoginID.Text);
+                    usrTmpUpd.LoginTxt = LoginTxt.Text;
+                    usrTmpUpd.FirstName = FirstName.Text;
+                    usrTmpUpd.LastName = LastName.Text;
+                    usrTmpUpd.Email = Email.Text;
+                    usrTmpUpd.Comment = Comment.Text;
+                    HttpResponseMessage responseUpd = await client.PutAsJsonAsync("api/Usr/putUsr", usrTmpUpd);
 
                     refreshDataGrid();
                     initTxtbox();
@@ -117,6 +140,11 @@ namespace SkillQuizLightWpf.Pages
             }
         }
 
-
+        private async void BtnDel_Click(object sender, RoutedEventArgs e)
+        {
+            HttpResponseMessage responseDel = await client.DeleteAsync($"api/Usr/delUsr/{LoginID.Text}");
+            refreshDataGrid();
+            initTxtbox();
+        }
     }
 }

@@ -39,6 +39,30 @@ namespace SkillQuizLight.Controllers
             await db.SaveChangesAsync();
         }
 
+        [HttpPut]
+        [Route("putUsr")]
+        public async void putUsr(UsrToShow usrParam)
+        {
+            Usr usrTmp = new Usr();
+            usrTmp.LoginId = usrParam.LoginId;
+            usrTmp.LoginTxt = usrParam.LoginTxt;
+            usrTmp.FirstName = usrParam.FirstName;
+            usrTmp.LastName = usrParam.LastName;
+            usrTmp.Email = usrParam.Email;
+            usrTmp.Comment = usrParam.Comment;
+
+            db.Usrs.Update(usrTmp) ;
+            await db.SaveChangesAsync();
+        }
+
+        [HttpDelete]
+        [Route("delUsr/{ID}")]
+        public async void delUsr(Int32 ID)
+        {
+            var usrTmp = await db.Usrs.FindAsync(ID);
+            db.Usrs.Remove(usrTmp);
+            await db.SaveChangesAsync();
+        }
     }
     
 }

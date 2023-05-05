@@ -9,7 +9,8 @@
       Title="Page1">
 
     <Grid Background="White" Height="384" VerticalAlignment="Top" Margin="0,25,0,0">
-        <DataGrid Name="DG1" ItemsSource="{Binding}" Height="172" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged"/>
+        <DataGrid Name="DG1" IsReadOnly ="True" ItemsSource="{Binding}" Height="172" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged">
+        </DataGrid>
         <Label Content="Login :" HorizontalAlignment="Left" Margin="37,187,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="Prénom :" HorizontalAlignment="Left" Margin="37,218,0,0" VerticalAlignment="Top" Width="71"/>
         <Label Content="NOM :" HorizontalAlignment="Left" Margin="37,249,0,0" VerticalAlignment="Top" Width="71"/>
@@ -22,7 +23,9 @@
         <TextBox x:Name="Comment" HorizontalAlignment="Left" Margin="141,319,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="423" Height="36"/>
         <Button x:Name="BtnAdd" Content="Ajouter" HorizontalAlignment="Left" Margin="662,187,0,0" VerticalAlignment="Top" Width="110" Click="BtnAdd_Click"/>
         <Button x:Name="BtnUpd" Content="Sauvegarder" HorizontalAlignment="Left" Margin="662,216,0,0" VerticalAlignment="Top" Width="110" Click="BtnUpd_Click"/>
-        <Button x:Name="BtnDel" Content="Supprimer" HorizontalAlignment="Left" Margin="662,247,0,0" VerticalAlignment="Top" Width="110"/>
+        <Button x:Name="BtnDel" Content="Supprimer" HorizontalAlignment="Left" Margin="662,247,0,0" VerticalAlignment="Top" Width="110" Click="BtnDel_Click"/>
         <Button x:Name="BtnRez" Content="Reset password" HorizontalAlignment="Left" Margin="662,340,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label Content="ID :" HorizontalAlignment="Left" Margin="329,187,0,0" VerticalAlignment="Top" Width="71"/>
+        <TextBox x:Name="LoginID" HorizontalAlignment="Left" Margin="405,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Page>
