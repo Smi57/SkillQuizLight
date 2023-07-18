@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace SkillQuizLightWpf.Pages
+{
+    /// <summary>
+    /// Interaction logic for PageTest.xaml
+    /// </summary>
+    public partial class PageTest : Page
+    {
+        public PageTest()
+        {
+            InitializeComponent();
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnUpd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnDel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+}

@@ -5,7 +5,8 @@
     },
     "mssql1": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:LAP-2017-SMI:SQLEXPRESS"
+      "connectionId": "ConnectionStrings:LAP-2017-SMI:SQLEXPRESS",
+      "dynamicId": null
     }
   }
 }

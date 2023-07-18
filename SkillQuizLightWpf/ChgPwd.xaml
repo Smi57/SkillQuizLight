@@ -1,0 +1,25 @@
+﻿<Window x:Class="SkillQuizLightWpf.ChgPwd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SkillQuizLightWpf"
+        mc:Ignorable="d"
+        Title="ChgPwd" Height="231" Width="484">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="387*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Nouveau mot de passe" HorizontalAlignment="Left" Margin="18,50,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3"/>
+        <Label Content="Confirmer mot de passe" HorizontalAlignment="Left" Margin="18,85,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3"/>
+        <Label Content="Ancien mot de passe" HorizontalAlignment="Left" Margin="19,18,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3"/>
+        <PasswordBox x:Name="OldPwdTbx" HorizontalAlignment="Left" Margin="187,22,0,0" VerticalAlignment="Top" Width="192" Grid.Column="3"/>
+        <PasswordBox x:Name="NewPwdTbx" HorizontalAlignment="Left" Margin="187,54,0,0" VerticalAlignment="Top" Width="192" Grid.Column="3"/>
+        <PasswordBox x:Name="ConfPwdTbx" HorizontalAlignment="Left" Margin="187,89,0,0" VerticalAlignment="Top" Width="192" Grid.Column="3"/>
+        <Button x:Name="BtnChgPwd" Content="Changer mot de passe" HorizontalAlignment="Left" Margin="128,144,0,0" VerticalAlignment="Top" Width="165" Click="BtnChgPwd_Click" Grid.Column="3"/>
+
+    </Grid>
+</Window>
