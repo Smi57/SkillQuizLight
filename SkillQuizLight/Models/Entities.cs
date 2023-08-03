@@ -54,6 +54,10 @@ namespace SkillQuizLight.Models
         public int tUserID { get; set; }
         public int ExamTest_QuestionnaireID { get; set; }
         public int ParamTestStatusID { get; set; }
+        public DateTime CreatDate { get; set; }
+        public int CreatUser { get; set; }
+        public DateTime ModifDate { get; set; }
+        public int ModifUser { get; set; }
     }
     public class tUserQuestion
     {
@@ -126,15 +130,19 @@ namespace SkillQuizLight.Models
         public int SortOrder { get; set; }
         public int ExamQuestionID { get; set; }
         public DateTime CreatDate { get; set; }
-        public string CreatUser { get; set; }
+        public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }
-        public string ModifUser { get; set; }
+        public int ModifUser { get; set; }
     }
     public class tExamDomain_SubDomain
     {
         public int tExamDomain_SubDomainID { get; set; }
         public int tExamDomainID { get; set; }
         public int tExamSubDomainID { get; set; }
+        public DateTime CreatDate { get; set; }
+        public int CreatUser { get; set; }
+        public DateTime ModifDate { get; set; }
+        public int ModifUser { get; set; }
     }
     public class tExamDomain
     {
@@ -164,6 +172,10 @@ namespace SkillQuizLight.Models
         public int tExamQuestion_AnswerID { get; set; }
         public int tExamQuestionID { get; set; }
         public int tExamAnswerID { get; set; }
+        public DateTime CreatDate { get; set; }
+        public int CreatUser { get; set; }
+        public DateTime ModifDate { get; set; }
+        public int ModifUser { get; set; }
     }
     public class tExamQuestionnaire
     {
@@ -187,6 +199,10 @@ namespace SkillQuizLight.Models
         public int tExamQuestionnaire_QuestionID { get; set; }
         public int tExamQuestionnaireID { get; set; }
         public int tExamQuestionID { get; set; }
+        public DateTime CreatDate { get; set; }
+        public int CreatUser { get; set; }
+        public DateTime ModifDate { get; set; }
+        public int ModifUser { get; set; }
     }
     public class tExamSubDomain
     {
@@ -218,5 +234,9 @@ namespace SkillQuizLight.Models
         public int tExamTest_QuestionnaireID { get; set; }
         public int tExamTestID { get; set; }
         public int tExamQuestionnaireID { get; set; }
+        public DateTime CreatDate { get; set; }
+        public int CreatUser { get; set; }
+        public DateTime ModifDate { get; set; }
+        public int ModifUser { get; set; }
     }
 }

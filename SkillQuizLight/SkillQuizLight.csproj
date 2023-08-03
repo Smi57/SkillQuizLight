@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>2bb11977-9319-4fa5-b56b-e053505c2a93</UserSecretsId>
     <OutputType>Exe</OutputType>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="File">_File</system:String>
+    <system:String x:Key="Tools">_Tools</system:String>
+    <system:String x:Key="Help">_Help</system:String>
+    <system:String x:Key="FirstNm">First name :</system:String>
+    <system:String x:Key="LastNm">LAST NAME :</system:String>
+    <system:String x:Key="Comment">Comment :</system:String>
+    <system:String x:Key="Add">Add</system:String>
+    <system:String x:Key="Save">Save</system:String>
+    <system:String x:Key="Delete">Delete</system:String>
+    <system:String x:Key="OldPassword">Old password</system:String>
+    <system:String x:Key="NewPassword">New password</system:String>
+    <system:String x:Key="ConfirmPassword">Confirm password</system:String>
+    <system:String x:Key="ChangePassword">Change password</system:String>
+    <system:String x:Key="MsgQuit">Would you like to quit this application ?</system:String>
+    <system:String x:Key="MsgPwdConfCorr">The password confirmed, is not corresponding.</system:String>
+    <system:String x:Key="MsgPwdChg">Password changed.</system:String>
+    <system:String x:Key="MsgToFilData">Please enter data.</system:String>
+    <system:String x:Key="MsgExistData">Already existing data.</system:String>
+    <system:String x:Key="MsgDelSelData">Please select the data you wish to delete.</system:String>
+    <system:String x:Key="MsgResetWarn">Warning, you are resetting the user's password, do you want to continue ?</system:String>
+    <system:String x:Key="MsgPwdRules">The following rules have not been respected :</system:String>
+    <system:String x:Key="MsgPwdMissNum">Password must contain at least one numeric character</system:String>
+    <system:String x:Key="MsgPwdMissUpC">Password should contain At least one upper case letter</system:String>
+    <system:String x:Key="MsgPwdMissSpeC">Password should contain At least one special case characters</system:String>
+    <system:String x:Key="MsgPwdMissMin8C">Password should be greater than 8 characters</system:String>
+    <system:String x:Key="MsgPwdToEnter">Enter a password.</system:String>
+    <system:String x:Key="MsgSup5Login">You have exceeded 5 attempts to enter your password, your account is blocked.</system:String>
+    <system:String x:Key="MsgLoginNumP1">Incorrect password ! </system:String>
+    <system:String x:Key="MsgLoginNumP2">/5 attempts</system:String>
+
+</ResourceDictionary>

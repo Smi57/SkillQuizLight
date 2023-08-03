@@ -8,12 +8,15 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SkillQuizLight;
 using SkillQuizLight.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SkillQuizLight
 {
     public class Program
     {
-        public static User currentUser { get; set; }
+        public const string cResetPassword = "Bingo";
+        
+        public static mUser currentUser { get; set; }
         public static HttpClient client = new HttpClient();
 
         public static void Main(string[] args)
@@ -45,6 +48,7 @@ namespace SkillQuizLight
             app.Run();
             //CreateHostBuilder(args).Build().Run();
         }
+
 
         //public static IHostBuilder CreateHostBuilder(string[] args) =>
         //    Host.CreateDefaultBuilder(args)

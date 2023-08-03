@@ -27,7 +27,7 @@ namespace SkillQuizLightWpf
     public partial class Login : Window
     {
 
-        string LastPasswordEncrypted = "";
+        string vLastPasswordEncrypted = "";
 
         public Login()
         {
@@ -37,28 +37,29 @@ namespace SkillQuizLightWpf
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserLogin/{LoginTbx.Text}").Result;
-            Program.currentUser = response.Content.ReadFromJsonAsync<User>().Result;
+            Program.currentUser = response.Content.ReadFromJsonAsync<mUser>().Result;
             if (response.IsSuccessStatusCode & Program.currentUser.Login != null)
             {
-                User login = new User();
-                login.setPassword(PasswordTbx.Password);
-                // On vérifit que la personne ne fait pas une tentative avec le même mot de passe ou le mot de passe à vide
-                if (LastPasswordEncrypted == login.PasswordEncrypted || PasswordTbx.Password == "")
+                string[] vRes = Program.currentUser.verifUserPassword(PasswordTbx.Password, vLastPasswordEncrypted);
+                string vMsg = vRes[0];
+                vLastPasswordEncrypted = vRes[1];
+                if (vMsg == "")
                 {
-                    MessageBox.Show("Saisir un mot de passe.");
-                }
-                else
-                { 
-                    LastPasswordEncrypted = login.PasswordEncrypted;
-                    if (Program.currentUser.PasswordEncrypted == login.PasswordEncrypted && Program.currentUser.AccessFailedCount < 5)
+                    mUser login = new mUser();
+                    login.setPassword(Program.cResetPassword);
+                    if (vLastPasswordEncrypted == login.PasswordEncrypted)
                     {
-                        Program.currentUser.managAccessFailedCount(true);
-                        this.Hide();
+                        ChgPwd chgPwd = new ChgPwd();
+                        chgPwd.ShowDialog();
                     }
                     else
                     {
-                        MessageBox.Show(Program.currentUser.managAccessFailedCount(false, true));
+                        this.Hide();
                     }
+                }
+                else
+                {
+                    MessageBox.Show(Tools.verifUserPasswordManagement(vMsg));
                 }
             }
             else

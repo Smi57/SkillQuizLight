@@ -11,4 +11,19 @@
     <ProjectReference Include="..\SkillQuizLight\SkillQuizLight.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Pages\PgeExam.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\PgeTest.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\PgeQuestionnaire.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\PgeQuestion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

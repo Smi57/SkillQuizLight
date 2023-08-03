@@ -5,25 +5,32 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SkillQuizLightWpf.Pages"
       mc:Ignorable="d" d:DesignWidth="800"
-      Title="PageUser" Height="407">
+      Title="PageUser">
 
-    <Grid Background="White" Height="384" VerticalAlignment="Top" Margin="0,25,0,0">
-        <DataGrid Name="DG1" IsReadOnly ="True" ItemsSource="{Binding}" Height="172" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged"/>
-        <Label Content="Login :" HorizontalAlignment="Left" Margin="37,187,0,0" VerticalAlignment="Top" Width="71"/>
-        <Label Content="Prénom :" HorizontalAlignment="Left" Margin="37,218,0,0" VerticalAlignment="Top" Width="71"/>
-        <Label Content="NOM :" HorizontalAlignment="Left" Margin="37,249,0,0" VerticalAlignment="Top" Width="71"/>
-        <Label Content="Email :" HorizontalAlignment="Left" Margin="37,280,0,0" VerticalAlignment="Top" Width="71"/>
-        <Label Content="Commentaire :" HorizontalAlignment="Left" Margin="37,311,0,0" VerticalAlignment="Top" Width="89"/>
-        <TextBox x:Name="LoginTxt" HorizontalAlignment="Left" Margin="141,191,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="FirstName" HorizontalAlignment="Left" Margin="141,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183"/>
-        <TextBox x:Name="LastName" HorizontalAlignment="Left" Margin="141,253,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183"/>
-        <TextBox x:Name="Email" HorizontalAlignment="Left" Margin="141,284,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="405"/>
-        <TextBox x:Name="Comment" HorizontalAlignment="Left" Margin="141,319,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="423" Height="36"/>
-        <Button x:Name="BtnAdd" Content="Ajouter" HorizontalAlignment="Left" Margin="662,187,0,0" VerticalAlignment="Top" Width="110" Click="BtnAdd_Click"/>
-        <Button x:Name="BtnUpd" Content="Sauvegarder" HorizontalAlignment="Left" Margin="662,216,0,0" VerticalAlignment="Top" Width="110" Click="BtnUpd_Click"/>
-        <Button x:Name="BtnDel" Content="Supprimer" HorizontalAlignment="Left" Margin="662,247,0,0" VerticalAlignment="Top" Width="110" Click="BtnDel_Click"/>
-        <Button x:Name="BtnRez" Content="Reset password" HorizontalAlignment="Left" Margin="662,340,0,0" VerticalAlignment="Top" Width="110" Click="BtnRez_Click"/>
-        <Label Content="ID :" HorizontalAlignment="Left" Margin="329,187,0,0" VerticalAlignment="Top" Width="71"/>
-        <TextBox x:Name="LoginID" HorizontalAlignment="Left" Margin="405,192,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+    <Grid Background="White" Height="600" VerticalAlignment="Top" Margin="0,25,0,0">
+        <DataGrid Name="DG1" IsReadOnly ="True" ItemsSource="{Binding}" Height="256" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="0,51,0,0"/>
+        <Label Content="Login :" HorizontalAlignment="Left" Margin="37,326,0,0" VerticalAlignment="Top" Width="71"/>
+        <Label Content="{DynamicResource FirstNm}" HorizontalAlignment="Left" Margin="37,357,0,0" VerticalAlignment="Top" Width="89" Height="26"/>
+        <Label Content="{DynamicResource LastNm}" HorizontalAlignment="Left" Margin="37,388,0,0" VerticalAlignment="Top" Width="89" Height="26" />
+        <Label Content="Email :" HorizontalAlignment="Left" Margin="37,419,0,0" VerticalAlignment="Top" Width="71"/>
+        <Label Content="{DynamicResource Comment}" HorizontalAlignment="Left" Margin="37,450,0,0" VerticalAlignment="Top" Width="89" Height="26"/>
+        <TextBox x:Name="LoginTxt" HorizontalAlignment="Left" Margin="141,330,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="FirstName" HorizontalAlignment="Left" Margin="141,361,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183"/>
+        <TextBox x:Name="LastName" HorizontalAlignment="Left" Margin="141,392,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183"/>
+        <TextBox x:Name="Email" HorizontalAlignment="Left" Margin="141,423,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="405"/>
+        <TextBox x:Name="Comment" HorizontalAlignment="Left" Margin="141,458,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="423" Height="36"/>
+        <Button x:Name="BtnAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="662,326,0,0" VerticalAlignment="Top" Width="110" Click="BtnAdd_Click" Height="20"/>
+        <Button x:Name="BtnUpd" Content="{DynamicResource Save}" HorizontalAlignment="Left" Margin="662,355,0,0" VerticalAlignment="Top" Width="110" Click="BtnUpd_Click" Height="19"/>
+        <Button x:Name="BtnDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="662,386,0,0" VerticalAlignment="Top" Width="110" Click="BtnDel_Click" Height="20"/>
+        <Button x:Name="BtnRez" Content="Reset password" HorizontalAlignment="Left" Margin="662,479,0,0" VerticalAlignment="Top" Width="110" Click="BtnRez_Click"/>
+        <Label Content="ID :" HorizontalAlignment="Left" Margin="555,326,0,0" VerticalAlignment="Top" Width="30"/>
+        <TextBox x:Name="LoginID" HorizontalAlignment="Left" Margin="587,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
+        <Button x:Name="BtnUnlocked" Content="Unblocked User" HorizontalAlignment="Left" Margin="662,450,0,0" VerticalAlignment="Top" Width="110" Click="BtnUnlocked_Click"/>
+        <ComboBox x:Name="cbxLang" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="415,358,0,0" Width="155">
+            <ComboBoxItem Content="English"/>
+            <ComboBoxItem Content="Français"/>
+        </ComboBox>
+        <Label Content="Language :" HorizontalAlignment="Left" Margin="344,356,0,0" VerticalAlignment="Top" Width="66"/>
+        <Label Content="User Management" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="470" FontSize="36" FontFamily="Arial Rounded MT Bold" Height="56"/>
     </Grid>
 </Page>

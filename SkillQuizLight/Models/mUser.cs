@@ -1,19 +1,22 @@
-﻿using SkillQuizLight.Context;
+﻿using Azure;
+using SkillQuizLight.Context;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SkillQuizLight.Models;
 
-public class User
+public class mUser
 {
     //Attributs
     public int? tUserID { get; set; }
-    public string Login { get; set; }
+    public string? Login { get; set; }
     public string? LastName { get; set; }
     public string? FirstName { get; set; }
     private string? Password { get; set; }
@@ -31,8 +34,9 @@ public class User
     public int ModifUserID { get; set; }
 
     //Constructeurs
-    public User() { }
-    public User(int? _UserID, string _Login, string? _FirstName, string? _LastName, string? _Password, string? _Email, string? _Comment)
+    public mUser() { }
+    public mUser(int? _UserID, string _Login, string? _FirstName, string? _LastName, string? _Password, string? _Email
+        , string? _Comment, int? pParamLangID)
     {
         this.tUserID = _UserID;
         this.Login = _Login;
@@ -42,15 +46,16 @@ public class User
         this.Email = _Email;
         this.Comment = _Comment;
         this.AccessFailedCount = 0;
-        this.ParamLangID = 0;
+        this.ParamLangID = pParamLangID.Value;
         this.ParamUserTypeID = 0;
         this.IsActivate = true;
         this.CreatDate = DateTime.Now;
-        this.CreatUserID = 0;
+        this.CreatUserID = Program.currentUser.tUserID.Value;
         this.ModifDate = DateTime.Now;
-        this.ModifUserID = 0;
+        this.ModifUserID = Program.currentUser.tUserID.Value;
     }
-    public User(int? _UserID, string _Login, string? _FirstName, string? _LastName, string? _Email, string? _Comment)
+    public mUser(int? _UserID, string _Login, string? _FirstName, string? _LastName, string? _Email, string? _Comment
+        , int? pParamLangID)
     {
         this.tUserID = _UserID;
         this.Login = _Login;
@@ -58,53 +63,72 @@ public class User
         this.LastName = _LastName;
         this.Email = _Email;
         this.Comment = _Comment;
-        this.AccessFailedCount = 0;
-        this.ParamLangID = 0;
-        this.ParamUserTypeID = 0;
-        this.IsActivate = true;
-        this.CreatDate = DateTime.Now;
-        this.CreatUserID = 0;
+        this.ParamLangID = pParamLangID.Value;
         this.ModifDate = DateTime.Now;
-        this.ModifUserID = 0;
+        this.ModifUserID = Program.currentUser.tUserID.Value;
     }
 
     //Accesseurs
     public void setPassword(string _Password)
     {
         Password = encryptPassword(_Password);
-        PasswordEncrypted = getPassword();
+        PasswordEncrypted = Password;
     }
-    public string getPassword() { return Password; }
+    public string getPassword() { return PasswordEncrypted; }
     
     //Méthode
-    public static string verifValidPassword(string plainText)
+    public string verifValidPassword(string pPassword)
     {
+        string vMsgTmp = "";
         var hasNumber = new Regex(@"[0-9]+");
         var hasUpperChar = new Regex(@"[A-Z]+");
         var hasSpecChars = new Regex(@"[#?!@$%^&*-]");
         var hasMinimum8Chars = new Regex(@".{8,}");
 
-        if (!hasNumber.IsMatch(plainText))
+        if (!hasNumber.IsMatch(pPassword))
         {
-            return "Password should contain At least one numeric value";
+            vMsgTmp = vMsgTmp + "[MsgPwdMissNum]" + Environment.NewLine;
         }
-        else if (!hasUpperChar.IsMatch(plainText))
+        if (!hasUpperChar.IsMatch(pPassword))
         {
-            return "Password should contain At least one lower case letter";
+            vMsgTmp = vMsgTmp + "[MsgPwdMissUpC]" + Environment.NewLine;
         }
-        else if (!hasSpecChars.IsMatch(plainText))
+        if (!hasSpecChars.IsMatch(pPassword))
         {
-            return "Password should contain At least one special case characters";
+            vMsgTmp = vMsgTmp + "[MsgPwdMissSpeC]" + Environment.NewLine;
         }
-        else if (!hasMinimum8Chars.IsMatch(plainText))
+        if (!hasMinimum8Chars.IsMatch(pPassword))
         {
-            return "Password should not be less than or greater than 8 characters";
+            vMsgTmp = vMsgTmp + "[MsgPwdMissMin8C]" + Environment.NewLine;
+        }
+        return vMsgTmp;
+    }
+
+    public string[] verifUserPassword(string pPassword, string pLastPasswordEncrypted = "")
+    {
+        string[] resErrMsgValMem = new string[2];
+
+        mUser login = new mUser();
+        login.setPassword(pPassword);
+        // On vérifit que la personne ne fait pas une tentative avec le même mot de passe ou le mot de passe à vide
+        if (pLastPasswordEncrypted == login.Password || pPassword == "")
+        {
+            resErrMsgValMem[0] = "[MsgPwdToEnter]";
         }
         else
         {
-            return "";
+            resErrMsgValMem[1] = login.PasswordEncrypted;
+            if (Program.currentUser.PasswordEncrypted == login.PasswordEncrypted && Program.currentUser.AccessFailedCount < 5)
+            {
+                Program.currentUser.managAccessFailedCount(true);
+                resErrMsgValMem[0] = "";
+            }
+            else
+            {
+                resErrMsgValMem[0] = Program.currentUser.managAccessFailedCount(false, true);
+            }
         }
-
+        return resErrMsgValMem;
     }
 
     public static string encryptPassword(string s)
@@ -137,7 +161,7 @@ public class User
         }
         else if (AccessFailedCount >= 5)
         {
-            message = "Vous avez dépassé les 5 tentatives de saisie de votre mot de passe, votre compte est bloqué.";
+            message = "[MsgSup5Login]";
         }
         else if (AddAccessFailed)
         {
@@ -145,11 +169,11 @@ public class User
             UpdateMe();
             if (AccessFailedCount > 5)
             {
-                message = "Vous avez dépassé les 5 tentatives de saisie de votre mot de passe, votre compte est bloqué.";
+                message = "[MsgSup5Login]";
             }
             else
             {
-                message = "Mot de passe incorrect ! " + AccessFailedCount + "/5 tentatives";
+                message = "[MsgLoginNumP1] " + AccessFailedCount + "[MsgLoginNumP2]";
             }
         }
         return message;
@@ -160,5 +184,9 @@ public class User
         HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync("api/User/putUser", this);
     }
 
+    public async void UpdatePassword(string pOldPassword)
+    {
+        HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync($"api/User/putUserPassword/{pOldPassword}", this);
+    }
 }
 

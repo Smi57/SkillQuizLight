@@ -1,0 +1,42 @@
+﻿<Window x:Class="SkillQuizLightWpf.MainWindowRH"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SkillQuizLightWpf"
+        mc:Ignorable="d"
+        Title="MainWindowRH" Height="768" Width="1280" Closing="Window_Closing">
+    <Grid>
+        <StackPanel VerticalAlignment="Top">
+            <Menu Width="Auto" Height="20">
+                <MenuItem Header="{DynamicResource File}">
+                    <MenuItem x:Name="AppMenu" Header="H_ome" HorizontalAlignment="Left" Width="140" Click="AppMenuStart_Click" />
+                    <MenuItem x:Name="AppDisconnect" Header="D_isconnect" HorizontalAlignment="Left" Width="160" Click="Disconnect_Click" />
+                    <MenuItem x:Name="AppExit" Header="E_xit" HorizontalAlignment="Left" Width="140" Click="Exit_Click" />
+                </MenuItem>
+                <MenuItem Header="Management">
+
+                    <MenuItem x:Name="AppUser" Header="U_ser Management" HorizontalAlignment="Left" Width="190" Click="AppUser_Click" />
+                    <MenuItem x:Name="AppDomain" Header="Do_maine Management" HorizontalAlignment="Left" Width="230" Click="Domain_Click" />
+                    <MenuItem x:Name="AppQuestion" Header="Q_uestion Management" HorizontalAlignment="Left" Width="200" Click="Question_Click" />
+                    <MenuItem x:Name="AppQuestionnaire" Header="Qu_estionnaire Management" HorizontalAlignment="Left" Width="200" Click="Questionnaire_Click" />
+                    <MenuItem x:Name="AppTest" Header="T_ests Management" HorizontalAlignment="Left" Width="200" Click="Test_Click" />
+                    <MenuItem x:Name="AppExam" Header="E_xam Management" HorizontalAlignment="Left" Width="200" Click="Exam_Click" />
+
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Tools}">
+                    <MenuItem x:Name="Options" Header="_Options" HorizontalAlignment="Left" Width="140" Click="Option_Click" />
+
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Help}">
+                    <MenuItem x:Name="User" Header="_Change Password" HorizontalAlignment="Left" Width="200" Click="AppChgPwd_Click" />
+                    <MenuItem x:Name="About" Header="_About" HorizontalAlignment="Left" Width="140"/>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+        <Grid>
+            <Frame x:Name="MainFrameRH" NavigationUIVisibility="Hidden"/>
+        </Grid>
+
+    </Grid>
+</Window>

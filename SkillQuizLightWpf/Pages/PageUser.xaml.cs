@@ -14,32 +14,28 @@ using SkillQuizLight.Controllers;
 using SkillQuizLight.Models;
 using SkillQuizLight;
 
-namespace SkillQuizLightWpf.Pages
+namespace SkillQuizLightWpf.Pages   
 {
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
     public partial class PageUser : Page
     {
-        const int StatAdd = 0;
-        const int StatUpd = 1;
-        const int StatDel = 2;
-
-        int stat = StatAdd;
 
         public PageUser()
         {
             InitializeComponent();
             refreshDataGrid();
+            Tools.vPageDataProcessingStatus01 = Tools.cStatAdd;
         }
 
-        private  void refreshDataGrid()
+        private void refreshDataGrid()
         {
             HttpResponseMessage response = Program.client.GetAsync("api/User/getUser").Result;
             if (response.IsSuccessStatusCode)
             {
                 DG1.ItemsSource = null;
-                var userList = response.Content.ReadFromJsonAsync<IEnumerable<UserDisplay>>().Result;
+                var userList = response.Content.ReadFromJsonAsync<IEnumerable<mUser_Display>>().Result;
                 DG1.ItemsSource = userList.AsEnumerable();
             }
         }
@@ -51,16 +47,17 @@ namespace SkillQuizLightWpf.Pages
             LastName.Text = "";
             Email.Text = "";
             Comment.Text = "";
-            stat = StatAdd;
+            cbxLang.SelectedIndex = 0;
+            Tools.vPageDataProcessingStatus01 = Tools.cStatAdd;
         }
 
         private void DG1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var rowSelectedTmp = (UserDisplay)DG1.SelectedItem;
-            if (rowSelectedTmp != null & stat != StatDel)
+            var rowSelectedTmp = (mUser_Display)DG1.SelectedItem;
+            if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
             {
                 HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserID/{rowSelectedTmp.tUserID}").Result;
-                UserDisplay userFind = response.Content.ReadFromJsonAsync<UserDisplay>().Result;
+                mUser_Display userFind = response.Content.ReadFromJsonAsync<mUser_Display>().Result;
                 if (response.IsSuccessStatusCode & userFind.tUserID != null)
                 {
                     LoginID.Text = userFind.tUserID.ToString();
@@ -69,14 +66,19 @@ namespace SkillQuizLightWpf.Pages
                     LastName.Text = userFind.LastName;
                     Email.Text = userFind.Email;
                     Comment.Text = userFind.Comment;
-                    stat = StatUpd;
+                    if (userFind.ParamLangID == null)
+                    {   cbxLang.SelectedIndex = 0;}
+                    else
+                    {   cbxLang.SelectedIndex = (int)userFind.ParamLangID;}
+
+                    Tools.vPageDataProcessingStatus01 = Tools.cStatUpd;
                 }
             }
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (stat != StatAdd)
+            if (Tools.vPageDataProcessingStatus01 != Tools.cStatAdd)
             {
                 initTxtbox();
             }
@@ -84,57 +86,120 @@ namespace SkillQuizLightWpf.Pages
 
         private async void BtnUpd_Click(object sender, RoutedEventArgs e)
         {
-            switch (stat)
+            if (LoginTxt.Text == "")
             {
-                case StatAdd:
+                string vMsgTmp = (string)Application.Current.Resources["MsgToFilData"];
+                MessageBox.Show(vMsgTmp); 
+            }
+            else
+            {
+                HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserLogin/{LoginTxt.Text}").Result;
+                mUser_Display userFind = response.Content.ReadFromJsonAsync<mUser_Display>().Result;
+                if (response.IsSuccessStatusCode & userFind.tUserID != null & userFind.tUserID.ToString() != LoginID.Text)
+                {
+                    string vMsgTmp = (string)Application.Current.Resources["MsgExistData"];
+                    MessageBox.Show(vMsgTmp);
+                }
+                else
+                {
+                    switch (Tools.vPageDataProcessingStatus01)
+                    {
+                        case Tools.cStatAdd:
+                            mUser userTmpAdd = new mUser(0,
+                                LoginTxt.Text,
+                                FirstName.Text,
+                                LastName.Text,
+                                Program.cResetPassword,
+                                Email.Text,
+                                Comment.Text,
+                                Convert.ToInt32(cbxLang.SelectedIndex));
+                            HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync("api/User/postUser", userTmpAdd);
+                            refreshDataGrid();
+                            initTxtbox();
+                            break;
 
-                    User userTmpAdd = new User(0,
-                            LoginTxt.Text,
-                            FirstName.Text,
-                            LastName.Text,
-                            "Bingo",
-                            Email.Text,
-                            Comment.Text);
-                    HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync("api/User/postUser", userTmpAdd);
+                        case Tools.cStatUpd:
 
-                    refreshDataGrid();
-                    initTxtbox();
+                            mUser userTmpUpd = new mUser(
+                                Convert.ToInt32(LoginID.Text),
+                                LoginTxt.Text,
+                                FirstName.Text,
+                                LastName.Text,
+                                Email.Text,
+                                Comment.Text,
+                                Convert.ToInt32(cbxLang.SelectedIndex));
+                            HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync("api/User/putUser", userTmpUpd);
 
-                    MessageBox.Show("Un mot de passe vient d'être envoyé à l'utilisateur par mail.");
+                            if (Program.currentUser.tUserID == userTmpUpd.tUserID)
+                            {
+                                Program.currentUser.ParamLangID = Convert.ToInt32(cbxLang.SelectedIndex);
+                                Tools.langManagement();
+                            }
 
-                    break;
-
-                case StatUpd:
-
-                    User userTmpUpd = new User(
-                            Convert.ToInt32(LoginID.Text),
-                            LoginTxt.Text,
-                            FirstName.Text,
-                            LastName.Text,
-                            Email.Text,
-                            Comment.Text);
-                    HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync("api/User/putUser", userTmpUpd);
-
-                    refreshDataGrid();
-                    initTxtbox();
-
-                    break;
+                            refreshDataGrid();
+                            initTxtbox();
+                            break;
+                    }
+                }
             }
         }
 
         private async void BtnDel_Click(object sender, RoutedEventArgs e)
         {
-            stat = StatDel;
+            if (LoginTxt.Text == "")
+            {
+                string vMsgTmp = (string)Application.Current.Resources["MsgDelSelData"];
+                MessageBox.Show(vMsgTmp);
+            }
+            else
+            {
+                Tools.vPageDataProcessingStatus01 = Tools.cStatDel;
 
-            HttpResponseMessage responseDel = await Program.client.DeleteAsync($"api/User/delUser/{LoginID.Text}");
-            refreshDataGrid();
-            initTxtbox();
+                HttpResponseMessage responseDel = await Program.client.DeleteAsync($"api/User/delUser/{LoginID.Text}");
+                refreshDataGrid();
+                initTxtbox();
+            }   
         }
 
         private void BtnRez_Click(object sender, RoutedEventArgs e)
         {
+
+            string vMsgTmp = (string)Application.Current.Resources["MsgResetWarn"];
+            var vRes = MessageBox.Show(
+                        vMsgTmp, "", MessageBoxButton.YesNo);
+            if (vRes == MessageBoxResult.Yes)
+            {
+                var rowSelectedTmp = (mUser_Display)DG1.SelectedItem;
+                if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
+                {
+                    HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserLogin/{rowSelectedTmp.Login}").Result;
+                    mUser userFind = response.Content.ReadFromJsonAsync<mUser>().Result;
+                    if (response.IsSuccessStatusCode & userFind.tUserID != null)
+                    {
+                        string vOldPassword = userFind.getPassword();
+                        userFind.setPassword(Program.cResetPassword);
+                        userFind.UpdatePassword(vOldPassword);
+                        refreshDataGrid();
+                        MessageBox.Show("Mot de passe reseté.");
+                    }
+                }
+            }
+        }
+        
+        private async void BtnUnlocked_Click(object sender, RoutedEventArgs e)
+        {
+            mUser userTmpUpd = new mUser(
+                    Convert.ToInt32(LoginID.Text),
+                    LoginTxt.Text,
+                    FirstName.Text,
+                    LastName.Text,
+                    Email.Text,
+                    Comment.Text,
+                    Convert.ToInt32(cbxLang.SelectedIndex));
+            userTmpUpd.AccessFailedCount = 0;
+            HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync("api/User/putUser", userTmpUpd);
             refreshDataGrid();
-            MessageBox.Show("Un mot de passe vient d'être envoyé à l'utilisateur par mail.");
+            initTxtbox();
         }
     }
 }

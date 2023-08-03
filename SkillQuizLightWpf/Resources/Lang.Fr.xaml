@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:String x:Key="File">_Fichier</system:String>
+    <system:String x:Key="Tools">_Outils</system:String>
+    <system:String x:Key="Help">_Aide</system:String>
+    <system:String x:Key="FirstNm">Prénom :</system:String>
+    <system:String x:Key="LastNm">NOM :</system:String>
+    <system:String x:Key="Comment">Commentaire :</system:String>
+    <system:String x:Key="Add">Ajouter</system:String>
+    <system:String x:Key="Save">Sauvegarder</system:String>
+    <system:String x:Key="Delete">Supprimer</system:String>
+    <system:String x:Key="OldPassword">Ancien mot de passe</system:String>
+    <system:String x:Key="NewPassword">Nouveau mot de passe</system:String>
+    <system:String x:Key="ConfirmPassword">Confirmer mot de passe</system:String>
+    <system:String x:Key="ChangePassword">Changer mot de passe</system:String>
+    <system:String x:Key="MsgQuit">Voulez-vous quitter l'application ?</system:String>
+    <system:String x:Key="MsgPwdConfCorr">Le mot de passe confirmé ne correspond pas.</system:String>
+    <system:String x:Key="MsgPwdChg">Mot de passe changé.</system:String>
+    <system:String x:Key="MsgToFilData">Merci de saisir des données.</system:String>
+    <system:String x:Key="MsgExistData">Donnée déjà existante.</system:String>
+    <system:String x:Key="MsgDelSelData">Veillez sélectionner la donnée que vous souhaitez supprimer.</system:String>
+    <system:String x:Key="MsgResetWarn">Attention, vous êtes en train de réinitialiser le mot de passe de l'utilisateur, voulez-vous continuer ?</system:String>
+    <system:String x:Key="MsgPwdRules">Les régles suivantes ne sont pas respectées :</system:String>
+    <system:String x:Key="MsgPwdMissNum">Le mot de passe doit contenir au moins un caractère numérique</system:String>
+    <system:String x:Key="MsgPwdMissUpC">Le mot de passe doit contenir au moins une lettre majuscule</system:String>
+    <system:String x:Key="MsgPwdMissSpeC">Le mot de passe doit contenir au moins un caractère spécial</system:String>
+    <system:String x:Key="MsgPwdMissMin8C">Le mot de passe doit comporter plus de 8 caractères</system:String>
+    <system:String x:Key="MsgPwdToEnter">Saisir un mot de passe.</system:String>
+    <system:String x:Key="MsgSup5Login">Vous avez dépassé les 5 tentatives de saisie de votre mot de passe, votre compte est bloqué.</system:String>
+    <system:String x:Key="MsgLoginNumP1">Mot de passe incorrect ! </system:String>
+    <system:String x:Key="MsgLoginNumP2">/5 tentatives</system:String>
+
+</ResourceDictionary>

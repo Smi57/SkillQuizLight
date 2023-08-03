@@ -16,10 +16,10 @@ namespace SkillQuizLight.Controllers
     {
         private Db_SkillQuizLight db = new Db_SkillQuizLight();
 
-        [HttpGet("getUserLogin/{LOGIN}")]
-        public User getUserLogin(string login)
+        [HttpGet("getUserLogin/{login}")]
+        public mUser getUserLogin(string login)
         {
-            User userRes = new User();
+            mUser userRes = new mUser();
             var userTmp = db.tUser
                             .Where(b => b.Login == login)
                             .FirstOrDefault();
@@ -29,45 +29,49 @@ namespace SkillQuizLight.Controllers
                 userRes.Login = userTmp.Login;
                 userRes.PasswordEncrypted = userTmp.Password;
                 userRes.AccessFailedCount = userTmp.AccessFailedCount;
+                userRes.ParamLangID = userTmp.ParamLangID;
             }
             return userRes;
         }
 
         [HttpGet("getUserID/{ID}")]
-        public UserDisplay getUserID(Int32 ID)
+        public mUser_Display getUserID(Int32 ID)
         {
-            UserDisplay userRes = new UserDisplay();
+            mUser_Display userRes = new mUser_Display();
             var userTmp = db.tUser
                                     .Where(b => b.tUserID == ID)
                                     .FirstOrDefault();
             if (userTmp != null)
             {
                 userRes.tUserID = userTmp.tUserID;
-                userRes.tUserID = userTmp.tUserID;
+                userRes.Login = userTmp.Login;
                 userRes.FirstName = userTmp.FirstName;
                 userRes.LastName = userTmp.LastName;
                 userRes.Email = userTmp.Email;
                 userRes.Comment = userTmp.Comment;
+                userRes.ParamLangID = userTmp.ParamLangID;
             }
             return userRes;
         }
 
         [HttpGet("getUser")]
-        public List<UserDisplay> getUser()
+        public List<mUser_Display> getUser()
         {
-            return db.tUser.Select(u => new UserDisplay()
+            return db.tUser.Select(u => new mUser_Display()
             {
                 tUserID = u.tUserID,
                 Login = u.Login,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Email = u.Email,
-                Comment = u.Comment
+                Comment = u.Comment,
+                ParamLangID = u.ParamLangID,
+                AccessFailedCount = u.AccessFailedCount
             }).ToList();
         }
 
         [HttpPost("postUser")]
-        public async void postUser(User userParam)
+        public async void postUser(mUser userParam)
         {
             tUser userTmp = new tUser();
             userTmp.Login = userParam.Login;
@@ -76,15 +80,23 @@ namespace SkillQuizLight.Controllers
             userTmp.Email = userParam.Email;
             userTmp.Comment = userParam.Comment;
             userTmp.Password = userParam.getPassword();
-            userTmp.IsActivate = true;
-            userTmp.ParamUserTypeID = 0;
+            userTmp.IsActivate = userParam.IsActivate;
+            userTmp.ParamUserTypeID = userParam.ParamUserTypeID;
+            userTmp.AccessFailedCount = userParam.AccessFailedCount;
+            userTmp.ParamLangID = userParam.ParamLangID;
+            userTmp.ParamUserTypeID = userParam.ParamUserTypeID;
+            userTmp.IsActivate = userParam.IsActivate;
+            userTmp.CreatDate = userParam.CreatDate;
+            userTmp.CreatUserID = userParam.CreatUserID;
+            userTmp.ModifDate = userParam.ModifDate;
+            userTmp.ModifUserID = userParam.ModifUserID;
 
             db.tUser.AddAsync(userTmp);
             await db.SaveChangesAsync();
         }
 
         [HttpPut("putUser")]
-        public async void putUser(User userParam)
+        public async void putUser(mUser userParam)
         {
             var user = db.tUser
                         .Where(b => b.tUserID == Convert.ToInt32(userParam.tUserID))
@@ -94,7 +106,21 @@ namespace SkillQuizLight.Controllers
             if (userParam.LastName != null) { user.LastName = userParam.LastName; }
             if (userParam.Email != null) { user.Email = userParam.Email; }
             if (userParam.Comment != null) { user.Comment = userParam.Comment; }
+            if (userParam.ParamLangID != null) { user.ParamLangID = userParam.ParamLangID; }
             if (userParam.AccessFailedCount != null) { user.AccessFailedCount = userParam.AccessFailedCount; }
+            db.SaveChanges();
+        }
+
+        [HttpPut("putUserPassword/{pOldPassword}")]
+        public async void putUserPassword(mUser userParam, string pOldPassword)
+        {
+            var user = db.tUser
+                        .Where(b => b.tUserID == Convert.ToInt32(userParam.tUserID))
+                        .FirstOrDefault();
+            if (userParam.PasswordEncrypted != null && userParam.PasswordEncrypted != pOldPassword)
+            {
+                user.Password = userParam.PasswordEncrypted;
+            }
             db.SaveChanges();
         }
 

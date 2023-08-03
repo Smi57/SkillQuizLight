@@ -5,21 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SkillQuizLightWpf"
         mc:Ignorable="d"
-        Title="ChgPwd" Height="231" Width="484">
+        Title="ChgPwd" Height="231" Width="484" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="11*"/>
             <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="15*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="387*"/>
+            <ColumnDefinition Width="448*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Nouveau mot de passe" HorizontalAlignment="Left" Margin="18,50,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3"/>
-        <Label Content="Confirmer mot de passe" HorizontalAlignment="Left" Margin="18,85,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3"/>
-        <Label Content="Ancien mot de passe" HorizontalAlignment="Left" Margin="19,18,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3"/>
+        <Label Content="{DynamicResource NewPassword}" HorizontalAlignment="Left" Margin="18,50,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3" Height="26"/>
+        <Label Content="{DynamicResource ConfirmPassword}" HorizontalAlignment="Left" Margin="18,85,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3" Height="26"/>
+        <Label Content="{DynamicResource ChangePassword}" HorizontalAlignment="Left" Margin="19,18,0,0" VerticalAlignment="Top" Width="160" Grid.Column="3" Height="26"/>
         <PasswordBox x:Name="OldPwdTbx" HorizontalAlignment="Left" Margin="187,22,0,0" VerticalAlignment="Top" Width="192" Grid.Column="3"/>
         <PasswordBox x:Name="NewPwdTbx" HorizontalAlignment="Left" Margin="187,54,0,0" VerticalAlignment="Top" Width="192" Grid.Column="3"/>
         <PasswordBox x:Name="ConfPwdTbx" HorizontalAlignment="Left" Margin="187,89,0,0" VerticalAlignment="Top" Width="192" Grid.Column="3"/>
-        <Button x:Name="BtnChgPwd" Content="Changer mot de passe" HorizontalAlignment="Left" Margin="128,144,0,0" VerticalAlignment="Top" Width="165" Click="BtnChgPwd_Click" Grid.Column="3"/>
+        <Button x:Name="BtnChgPwd" Content="{DynamicResource ChangePassword}" HorizontalAlignment="Left" Margin="128,144,0,0" VerticalAlignment="Top" Width="165" Click="BtnChgPwd_Click" Grid.Column="3" Height="20"/>
 
     </Grid>
 </Window>

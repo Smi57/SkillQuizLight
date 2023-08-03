@@ -14,7 +14,7 @@
         <TextBox x:Name="LoginTbx" HorizontalAlignment="Left" Margin="140,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <PasswordBox x:Name="PasswordTbx" HorizontalAlignment="Left" Margin="140,90,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Login" HorizontalAlignment="Left" Margin="35,52,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label Content="Mot de passe" HorizontalAlignment="Left" Margin="35,87,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="35,87,0,0" VerticalAlignment="Top" Width="100"/>
         <Button Content="Login" HorizontalAlignment="Left" Margin="108,150,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
 
     </Grid>
