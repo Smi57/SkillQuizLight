@@ -17,6 +17,8 @@ namespace SkillQuizLightWpf
         public const int cStatDel = 2;
 
         public static int vPageDataProcessingStatus01 = Tools.cStatAdd;
+        public static int vPageDataProcessingStatus02 = Tools.cStatAdd;
+        public static int vPageDataProcessingStatus03 = Tools.cStatAdd;
 
         public static void langManagement()
         {

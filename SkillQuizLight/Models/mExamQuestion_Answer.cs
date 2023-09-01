@@ -15,8 +15,8 @@
         public mExamQuestion_Answer() { }
         public mExamQuestion_Answer(mExamQuestion_Answer_Display pDisplay,int pUser)
         {
-            tExamQuestionID = Convert.ToInt32(pDisplay.tExamQuestionID);
-            tExamAnswerID = Convert.ToInt32(pDisplay.tExamAnswerID);
+            tExamQuestionID = Convert.ToInt32(pDisplay._ID_Question);
+            tExamAnswerID = Convert.ToInt32(pDisplay._ID_Answer);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;

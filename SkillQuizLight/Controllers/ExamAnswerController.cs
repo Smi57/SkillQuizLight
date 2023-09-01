@@ -39,8 +39,8 @@ namespace SkillQuizLight.Controllers
         {
             return db.tExamAnswer.Select(u => new mExamAnswer_Display()
             {
-                tExamAnswerID = u.tExamAnswerID,
-                Description = u.Description
+                _ID = u.tExamAnswerID,
+                _Description = u.Description
 
             }).ToList();
         }
@@ -64,7 +64,7 @@ namespace SkillQuizLight.Controllers
         public async void putAnswer(mExamAnswer_Display pExamAnswerDisplay, int user)
         {
             var vAnswerTmp = db.tExamAnswer
-                        .Where(b => b.tExamAnswerID == pExamAnswerDisplay.tExamAnswerID)
+                        .Where(b => b.tExamAnswerID == pExamAnswerDisplay._ID)
                         .FirstOrDefault();
             mExamAnswer vExamAnswer = new mExamAnswer(pExamAnswerDisplay, user);
             if (vExamAnswer.getDescription() != null) { vAnswerTmp.Description = vExamAnswer.getDescription(); }

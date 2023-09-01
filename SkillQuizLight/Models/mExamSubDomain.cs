@@ -15,7 +15,7 @@
         public mExamSubDomain() { }
         public mExamSubDomain(mExamSubDomain_Display pDisplay,int pUser)
         {
-            Description = pDisplay.Description;
+            Description = pDisplay._Description;
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;

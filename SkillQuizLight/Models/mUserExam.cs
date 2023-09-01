@@ -19,12 +19,12 @@
         public mUserExam() { }
         public mUserExam(mUserExam_Display pDisplay,int pUser)
         {
-            Deadline = Convert.ToDateTime(pDisplay.Deadline);
-            FinishedDate = Convert.ToDateTime(pDisplay.FinishedDate);
-            Comment = pDisplay.Comment;
-            tUserID = Convert.ToInt32(pDisplay.tUserID);
-            ExamTest_QuestionnaireID = Convert.ToInt32(pDisplay.ExamTest_QuestionnaireID);
-            ParamTestStatusID = Convert.ToInt32(pDisplay.ParamTestStatusID);
+            Deadline = Convert.ToDateTime(pDisplay._Dead_line);
+            FinishedDate = Convert.ToDateTime(pDisplay._Finished_Date);
+            Comment = pDisplay._Comment;
+            tUserID = Convert.ToInt32(pDisplay._ID_User);
+            ExamTest_QuestionnaireID = Convert.ToInt32(pDisplay._Questionnaire_ID);
+            ParamTestStatusID = Convert.ToInt32(pDisplay.ID_Test_Status);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;

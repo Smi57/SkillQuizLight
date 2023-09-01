@@ -77,7 +77,7 @@ namespace SkillQuizLightWpf.Pages
             var rowSelectedTmp = (mExamDomain_Display)DgDom.SelectedItem;
             if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
             {
-                HttpResponseMessage response = Program.client.GetAsync($"api/ExamDomain/getDomainID/{rowSelectedTmp.tExamDomainID}").Result;
+                HttpResponseMessage response = Program.client.GetAsync($"api/ExamDomain/getDomainID/{rowSelectedTmp._ID}").Result;
                 //mExamDomain vDomainFind
                 //vDomainFind.settExamDomainID(response.Content.ReadFromJsonAsync<mExamDomain>().Result.gettExamDomainID());
                 string[] vIdTmp = response.Content.ReadFromJsonAsync<string[]>().Result;

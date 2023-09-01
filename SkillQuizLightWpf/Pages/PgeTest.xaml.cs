@@ -79,7 +79,7 @@ namespace SkillQuizLightWpf.Pages
             var rowSelectedTmp = (mExamDomain_Display)DgDom.SelectedItem;
             if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
             {
-                HttpResponseMessage response = Program.client.GetAsync($"api/ExamDomain/getDomainID/{rowSelectedTmp.tExamDomainID}").Result;
+                HttpResponseMessage response = Program.client.GetAsync($"api/ExamDomain/getDomainID/{rowSelectedTmp._ID}").Result;
                 //mExamDomain vDomainFind
                 //vDomainFind.settExamDomainID(response.Content.ReadFromJsonAsync<mExamDomain>().Result.gettExamDomainID());
                 string[] vIdTmp = response.Content.ReadFromJsonAsync<string[]>().Result;
@@ -122,7 +122,7 @@ namespace SkillQuizLightWpf.Pages
                     {
                         case Tools.cStatAdd:
                             mExamDomain_Display domainTmpAdd = new mExamDomain_Display();
-                            domainTmpAdd.Description = DomainTxt.Text;
+                            domainTmpAdd._Description = DomainTxt.Text;
                             HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync(
                                                 $"api/ExamDomain/postDomain/{Program.currentUser.tUserID.Value}", domainTmpAdd);
                             refreshDataGridDom();
@@ -132,8 +132,8 @@ namespace SkillQuizLightWpf.Pages
                         case Tools.cStatUpd:
 
                             mExamDomain_Display domainTmpUpd = new mExamDomain_Display();
-                            domainTmpUpd.tExamDomainID = Convert.ToInt32(DomainID.Text);
-                            domainTmpUpd.Description = DomainTxt.Text;
+                            domainTmpUpd._ID = Convert.ToInt32(DomainID.Text);
+                            domainTmpUpd._Description = DomainTxt.Text;
 
                             HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync(
                                                 $"api/ExamDomain/putDomain/{Program.currentUser.tUserID.Value}", domainTmpUpd);
@@ -183,6 +183,11 @@ namespace SkillQuizLightWpf.Pages
         }
 
         private void BtnSubToDomDel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
 
         }

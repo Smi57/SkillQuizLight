@@ -2,8 +2,8 @@
 {
     public class mExamQuestionnaire_Display
     {
-        public int? tExamDomainID { get; set; }
-        public string? Description { get; set; }
-        public string? SubDomain { get; set; }
+        public int? _ID { get; set; }
+        public string? _Description { get; set; }
+        public string? _Answers { get; set; }
     }
 }

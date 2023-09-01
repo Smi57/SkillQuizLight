@@ -4,33 +4,57 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SkillQuizLightWpf.Pages"
-      mc:Ignorable="d" d:DesignWidth="1280"
+      mc:Ignorable="d" d:DesignWidth="1280"  d:DesignHeight ="750"
       Title="PageTest">
 
-    <Grid Background="White" Height="768" VerticalAlignment="Top" Margin="0,25,0,0">
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="112" Margin="38,187,0,0" VerticalAlignment="Top" Width="459"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="340" Margin="27,187,0,0" VerticalAlignment="Top" Width="631"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="303" Margin="695,224,0,0" VerticalAlignment="Top" Width="489"/>
-        <Button Name="BtnDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="66,266,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomAdd_Click" Height="20"/>
-        <Button Name="BtnDomUpd" Content="{DynamicResource Save}" HorizontalAlignment="Left" Margin="211,266,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomUpd_Click" Height="20"/>
-        <Button Name="BtnDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="356,266,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomDel_Click" Height="20"/>
-        <Button Name="BtnSubAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="741,297,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubAdd_Click" Height="20"/>
-        <Button Name="BtnSubUpd" Content="{DynamicResource Save}" HorizontalAlignment="Left" Margin="886,297,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubUpd_Click" Height="19"/>
-        <Button Name="BtnSubDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="1031,297,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubDel_Click" Height="20"/>
-        <Button Name="BtnSubToDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="516,384,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomAdd_Click" Height="20"/>
-        <Button Name="BtnSubToDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="516,436,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomDel_Click" Height="20"/>
-        <DataGrid Name="DgDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="157" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="27,47,27,0"/>
-        <DataGrid Name="DgSubToDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="170" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="729,338,127,0"/>
-        <DataGrid Name="DgSub" IsReadOnly ="True" ItemsSource="{Binding}" Height="170" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="55,338,801,0"/>
-        <Label Content="Domain Management" HorizontalAlignment="Left" Margin="27,0,0,0" VerticalAlignment="Top" Width="470" FontSize="36" FontFamily="Arial Rounded MT Bold" Height="56"/>
-        <Label Content="Description domain :" HorizontalAlignment="Left" Margin="62,221,0,0" VerticalAlignment="Top" Width="127"/>
-        <TextBox x:Name="DomainTxt" HorizontalAlignment="Left" Margin="189,227,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="193" Height="18"/>
-        <Label Content="ID :" HorizontalAlignment="Left" Margin="397,211,0,0" VerticalAlignment="Top" Width="30"/>
-        <TextBox x:Name="DomainID" HorizontalAlignment="Left" Margin="429,216,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
-        <Label Content="Description sub domain :" HorizontalAlignment="Left" Margin="733,252,0,0" VerticalAlignment="Top" Width="142"/>
-        <TextBox x:Name="SubDomainTxt" HorizontalAlignment="Left" Margin="877,258,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="194" Height="18"/>
-        <Label Content="ID :" HorizontalAlignment="Left" Margin="1086,243,0,0" VerticalAlignment="Top" Width="30"/>
-        <TextBox x:Name="SubDomainID" HorizontalAlignment="Left" Margin="1118,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
+    <Grid Background="White" Margin="0,29,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="410" Margin="24,182,0,0" VerticalAlignment="Top" Width="1244"/>
+
+
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="362" Margin="31,198,0,0" VerticalAlignment="Top" Width="690"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="195" Margin="44,199,0,0" VerticalAlignment="Top" Width="665"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="327" Margin="735,225,0,0" VerticalAlignment="Top" Width="522">
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="103" VerticalAlignment="Top" Width="442" Margin="0,4,0,0"/>
+        </Border>
+        <Button x:Name="BtnDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="171,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomAdd_Click" Height="20"/>
+        <Button x:Name="BtnDomUpd" Content="{DynamicResource Save}" HorizontalAlignment="Left" Margin="316,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomUpd_Click" Height="20"/>
+        <Button x:Name="BtnDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="461,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomDel_Click" Height="20"/>
+        <Button x:Name="BtnSubToDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="597,430,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomAdd_Click" Height="20"/>
+        <Button x:Name="BtnSubToDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="597,482,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomDel_Click" Height="20"/>
+        <DataGrid x:Name="DgDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="157" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="31,59,23,0"/>
+        <DataGrid x:Name="DgSubToDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="155" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="752,385,40,0"/>
+        <DataGrid x:Name="DgSub" IsReadOnly ="True" ItemsSource="{Binding}" Height="151" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="59,399,697,0"/>
+        <Label Content="Test Management" HorizontalAlignment="Left" Margin="31,12,0,0" VerticalAlignment="Top" Width="470" FontSize="36" FontFamily="Arial Rounded MT Bold" Height="56"/>
+        <Label Content="Description Test :" HorizontalAlignment="Left" Margin="59,231,0,0" VerticalAlignment="Top" Width="127"/>
+        <TextBox x:Name="DomainTxt" HorizontalAlignment="Left" Margin="186,237,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="477" Height="18"/>
+        <Label Content="ID :" HorizontalAlignment="Left" Margin="621,211,0,0" VerticalAlignment="Top" Width="30"/>
+        <TextBox x:Name="DomainID" HorizontalAlignment="Left" Margin="652,216,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
+        <Label Content="Description questionnaire :" HorizontalAlignment="Left" Margin="752,342,0,0" VerticalAlignment="Top" Width="153"/>
+        <TextBox x:Name="SubDomainTxt" HorizontalAlignment="Left" Margin="910,344,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="257" Height="34"/>
+        <Label Content="ID :" HorizontalAlignment="Left" Margin="1172,330,0,0" VerticalAlignment="Top" Width="30"/>
+        <TextBox x:Name="SubDomainID" HorizontalAlignment="Left" Margin="1204,334,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
+        <Label Content="Description domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Margin="795,244,0,0"/>
+        <ComboBox HorizontalAlignment="Left" Height="19" Margin="949,247,0,0" VerticalAlignment="Top" Width="252"/>
+        <Label Content="Description sub domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="795,269,0,0"/>
+        <ComboBox HorizontalAlignment="Left" Height="20" Margin="949,272,0,0" VerticalAlignment="Top" Width="252"/>
+        <Button Content="Filter" HorizontalAlignment="Left" Height="21" Margin="952,301,0,0" VerticalAlignment="Top" Width="133"/>
+        <CheckBox Content=" Chrono" HorizontalAlignment="Left" Margin="64,262,0,0" VerticalAlignment="Top" Width="72" Checked="CheckBox_Checked"/>
+        <Label Content="Number of questions" HorizontalAlignment="Left" Height="32" Margin="150,257,0,0" VerticalAlignment="Top" Width="130"/>
+        <TextBox HorizontalAlignment="Left" Margin="276,261,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="59"/>
+        <Label Content="Total time" HorizontalAlignment="Left" Height="32" Margin="364,257,0,0" VerticalAlignment="Top" Width="70"/>
+        <TextBox HorizontalAlignment="Left" Margin="432,261,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="59"/>
+        <Label Content="Total points" HorizontalAlignment="Left" Height="32" Margin="529,257,0,0" VerticalAlignment="Top" Width="73"/>
+        <TextBox HorizontalAlignment="Left" Margin="604,261,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="59"/>
+        <Label Content="Domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="61" Margin="59,286,0,0"/>
+        <ComboBox HorizontalAlignment="Left" Height="19" Margin="127,289,0,0" VerticalAlignment="Top" Width="231"/>
+        <Label Content="Sub domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="81" Margin="385,286,0,0"/>
+        <ComboBox HorizontalAlignment="Left" Height="19" Margin="471,289,0,0" VerticalAlignment="Top" Width="231"/>
+        <Label Content="Comment :" HorizontalAlignment="Left" Height="29" Margin="59,309,0,0" VerticalAlignment="Top" Width="70"/>
+        <TextBox HorizontalAlignment="Left" Margin="127,313,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="575" Height="40"/>
+
 
     </Grid>
 </Page>

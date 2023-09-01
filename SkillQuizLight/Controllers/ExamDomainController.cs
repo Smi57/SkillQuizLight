@@ -13,8 +13,7 @@ namespace SkillQuizLight.Controllers
         private Db_SkillQuizLight db = new Db_SkillQuizLight();
 
         [HttpGet("getDomainDescription/{description}")]
-       // public string[] getDomainDescription(string description)
-        public mExamDomain getDomainDescription(string description)
+        public string[] getDomainDescription(string description)
         {
             mExamDomain domainRes = new mExamDomain();
             var domainTmp = db.tExamDomain
@@ -23,27 +22,27 @@ namespace SkillQuizLight.Controllers
             string[] vResTab = new string[5];
             if (domainTmp != null)
             {
-                //vResTab = new string[]{ domainTmp.tExamDomainID.ToString(),
-                //                            domainTmp.Description,
-                //                            domainTmp.CreatDate.ToString(),
-                //                            domainTmp.CreatUser.ToString(),
-                //                            domainTmp.ModifDate.ToString(),
-                //                            domainTmp.ModifUser.ToString() }
+                vResTab = new string[]{ domainTmp.tExamDomainID.ToString(),
+                                            domainTmp.Description,
+                                            domainTmp.CreatDate.ToString(),
+                                            domainTmp.CreatUser.ToString(),
+                                            domainTmp.ModifDate.ToString(),
+                                            domainTmp.ModifUser.ToString() }
 
 
 
-                domainRes.settExamDomainID(domainTmp.tExamDomainID);
-                domainRes.setDescription(domainTmp.Description);
-                domainRes.setCreatDate(domainTmp.CreatDate);
-                domainRes.setCreatUser(domainTmp.CreatUser);
-                domainRes.setModifDate(domainTmp.ModifDate);
-                domainRes.setModifUser(domainTmp.ModifUser);
+                //domainRes.settExamDomainID(domainTmp.tExamDomainID);
+                //domainRes.setDescription(domainTmp.Description);
+                //domainRes.setCreatDate(domainTmp.CreatDate);
+                //domainRes.setCreatUser(domainTmp.CreatUser);
+                //domainRes.setModifDate(domainTmp.ModifDate);
+                //domainRes.setModifUser(domainTmp.ModifUser);
 
                 ;
             }
-            return domainRes;
+            //return domainRes;
 
-            //return vResTab;
+            return vResTab;
         }
 
         [HttpGet("getDomainID/{ID}")]
@@ -71,8 +70,8 @@ namespace SkillQuizLight.Controllers
         {
             return db.tExamDomain.Select(u => new mExamDomain_Display()
             {
-                tExamDomainID = u.tExamDomainID,
-                Description = u.Description
+                _ID = u.tExamDomainID,
+                _Description = u.Description
 
             }).ToList();
         }
@@ -96,7 +95,7 @@ namespace SkillQuizLight.Controllers
         public async void putDomain(mExamDomain_Display pExamDomainDisplay, int user)
         {
             var vDomainTmp = db.tExamDomain
-                        .Where(b => b.tExamDomainID == pExamDomainDisplay.tExamDomainID)
+                        .Where(b => b.tExamDomainID == pExamDomainDisplay._ID)
                         .FirstOrDefault();
             mExamDomain vExamDomain = new mExamDomain(pExamDomainDisplay, user);
             if (vExamDomain.getDescription() != null) { vDomainTmp.Description = vExamDomain.getDescription(); }

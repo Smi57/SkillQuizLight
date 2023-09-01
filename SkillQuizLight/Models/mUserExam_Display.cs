@@ -2,16 +2,12 @@
 {
     public class mUserExam_Display
     {
-        public int? tUserExamID { get; set; }
-        public DateTime? Deadline { get; set; }
-        public DateTime? FinishedDate { get; set; }
-        public string? Comment { get; set; }
-        public int? tUserID { get; set; }
-        public int? ExamTest_QuestionnaireID { get; set; }
-        public int? ParamTestStatusID { get; set; }
-        public DateTime? CreatDate { get; set; }
-        public int? CreatUser { get; set; }
-        public DateTime? ModifDate { get; set; }
-        public int? ModifUser { get; set; }
+        public int? _ID { get; set; }
+        public DateTime? _Dead_line { get; set; }
+        public DateTime? _Finished_Date { get; set; }
+        public string? _Comment { get; set; }
+        public int? _ID_User { get; set; }
+        public int? _Questionnaire_ID { get; set; }
+        public int? ID_Test_Status { get; set; }
     }
 }

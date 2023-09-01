@@ -18,8 +18,8 @@
 
                     <MenuItem x:Name="AppUser" Header="U_ser Management" HorizontalAlignment="Left" Width="190" Click="AppUser_Click" />
                     <MenuItem x:Name="AppDomain" Header="Do_maine Management" HorizontalAlignment="Left" Width="230" Click="Domain_Click" />
-                    <MenuItem x:Name="AppQuestion" Header="Q_uestion Management" HorizontalAlignment="Left" Width="200" Click="Question_Click" />
-                    <MenuItem x:Name="AppQuestionnaire" Header="Qu_estionnaire Management" HorizontalAlignment="Left" Width="200" Click="Questionnaire_Click" />
+                    <MenuItem x:Name="AppQuestion" Header="Q_uestion Management" HorizontalAlignment="Left" Width="250" Click="Question_Click" />
+                    <MenuItem x:Name="AppQuestionnaire" Header="Qu_estionnaire Management" HorizontalAlignment="Left" Width="270" Click="Questionnaire_Click" />
                     <MenuItem x:Name="AppTest" Header="T_ests Management" HorizontalAlignment="Left" Width="200" Click="Test_Click" />
                     <MenuItem x:Name="AppExam" Header="E_xam Management" HorizontalAlignment="Left" Width="200" Click="Exam_Click" />
 

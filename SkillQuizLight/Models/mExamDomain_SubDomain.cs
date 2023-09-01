@@ -15,8 +15,8 @@
         public mExamDomain_SubDomain() { }
         public mExamDomain_SubDomain(mExamDomain_SubDomain_Display pDisplay,int pUser)
         {
-            tExamDomainID = Convert.ToInt32(pDisplay.tExamDomainID);
-            tExamSubDomainID = Convert.ToInt32(pDisplay.tExamSubDomainID);
+            tExamDomainID = Convert.ToInt32(pDisplay._ID_Domain);
+            tExamSubDomainID = Convert.ToInt32(pDisplay._ID_Sub_Domain);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;

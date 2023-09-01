@@ -21,14 +21,14 @@
         public mExamTest() { }
         public mExamTest(mExamTest_Display pDisplay,int pUser)
         {
-            Description = pDisplay.Description;
-            IsWithChrono = Convert.ToBoolean(pDisplay.IsWithChrono);
-            IsQuestionRevise = Convert.ToBoolean(pDisplay.IsQuestionRevise);
-            NbQuestionRevise = Convert.ToInt32(pDisplay.NbQuestionRevise);
-            TotalTime = Convert.ToInt32(pDisplay.TotalTime);
-            TotalPoint = Convert.ToInt32(pDisplay.TotalPoint);
-            Comment = pDisplay.Comment;
-            SortOrder = Convert.ToInt32(pDisplay.SortOrder);
+            Description = pDisplay._Description;
+            IsWithChrono = Convert.ToBoolean(pDisplay._Is_With_Chrono);
+            IsQuestionRevise = Convert.ToBoolean(pDisplay._Is_Question_Revise);
+            NbQuestionRevise = Convert.ToInt32(pDisplay._Nb_Question_Revise);
+            TotalTime = Convert.ToInt32(pDisplay._Total_Time);
+            TotalPoint = Convert.ToInt32(pDisplay._Total_Point);
+            Comment = pDisplay._Comment;
+            SortOrder = Convert.ToInt32(pDisplay._Sort_Order);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;

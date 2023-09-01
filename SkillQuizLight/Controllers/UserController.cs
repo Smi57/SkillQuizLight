@@ -43,13 +43,13 @@ namespace SkillQuizLight.Controllers
                                     .FirstOrDefault();
             if (userTmp != null)
             {
-                userRes.tUserID = userTmp.tUserID;
-                userRes.Login = userTmp.Login;
-                userRes.FirstName = userTmp.FirstName;
-                userRes.LastName = userTmp.LastName;
-                userRes.Email = userTmp.Email;
-                userRes.Comment = userTmp.Comment;
-                userRes.ParamLangID = userTmp.ParamLangID;
+                userRes._ID = userTmp.tUserID;
+                userRes._Login = userTmp.Login;
+                userRes._First_Name = userTmp.FirstName;
+                userRes._Last_Name = userTmp.LastName;
+                userRes._Email = userTmp.Email;
+                userRes._Comment = userTmp.Comment;
+                userRes._ID_Lang = userTmp.ParamLangID;
             }
             return userRes;
         }
@@ -59,14 +59,14 @@ namespace SkillQuizLight.Controllers
         {
             return db.tUser.Select(u => new mUser_Display()
             {
-                tUserID = u.tUserID,
-                Login = u.Login,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                Email = u.Email,
-                Comment = u.Comment,
-                ParamLangID = u.ParamLangID,
-                AccessFailedCount = u.AccessFailedCount
+                _ID = u.tUserID,
+                _Login = u.Login,
+                _First_Name = u.FirstName,
+                _Last_Name = u.LastName,
+                _Email = u.Email,
+                _Comment = u.Comment,
+                _ID_Lang = u.ParamLangID,
+                _Access_Failed_Count = u.AccessFailedCount
             }).ToList();
         }
 

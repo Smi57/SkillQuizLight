@@ -11,6 +11,8 @@
     <system:String x:Key="Add">Add</system:String>
     <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Delete">Delete</system:String>
+    <system:String x:Key="AddLink">Add Link</system:String>
+    <system:String x:Key="DeleteLink">Delete Link</system:String>
     <system:String x:Key="OldPassword">Old password</system:String>
     <system:String x:Key="NewPassword">New password</system:String>
     <system:String x:Key="ConfirmPassword">Confirm password</system:String>
@@ -18,7 +20,7 @@
     <system:String x:Key="MsgQuit">Would you like to quit this application ?</system:String>
     <system:String x:Key="MsgPwdConfCorr">The password confirmed, is not corresponding.</system:String>
     <system:String x:Key="MsgPwdChg">Password changed.</system:String>
-    <system:String x:Key="MsgToFilData">Please enter data.</system:String>
+    <system:String x:Key="MsgToFilData">Please enter or select data.</system:String>
     <system:String x:Key="MsgExistData">Already existing data.</system:String>
     <system:String x:Key="MsgDelSelData">Please select the data you wish to delete.</system:String>
     <system:String x:Key="MsgResetWarn">Warning, you are resetting the user's password, do you want to continue ?</system:String>

@@ -14,7 +14,7 @@
         public mExamDomain() { }
         public mExamDomain(mExamDomain_Display pDisplay,int pUser)
         {
-            Description = pDisplay.Description;
+            Description = pDisplay._Description;
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;

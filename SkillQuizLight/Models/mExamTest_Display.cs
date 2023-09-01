@@ -2,19 +2,15 @@
 {
     public class mExamTest_Display
     {
-        public int? tExamTestID { get; set; }
-        public string? Description { get; set; }
-        public bool? IsWithChrono { get; set; }
-        public bool? IsQuestionRevise { get; set; }
-        public int? NbQuestionRevise { get; set; }
-        public int? TotalTime { get; set; }
-        public int? TotalPoint { get; set; }
-        public string Comment { get; set; }
-        public int? SortOrder { get; set; }
-        public DateTime? CreatDate { get; set; }
-        public int? CreatUser { get; set; }
-        public DateTime? ModifDate { get; set; }
-        public int? ModifUser { get; set; }
+        public int? _ID { get; set; }
+        public string? _Description { get; set; }
+        public bool? _Is_With_Chrono { get; set; }
+        public bool? _Is_Question_Revise { get; set; }
+        public int? _Nb_Question_Revise { get; set; }
+        public int? _Total_Time { get; set; }
+        public int? _Total_Point { get; set; }
+        public string _Comment { get; set; }
+        public int? _Sort_Order { get; set; }
 
     }
 }

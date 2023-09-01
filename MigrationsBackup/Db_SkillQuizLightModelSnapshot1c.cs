@@ -56,9 +56,6 @@ namespace SkillQuizLight.Migrations
                     b.Property<int>("ModifUser")
                         .HasColumnType("int");
 
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
                     b.HasKey("tExamAnswerID");
 
                     b.ToTable("tExamAnswer");
@@ -146,7 +143,10 @@ namespace SkillQuizLight.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Level")
+                    b.Property<int>("ExamDomainID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamSubDomainID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ModifDate")
@@ -232,12 +232,6 @@ namespace SkillQuizLight.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ModifUser")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NbQuestion")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
                     b.Property<int>("TotalPoint")
@@ -336,8 +330,11 @@ namespace SkillQuizLight.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsQuestionRevise")
-                        .HasColumnType("bit");
+                    b.Property<int>("ExamDomainID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamSubDomainID")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsWithChrono")
                         .HasColumnType("bit");
@@ -349,9 +346,6 @@ namespace SkillQuizLight.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("NbQuestionRevise")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
                     b.Property<int>("TotalPoint")
@@ -655,9 +649,6 @@ namespace SkillQuizLight.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ParamAnswerLevelID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
                     b.Property<int>("UserExamID")

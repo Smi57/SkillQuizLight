@@ -15,8 +15,8 @@
         public mExamTest_Questionnaire() { }
         public mExamTest_Questionnaire(mExamTest_Questionnaire_Display pDisplay,int pUser)
         {
-            tExamTestID = Convert.ToInt32(pDisplay.tExamTestID);
-            tExamQuestionnaireID = Convert.ToInt32(pDisplay.tExamQuestionnaireID);
+            tExamTestID = Convert.ToInt32(pDisplay._ID_Test);
+            tExamQuestionnaireID = Convert.ToInt32(pDisplay._ID_Questionnaire);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;

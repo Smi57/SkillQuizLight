@@ -56,20 +56,20 @@ namespace SkillQuizLightWpf.Pages
             var rowSelectedTmp = (mUser_Display)DG1.SelectedItem;
             if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
             {
-                HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserID/{rowSelectedTmp.tUserID}").Result;
+                HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserID/{rowSelectedTmp._ID}").Result;
                 mUser_Display userFind = response.Content.ReadFromJsonAsync<mUser_Display>().Result;
-                if (response.IsSuccessStatusCode & userFind.tUserID != null)
+                if (response.IsSuccessStatusCode & userFind._ID != null)
                 {
-                    LoginID.Text = userFind.tUserID.ToString();
-                    LoginTxt.Text = userFind.Login;
-                    FirstName.Text = userFind.FirstName;
-                    LastName.Text = userFind.LastName;
-                    Email.Text = userFind.Email;
-                    Comment.Text = userFind.Comment;
-                    if (userFind.ParamLangID == null)
+                    LoginID.Text = userFind._ID.ToString();
+                    LoginTxt.Text = userFind._Login;
+                    FirstName.Text = userFind._First_Name;
+                    LastName.Text = userFind._Last_Name;
+                    Email.Text = userFind._Email;
+                    Comment.Text = userFind._Comment;
+                    if (userFind._ID_Lang == null)
                     {   cbxLang.SelectedIndex = 0;}
                     else
-                    {   cbxLang.SelectedIndex = (int)userFind.ParamLangID;}
+                    {   cbxLang.SelectedIndex = (int)userFind._ID_Lang;}
 
                     Tools.vPageDataProcessingStatus01 = Tools.cStatUpd;
                 }
@@ -95,7 +95,7 @@ namespace SkillQuizLightWpf.Pages
             {
                 HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserLogin/{LoginTxt.Text}").Result;
                 mUser_Display userFind = response.Content.ReadFromJsonAsync<mUser_Display>().Result;
-                if (response.IsSuccessStatusCode & userFind.tUserID != null & userFind.tUserID.ToString() != LoginID.Text)
+                if (response.IsSuccessStatusCode & userFind._ID != null & userFind._ID.ToString() != LoginID.Text)
                 {
                     string vMsgTmp = (string)Application.Current.Resources["MsgExistData"];
                     MessageBox.Show(vMsgTmp);
@@ -172,7 +172,7 @@ namespace SkillQuizLightWpf.Pages
                 var rowSelectedTmp = (mUser_Display)DG1.SelectedItem;
                 if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
                 {
-                    HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserLogin/{rowSelectedTmp.Login}").Result;
+                    HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserLogin/{rowSelectedTmp._Login}").Result;
                     mUser userFind = response.Content.ReadFromJsonAsync<mUser>().Result;
                     if (response.IsSuccessStatusCode & userFind.tUserID != null)
                     {

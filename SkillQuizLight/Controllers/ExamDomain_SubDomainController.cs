@@ -12,33 +12,45 @@ namespace SkillQuizLight.Controllers
     {
         private Db_SkillQuizLight db = new Db_SkillQuizLight();
 
-        [HttpGet("getDomain_SubDomainID/{ID}")]
-        public string[] getDomain_SubDomainID(int ID)
+        [HttpGet("getDomain_SubDomainIDs")]
+        public bool getDomain_SubDomainIDs(int pExamDomainID, int pExamSubDomainID)
         {
             mExamDomain_SubDomain domain_SubDomainRes = new mExamDomain_SubDomain();
             var domain_SubDomainTmp = db.tExamDomain_SubDomain
-                            .Where(b => b.tExamDomain_SubDomainID == ID)
+                            .Where(b => b.tExamDomainID == pExamDomainID &&
+                                        b.tExamSubDomainID == pExamSubDomainID)
                             .FirstOrDefault();
-            string[] vResTab = new string[5];
+            bool vResFind = false;
             if (domain_SubDomainTmp != null)
             {
-                vResTab = new string[]{ domain_SubDomainTmp.tExamDomain_SubDomainID.ToString(),
-                                            domain_SubDomainTmp.CreatDate.ToString(),
-                                            domain_SubDomainTmp.CreatUser.ToString(),
-                                            domain_SubDomainTmp.ModifDate.ToString(),
-                                            domain_SubDomainTmp.ModifUser.ToString() };
+                vResFind = true;
             }
-            return vResTab;
+            return vResFind;
         }
 
         [HttpGet("getDomain_SubDomain")]
         public List<mExamDomain_SubDomain_Display> getDomain_SubDomain()
         {
-            return db.tExamDomain_SubDomain.Select(u => new mExamDomain_SubDomain_Display()
-            {
-                tExamDomain_SubDomainID = u.tExamDomain_SubDomainID,
 
-            }).ToList();
+
+            return (from a in db.tExamDomain_SubDomain
+                         join b in db.tExamDomain on a.tExamDomainID equals b.tExamDomainID
+                         join c in db.tExamSubDomain on a.tExamSubDomainID equals c.tExamSubDomainID
+                         select new { a.tExamDomain_SubDomainID, a.tExamDomainID, a.tExamSubDomainID,
+                             a.CreatDate,
+                             a.CreatUser,
+                             a.ModifDate,
+                             a.ModifUser,
+                             b.Description,
+                             Desc2=c.Description
+                         }).Select(u => new mExamDomain_SubDomain_Display()
+                         {
+                             _ID = u.tExamDomain_SubDomainID,
+                             _Domain = u.Description,
+                             _ID_Domain = u.tExamDomainID,
+                             _ID_Sub_Domain = u.tExamSubDomainID,
+                             _Sub_Domain = u.Desc2
+                         }).ToList();
         }
 
         [HttpPost("postDomain_SubDomain/{user}")]
@@ -46,6 +58,8 @@ namespace SkillQuizLight.Controllers
         {
             mExamDomain_SubDomain vExamDomain_SubDomain = new mExamDomain_SubDomain(pExamDomain_SubDomainDisplay, user);
             tExamDomain_SubDomain vDomain_SubDomainTmp = new tExamDomain_SubDomain();
+            vDomain_SubDomainTmp.tExamDomainID = vExamDomain_SubDomain.gettExamDomainID();
+            vDomain_SubDomainTmp.tExamSubDomainID = vExamDomain_SubDomain.gettExamSubDomainID();
             vDomain_SubDomainTmp.CreatDate = vExamDomain_SubDomain.getCreatDate();
             vDomain_SubDomainTmp.CreatUser = vExamDomain_SubDomain.getCreatUser();
             vDomain_SubDomainTmp.ModifDate = vExamDomain_SubDomain.getModifDate();

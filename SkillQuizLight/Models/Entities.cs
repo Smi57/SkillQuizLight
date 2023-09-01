@@ -28,13 +28,11 @@ namespace SkillQuizLight.Models
         public DateTime ModifDate { get; set; }
         public int ModifUserID { get; set; }
     }
-
     public class tUserAnswer
     {
         public int tUserAnswerID { get; set; }
         public string Description { get; set; }
         public string Comment { get; set; }
-        public int SortOrder { get; set; }
         public int UserExamID { get; set; }
         public int ExamTest_QuestionnaireID { get; set; }
         public int ExamQuestionnaire_QuestionID { get; set; }
@@ -127,7 +125,6 @@ namespace SkillQuizLight.Models
         public bool IsAnswerOk { get; set; }
         public string Description { get; set; }
         public string Comment { get; set; }
-        public int SortOrder { get; set; }
         public int ExamQuestionID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
@@ -157,11 +154,12 @@ namespace SkillQuizLight.Models
     {
         public int tExamQuestionID { get; set; }
         public string Description { get; set; }
-        public int Level { get; set; }
         public int Time { get; set; }
         public int Weight { get; set; }
         public string Comment { get; set; }
         public int ParamQuestionLevelID { get; set; }
+        public int ExamDomainID { get; set; }
+        public int ExamSubDomainID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }
@@ -181,12 +179,10 @@ namespace SkillQuizLight.Models
     {
         public int tExamQuestionnaireID { get; set; }
         public string Description { get; set; }
-        public int NbQuestion { get; set; }
         public int TotalTime { get; set; }
         public int TotalPoint { get; set; }
         public int Weight { get; set; }
         public string Comment { get; set; }
-        public int SortOrder { get; set; }
         public int ExamDomainID { get; set; }
         public int ExamSubDomainID { get; set; }
         public DateTime CreatDate { get; set; }
@@ -218,12 +214,12 @@ namespace SkillQuizLight.Models
         public int tExamTestID { get; set; }
         public string Description { get; set; }
         public bool IsWithChrono { get; set; }
-        public bool IsQuestionRevise { get; set; }
         public int NbQuestionRevise { get; set; }
         public int TotalTime { get; set; }
         public int TotalPoint { get; set; }
         public string Comment { get; set; }
-        public int SortOrder { get; set; }
+        public int ExamDomainID { get; set; }
+        public int ExamSubDomainID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }

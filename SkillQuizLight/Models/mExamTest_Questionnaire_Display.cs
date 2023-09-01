@@ -2,13 +2,11 @@
 {
     public class mExamTest_Questionnaire_Display
     {
-        public int? tExamTest_QuestionnaireID { get; set; }
-        public int? tExamTestID { get; set; }
-        public int? tExamQuestionnaireID { get; set; }
-        public DateTime? CreatDate { get; set; }
-        public int? CreatUser { get; set; }
-        public DateTime? ModifDate { get; set; }
-        public int? ModifUser { get; set; }
+        public int? _ID { get; set; }
+        public string? _Test { get; set; }
+        public int? _ID_Test { get; set; }
+        public string? _Questionnaire { get; set; }
+        public int? _ID_Questionnaire{ get; set; }
 
     }
 }

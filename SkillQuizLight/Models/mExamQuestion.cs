@@ -5,7 +5,6 @@
     {
         private int tExamQuestionID { get; set; }
         private string Description { get; set; }
-        private int Level { get; set; }
         private int Time { get; set; }
         private int Weight { get; set; }
         private string Comment { get; set; }
@@ -20,12 +19,11 @@
         public mExamQuestion() { }
         public mExamQuestion(mExamQuestion_Display pDisplay,int pUser)
         {
-            Description = pDisplay.Description;
-            Level = Convert.ToInt32(pDisplay.Level);
-            Time = Convert.ToInt32(pDisplay.Time);
-            Weight = Convert.ToInt32(pDisplay.Weight);
-            Comment = pDisplay.Comment;
-            ParamQuestionLevelID = Convert.ToInt32(pDisplay.ParamQuestionLevelID);
+            Description = pDisplay._Description;
+            Time = Convert.ToInt32(pDisplay._Time);
+            Weight = Convert.ToInt32(pDisplay._Weight);
+            Comment = pDisplay._Comment;
+            ParamQuestionLevelID = Convert.ToInt32(pDisplay._ID_Level_Question);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;
@@ -38,9 +36,6 @@
 
         public void setDescription(string pDescription) { this.Description = pDescription; }
         public string getDescription() { return this.Description; }
-
-        public void setLevel(int pVal) { this.Level = pVal; }
-        public int getLevel() { return this.Level; }
 
         public void setTimen(int pVal) { this.Time = pVal; }
         public int getTime() { return this.Time; }

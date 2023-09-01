@@ -18,11 +18,11 @@
         public mExamAnswer() { }
         public mExamAnswer(mExamAnswer_Display pDisplay,int pUser)
         {
-            IsAnswerOk = Convert.ToBoolean(pDisplay.IsAnswerOk);
-            Description = pDisplay.Description;
-            Comment = pDisplay.Comment;
-            SortOrder = Convert.ToInt32(pDisplay.SortOrder);
-            ExamQuestionID = Convert.ToInt32(pDisplay.ExamQuestionID);
+            IsAnswerOk = Convert.ToBoolean(pDisplay._IsAnswerOk);
+            Description = pDisplay._Description;
+            Comment = pDisplay._Comment;
+            SortOrder = Convert.ToInt32(pDisplay._Sort_Order);
+            ExamQuestionID = Convert.ToInt32(pDisplay._ID_Question);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;

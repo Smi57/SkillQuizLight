@@ -11,6 +11,8 @@
     <system:String x:Key="Add">Ajouter</system:String>
     <system:String x:Key="Save">Sauvegarder</system:String>
     <system:String x:Key="Delete">Supprimer</system:String>
+    <system:String x:Key="AddLink">Ajouter liaison</system:String>
+    <system:String x:Key="DeleteLink">Supprimer liaison</system:String>
     <system:String x:Key="OldPassword">Ancien mot de passe</system:String>
     <system:String x:Key="NewPassword">Nouveau mot de passe</system:String>
     <system:String x:Key="ConfirmPassword">Confirmer mot de passe</system:String>
@@ -18,7 +20,7 @@
     <system:String x:Key="MsgQuit">Voulez-vous quitter l'application ?</system:String>
     <system:String x:Key="MsgPwdConfCorr">Le mot de passe confirmé ne correspond pas.</system:String>
     <system:String x:Key="MsgPwdChg">Mot de passe changé.</system:String>
-    <system:String x:Key="MsgToFilData">Merci de saisir des données.</system:String>
+    <system:String x:Key="MsgToFilData">Merci de saisir ou sélectionner des données.</system:String>
     <system:String x:Key="MsgExistData">Donnée déjà existante.</system:String>
     <system:String x:Key="MsgDelSelData">Veillez sélectionner la donnée que vous souhaitez supprimer.</system:String>
     <system:String x:Key="MsgResetWarn">Attention, vous êtes en train de réinitialiser le mot de passe de l'utilisateur, voulez-vous continuer ?</system:String>

@@ -2,13 +2,11 @@
 {
     public class mExamDomain_SubDomain_Display
     {
-        public int? tExamDomain_SubDomainID { get; set; }
-        public int? tExamDomainID { get; set; }
-        public int? tExamSubDomainID { get; set; }
-        public DateTime? CreatDate { get; set; }
-        public int? CreatUser { get; set; }
-        public DateTime? ModifDate { get; set; }
-        public int? ModifUser { get; set; }
+        public int? _ID { get; set; }
+        public string? _Domain { get; set; }
+        public int? _ID_Domain { get; set; }
+        public string? _Sub_Domain { get; set; }
+        public int? _ID_Sub_Domain { get; set; }
     }
 
 }

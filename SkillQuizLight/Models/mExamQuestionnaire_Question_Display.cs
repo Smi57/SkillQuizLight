@@ -2,14 +2,11 @@
 {
     public class mExamQuestionnaire_Question_Display
     {
-        public int? tExamQuestionnaire_QuestionID { get; set; }
-        public int? tExamQuestionnaireID { get; set; }
-        public int? tExamQuestionID { get; set; }
-        public DateTime? CreatDate { get; set; }
-        public int? CreatUser { get; set; }
-        public DateTime? ModifDate { get; set; }
-        public int? ModifUser { get; set; }
-
+        public int? _ID { get; set; }
+        public string? _Questionnaire { get; set; }
+        public int? _ID_Questionnaire { get; set; }
+        public string? _Question { get; set; }
+        public int? _ID_Question { get; set; }
     }
 
 }
