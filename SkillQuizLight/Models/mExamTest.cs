@@ -6,12 +6,12 @@
         private int tExamTestID { get; set; }
         private string Description { get; set; }
         private bool IsWithChrono { get; set; }
-        private bool IsQuestionRevise { get; set; }
         private int NbQuestionRevise { get; set; }
         private int TotalTime { get; set; }
         private int TotalPoint { get; set; }
         private string Comment { get; set; }
-        private int SortOrder { get; set; }
+        private int ExamDomainID { get; set; }
+        private int ExamSubDomainID { get; set; }
         private DateTime CreatDate { get; set; }
         private int CreatUser { get; set; }
         private DateTime ModifDate { get; set; }
@@ -23,12 +23,12 @@
         {
             Description = pDisplay._Description;
             IsWithChrono = Convert.ToBoolean(pDisplay._Is_With_Chrono);
-            IsQuestionRevise = Convert.ToBoolean(pDisplay._Is_Question_Revise);
             NbQuestionRevise = Convert.ToInt32(pDisplay._Nb_Question_Revise);
             TotalTime = Convert.ToInt32(pDisplay._Total_Time);
             TotalPoint = Convert.ToInt32(pDisplay._Total_Point);
             Comment = pDisplay._Comment;
-            SortOrder = Convert.ToInt32(pDisplay._Sort_Order);
+            ExamDomainID = Convert.ToInt32(pDisplay._ID_Domain);
+            ExamSubDomainID = Convert.ToInt32(pDisplay._ID_Sub_Domain);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;
@@ -43,10 +43,7 @@
         public string getDescription() { return this.Description; }
 
         public void setIsWithChrono(bool pVal) { this.IsWithChrono = pVal; }
-        public bool getIsWithChronoD() { return this.IsWithChrono; }
-
-        public void setIsQuestionRevise(bool pVal) { this.IsQuestionRevise = pVal; }
-        public bool getIsQuestionRevise() { return this.IsQuestionRevise; }
+        public bool getIsWithChrono() { return this.IsWithChrono; }
 
         public void setNbQuestionRevise(int pVal) { this.NbQuestionRevise = pVal; }
         public int getNbQuestionRevise() { return this.NbQuestionRevise; }
@@ -60,8 +57,11 @@
         public void setComment(string pVal) { this.Comment = pVal; }
         public string getComment() { return this.Comment; }
 
-        public void setSortOrder(int pVal) { this.SortOrder = pVal; }
-        public int getSortOrder() { return this.SortOrder; }
+        public void setExamDomainID(int pVal) { this.ExamDomainID = pVal; }
+        public int getExamDomainID() { return this.ExamDomainID; }
+
+        public void setExamSubDomainID(int pVal) { this.ExamSubDomainID = pVal; }
+        public int getExamSubDomainID() { return this.ExamSubDomainID; }
 
         public void setCreatDate(DateTime pCreationDate) { this.CreatDate = pCreationDate; }
         public DateTime getCreatDate() { return this.CreatDate; }

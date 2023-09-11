@@ -9,14 +9,16 @@
 
     <Grid Background="White" Height="725" VerticalAlignment="Top" Margin="0,25,0,0">
 
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="25" Margin="0,387,0,0" VerticalAlignment="Top" Width="1223"/>
+
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="523" Margin="0,174,0,0" VerticalAlignment="Top" Width="1260">
-            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="204" Margin="6,1,0,0" VerticalAlignment="Top" Width="1243"/>
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="297" Margin="12,205,0,0" VerticalAlignment="Top" Width="1236"/>
         </Border>
 
-        <Label Content="Description domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Margin="30,387,0,0"/>
+        <Label Content="Description domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Margin="30,386,0,0"/>
         <ComboBox HorizontalAlignment="Left" Height="19" Margin="197,390,0,0" VerticalAlignment="Top" Width="239"/>
-        <Label Content="Description sub domain :" HorizontalAlignment="Center" VerticalAlignment="Top" Width="194" Margin="0,387,0,0"/>
-        <ComboBox HorizontalAlignment="Left" Height="20" Margin="730,393,0,0" VerticalAlignment="Top" Width="279"/>
+        <Label Content="Description sub domain :" HorizontalAlignment="Center" VerticalAlignment="Top" Width="194" Margin="0,386,0,0"/>
+        <ComboBox HorizontalAlignment="Left" Height="19" Margin="730,390,0,0" VerticalAlignment="Top" Width="279"/>
 
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="205" Margin="24,165,0,0" VerticalAlignment="Top" Width="691"/>
         <Button x:Name="BtnDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="169,342,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomAdd_Click" Height="20"/>
@@ -24,7 +26,7 @@
         <Button x:Name="BtnDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="459,342,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomDel_Click" Height="20"/>
         <Button x:Name="BtnSubToDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="1000,341,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomAdd_Click" Height="20"/>
         <Button x:Name="BtnSubToDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="860,341,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomDel_Click" Height="20"/>
-        <DataGrid x:Name="DgDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="157" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="13,37,10,0"/>
+        <DataGrid x:Name="DgDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="157" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="10,37,10,0"/>
         <DataGrid x:Name="DgSubToDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="170" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="30,499,546,0"/>
         <DataGrid x:Name="DgSub" IsReadOnly ="True" ItemsSource="{Binding}" Height="120" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="739,206,30,0"/>
         <Label Content="Questionnaire Management" HorizontalAlignment="Left" Margin="13,-10,0,0" VerticalAlignment="Top" Width="506" FontSize="36" FontFamily="Arial Rounded MT Bold" Height="56"/>
@@ -44,7 +46,7 @@
         <TextBox x:Name="SubDomainTxt" HorizontalAlignment="Left" Margin="30,440,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="685" Height="54"/>
         <Label Content="ID :" HorizontalAlignment="Left" Margin="633,417,0,0" VerticalAlignment="Top" Width="30"/>
         <TextBox x:Name="DomainID_Copy" HorizontalAlignment="Left" Margin="665,422,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
-        <Button Content="Filter" HorizontalAlignment="Left" Height="20" Margin="1094,393,0,0" VerticalAlignment="Top" Width="110"/>
+        <Button Content="Filter" HorizontalAlignment="Left" Height="19" Margin="1094,390,0,0" VerticalAlignment="Top" Width="110"/>
         <DataGrid x:Name="DgSubToDom_Copy" IsReadOnly ="True" ItemsSource="{Binding}" Height="241" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="741,428,325,0"/>
         <Label Content="Description answer :" HorizontalAlignment="Left" Margin="962,429,0,0" VerticalAlignment="Top" Width="142"/>
         <TextBox x:Name="SubDomainTxt_Copy" HorizontalAlignment="Left" Margin="962,455,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="287" Height="214"/>

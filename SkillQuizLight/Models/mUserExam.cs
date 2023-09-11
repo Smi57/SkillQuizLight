@@ -8,8 +8,8 @@
         private DateTime FinishedDate { get; set; }
         private string Comment { get; set; }
         private int tUserID { get; set; }
-        private int ExamTest_QuestionnaireID { get; set; }
-        private int ParamTestStatusID { get; set; }
+        private int tExamTestID { get; set; }
+        private int tParamTestStatusID { get; set; }
         private DateTime CreatDate { get; set; }
         private int CreatUser { get; set; }
         private DateTime ModifDate { get; set; }
@@ -23,8 +23,8 @@
             FinishedDate = Convert.ToDateTime(pDisplay._Finished_Date);
             Comment = pDisplay._Comment;
             tUserID = Convert.ToInt32(pDisplay._ID_User);
-            ExamTest_QuestionnaireID = Convert.ToInt32(pDisplay._Questionnaire_ID);
-            ParamTestStatusID = Convert.ToInt32(pDisplay.ID_Test_Status);
+            tExamTestID = Convert.ToInt32(pDisplay._ID_Test);
+            tParamTestStatusID = Convert.ToInt32(pDisplay._ID_Test_Status);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;
@@ -48,11 +48,11 @@
         public void settUserID(int pVal) { this.tUserID = pVal; }
         public int gettUserID() { return this.tUserID; }
 
-        public void setExamTest_QuestionnaireID(int pVal) { this.ExamTest_QuestionnaireID = pVal; }
-        public int getExamTest_QuestionnaireID() { return this.ExamTest_QuestionnaireID; }
+        public void setExamTestID(int pVal) { this.tExamTestID = pVal; }
+        public int getExamTestID() { return this.tExamTestID; }
 
-        public void setParamTestStatusID(int pVal) { this.ParamTestStatusID = pVal; }
-        public int getParamTestStatusID() { return this.ParamTestStatusID; }
+        public void setParamTestStatusID(int pVal) { this.tParamTestStatusID = pVal; }
+        public int getParamTestStatusID() { return this.tParamTestStatusID; }
 
         public void setCreatDate(DateTime pCreationDate) { this.CreatDate = pCreationDate; }
         public DateTime getCreatDate() { return this.CreatDate; }

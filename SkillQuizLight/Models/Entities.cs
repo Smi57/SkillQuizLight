@@ -34,7 +34,7 @@ namespace SkillQuizLight.Models
         public string Description { get; set; }
         public string Comment { get; set; }
         public int UserExamID { get; set; }
-        public int ExamTest_QuestionnaireID { get; set; }
+        public int tExamTestID { get; set; }
         public int ExamQuestionnaire_QuestionID { get; set; }
         public int ExamQuestion_AnswerID { get; set; }
         public int ParamAnswerLevelID { get; set; }
@@ -50,8 +50,8 @@ namespace SkillQuizLight.Models
         public DateTime FinishedDate { get; set; }
         public string Comment { get; set; }
         public int tUserID { get; set; }
-        public int ExamTest_QuestionnaireID { get; set; }
-        public int ParamTestStatusID { get; set; }
+        public int tExamTestID { get; set; }
+        public int tParamTestStatusID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }
@@ -62,7 +62,7 @@ namespace SkillQuizLight.Models
         public int tUserQuestionID { get; set; }
         public DateTime TimeOpen { get; set; }
         public int UserExamID { get; set; }
-        public int ExamTest_QuestionnaireID { get; set; }
+        public int tExamTestID { get; set; }
         public int ExamQuestionnaire_QuestionID { get; set; }
         public int ExamQuestion_AnswerID { get; set; }
         public DateTime CreatDate { get; set; }
@@ -124,8 +124,6 @@ namespace SkillQuizLight.Models
         public int tExamAnswerID { get; set; }
         public bool IsAnswerOk { get; set; }
         public string Description { get; set; }
-        public string Comment { get; set; }
-        public int ExamQuestionID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }

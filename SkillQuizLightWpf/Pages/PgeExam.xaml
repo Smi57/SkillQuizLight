@@ -11,30 +11,36 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="475" Margin="695,218,0,0" VerticalAlignment="Top" Width="489"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="475" Margin="679,218,0,0" VerticalAlignment="Top" Width="585">
+            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="162" Margin="20,11,0,0" VerticalAlignment="Top" Width="294"/>
+        </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="512" Margin="27,181,0,0" VerticalAlignment="Top" Width="631"/>
 
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="57,181,0,0" VerticalAlignment="Top" Width="440"/>
         <Button x:Name="BtnSubToDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="518,444,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomAdd_Click" Height="20"/>
         <Button x:Name="BtnSubToDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="518,496,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomDel_Click" Height="20"/>
         <DataGrid x:Name="DgDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="157" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="27,41,10,0"/>
-        <DataGrid x:Name="DgSubToDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="308" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="729,362,127,0"/>
+        <DataGrid x:Name="DgSubToDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="308" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="700,362,36,0"/>
         <DataGrid x:Name="DgSub" IsReadOnly ="True" ItemsSource="{Binding}" Height="379" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="50,302,783,0"/>
         <Label Content="Exam Management" HorizontalAlignment="Left" Margin="27,-6,0,0" VerticalAlignment="Top" Width="470" FontSize="36" FontFamily="Arial Rounded MT Bold" Height="56"/>
         <Label Content="Users exams :" HorizontalAlignment="Left" Margin="50,263,0,0" VerticalAlignment="Top" Width="167" FontSize="24" FontFamily="Arial Rounded MT Bold" Height="56"/>
-        <Label Content="ID :" HorizontalAlignment="Left" Margin="1034,222,0,0" VerticalAlignment="Top" Width="30"/>
-        <TextBox x:Name="SubDomainID" HorizontalAlignment="Left" Margin="1066,227,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
+        <Label Content="ID :" HorizontalAlignment="Left" Margin="1164,222,0,0" VerticalAlignment="Top" Width="30"/>
+        <TextBox x:Name="SubDomainID" HorizontalAlignment="Left" Margin="1196,227,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
         <Label Content="Description domain :" HorizontalAlignment="Left" Margin="64,208,0,0" VerticalAlignment="Top" Width="127"/>
         <TextBox x:Name="DomainTxt" HorizontalAlignment="Left" Margin="191,214,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="193" Height="18"/>
         <Label Content="ID :" HorizontalAlignment="Left" Margin="399,198,0,0" VerticalAlignment="Top" Width="30"/>
         <TextBox x:Name="DomainID" HorizontalAlignment="Left" Margin="431,203,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
-        <Label Content="Login :" HorizontalAlignment="Left" Margin="729,240,0,0" VerticalAlignment="Top" Width="72"/>
-        <Label Content="{DynamicResource FirstNm}" HorizontalAlignment="Left" Margin="729,271,0,0" VerticalAlignment="Top" Width="90" Height="26"/>
-        <Label Content="{DynamicResource LastNm}" HorizontalAlignment="Left" Margin="729,302,0,0" VerticalAlignment="Top" Width="90" Height="26" />
-        <TextBox x:Name="LoginTxt" HorizontalAlignment="Left" Margin="807,244,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="FirstName" HorizontalAlignment="Left" Margin="807,275,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184"/>
-        <TextBox x:Name="LastName" HorizontalAlignment="Left" Margin="807,306,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184"/>
+        <Label Content="Login :" HorizontalAlignment="Left" Margin="711,241,0,0" VerticalAlignment="Top" Width="72"/>
+        <Label Content="{DynamicResource FirstNm}" HorizontalAlignment="Left" Margin="711,272,0,0" VerticalAlignment="Top" Width="90" Height="26"/>
+        <Label Content="{DynamicResource LastNm}" HorizontalAlignment="Left" Margin="711,303,0,0" VerticalAlignment="Top" Width="90" Height="26" />
+        <TextBox x:Name="LoginTxt" HorizontalAlignment="Left" Margin="789,245,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="FirstName" HorizontalAlignment="Left" Margin="789,276,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184"/>
+        <TextBox x:Name="LastName" HorizontalAlignment="Left" Margin="789,307,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184"/>
+        <Label Content="Dead line :" HorizontalAlignment="Left" Margin="1010,249,0,0" VerticalAlignment="Top" Width="72"/>
+        <TextBox x:Name="LoginTxt_Copy" HorizontalAlignment="Left" Margin="1100,253,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="108"/>
 
-        <Button Content="Search" HorizontalAlignment="Left" Height="20" Margin="887,337,0,0" VerticalAlignment="Top" Width="110"/>
+        <Button Content="Search" HorizontalAlignment="Left" Height="20" Margin="786,335,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label Content="Finished date :" HorizontalAlignment="Left" Margin="1010,285,0,0" VerticalAlignment="Top" Width="90"/>
+        <TextBox x:Name="LoginTxt_Copy1" HorizontalAlignment="Left" Margin="1100,289,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="108"/>
     </Grid>
 </Page>

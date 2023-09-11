@@ -2,8 +2,6 @@
 using SkillQuizLight.Context;
 using SkillQuizLight.Models;
 
-
-
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SkillQuizLight.Controllers
@@ -25,6 +23,7 @@ namespace SkillQuizLight.Controllers
             if (answerTmp != null)
             {
                 vResTab = new string[]{ answerTmp.tExamAnswerID.ToString(),
+                                        answerTmp.IsAnswerOk.ToString(),
                                         answerTmp.Description,
                                         answerTmp.CreatDate.ToString(),
                                         answerTmp.CreatUser.ToString(),
@@ -40,24 +39,28 @@ namespace SkillQuizLight.Controllers
             return db.tExamAnswer.Select(u => new mExamAnswer_Display()
             {
                 _ID = u.tExamAnswerID,
-                _Description = u.Description
+                _Description = u.Description,
+                _IsAnswerOk = u.IsAnswerOk
 
             }).ToList();
         }
 
         [HttpPost("postAnswer/{user}")]
-        public async void postAnswer(mExamAnswer_Display pExamAnswerDisplay, int user)
+        public int postAnswer(mExamAnswer_Display pExamAnswerDisplay, int user)
         {
             mExamAnswer vExamAnswer = new mExamAnswer(pExamAnswerDisplay, user);
             tExamAnswer vAnswerTmp = new tExamAnswer();
             vAnswerTmp.Description = vExamAnswer.getDescription();
+            vAnswerTmp.IsAnswerOk = vExamAnswer.getIsAnswerOk();
             vAnswerTmp.CreatDate = vExamAnswer.getCreatDate();
             vAnswerTmp.CreatUser = vExamAnswer.getCreatUser();
             vAnswerTmp.ModifDate = vExamAnswer.getModifDate();
             vAnswerTmp.ModifUser = vExamAnswer.getModifUser();
 
-            db.tExamAnswer.AddAsync(vAnswerTmp);
-            await db.SaveChangesAsync();
+            var vAnswerRes = db.tExamAnswer.Add(vAnswerTmp);
+            db.SaveChanges();
+            vAnswerRes.ReloadAsync();
+            return vAnswerRes.Entity.tExamAnswerID;
         }
 
         [HttpPut("putAnswer/{user}")]
@@ -68,6 +71,7 @@ namespace SkillQuizLight.Controllers
                         .FirstOrDefault();
             mExamAnswer vExamAnswer = new mExamAnswer(pExamAnswerDisplay, user);
             if (vExamAnswer.getDescription() != null) { vAnswerTmp.Description = vExamAnswer.getDescription(); }
+            if (vExamAnswer.getIsAnswerOk() != null) { vAnswerTmp.IsAnswerOk = vExamAnswer.getIsAnswerOk(); }
             if (vExamAnswer.getModifDate() != null) { vAnswerTmp.ModifDate = vExamAnswer.getModifDate(); }
             if (vExamAnswer.getModifUser() != null) { vAnswerTmp.ModifUser = vExamAnswer.getModifUser(); }
             db.SaveChanges();

@@ -154,7 +154,7 @@ namespace SkillQuizLightWpf.Pages
 
         private async void BtnDomDel_Click(object sender, RoutedEventArgs e)
         {
-            if (DomainTxt.Text == "")
+            if (DomainID.Text == "")
             {
                 string vMsgTmp = (string)Application.Current.Resources["MsgDelSelData"];
                 MessageBox.Show(vMsgTmp);

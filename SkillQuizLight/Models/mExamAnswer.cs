@@ -6,9 +6,6 @@
         private int tExamAnswerID { get; set; }
         private bool IsAnswerOk { get; set; }
         private string Description { get; set; }
-        private string Comment { get; set; }
-        private int SortOrder { get; set; }
-        private int ExamQuestionID { get; set; }
         private DateTime CreatDate { get; set; }
         private int CreatUser { get; set; }
         private DateTime ModifDate { get; set; }
@@ -20,9 +17,6 @@
         {
             IsAnswerOk = Convert.ToBoolean(pDisplay._IsAnswerOk);
             Description = pDisplay._Description;
-            Comment = pDisplay._Comment;
-            SortOrder = Convert.ToInt32(pDisplay._Sort_Order);
-            ExamQuestionID = Convert.ToInt32(pDisplay._ID_Question);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;
@@ -38,15 +32,6 @@
 
         public void setDescription(string pDescription) { this.Description = pDescription; }
         public string getDescription() { return this.Description; }
-
-        public void setComment(string pVal) { this.Comment = pVal; }
-        public string getComment() { return this.Comment; }
-
-        public void setSortOrder(int pVal) { this.SortOrder = pVal; }
-        public int getSortOrder() { return this.SortOrder; }
-
-        public void setExamQuestionID(int pVal) { this.ExamQuestionID = pVal; }
-        public int getExamQuestionID() { return this.ExamQuestionID; }
 
         public void setCreatDate(DateTime pCreationDate) { this.CreatDate = pCreationDate; }
         public DateTime getCreatDate() { return this.CreatDate; }
