@@ -18,7 +18,7 @@ namespace SkillQuizLight.Controllers
             mUserExam User_TestRes = new mUserExam();
             var User_TestTmp = db.tUserExam
                             .Where(b => b.tUserID == pExamUserID &&
-                                        b.tUserExamID == pExamTestID)
+                                        b.tExamTestID == pExamTestID)
                             .FirstOrDefault();
             bool vResFind = false;
             if (User_TestTmp != null)
@@ -35,6 +35,45 @@ namespace SkillQuizLight.Controllers
                     join b in db.tUser on a.tUserID equals b.tUserID
                     join c in db.tExamTest on a.tExamTestID equals c.tExamTestID
                     join d in db.tParamTestStatus on a.tParamTestStatusID equals d.tParamTestStatusID
+                    select new
+                    {
+                        a.tUserExamID,
+                        a.tUserID,
+                        a.tExamTestID,
+                        a.Deadline,
+                        a.FinishedDate,
+                        a.Comment,
+                        a.tParamTestStatusID,
+                        a.CreatDate,
+                        a.CreatUser,
+                        a.ModifDate,
+                        a.ModifUser,
+                        Desc1 = b.FirstName + " " + b.LastName + " (" + b.Login + ")",
+                        Desc2 = c.Description,
+                        Desc3 = c.Description
+                    }).Select(u => new mUserExam_Display()
+                    {
+                        _ID = u.tUserExamID,
+                        _Dead_line = u.Deadline,
+                        _Finished_Date = u.FinishedDate,
+                        _Comment = u.Comment,
+                        _NameFirstNameLogin = u.Desc1,
+                        _ID_User = u.tUserID,
+                        _Test = u.Desc2,
+                        _ID_Test = u.tExamTestID,
+                        _Test_Status = u.Desc3,
+                        _ID_Test_Status = u.tParamTestStatusID,
+                    }).ToList();
+        }
+
+        [HttpGet("getUser_Test_TestID/{TestID}")]
+        public List<mUserExam_Display> getUser_Test_TestID(int TestID)
+        {
+            return (from a in db.tUserExam
+                    join b in db.tUser on a.tUserID equals b.tUserID
+                    join c in db.tExamTest on a.tExamTestID equals c.tExamTestID
+                    join d in db.tParamTestStatus on a.tParamTestStatusID equals d.tParamTestStatusID
+                    where a.tExamTestID == TestID
                     select new
                     {
                         a.tUserExamID,

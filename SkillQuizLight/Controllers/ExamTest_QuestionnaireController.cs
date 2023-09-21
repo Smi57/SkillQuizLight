@@ -57,6 +57,36 @@ namespace SkillQuizLight.Controllers
                     }).ToList();
         }
 
+        [HttpGet("getTest_Questionnaire_TestID/{TestID}")]
+        public List<mExamTest_Questionnaire_Display> getTest_Questionnaire_TestID(int TestID)
+        {
+
+
+            return (from a in db.tExamTest_Questionnaire
+                    join b in db.tExamTest on a.tExamTestID equals b.tExamTestID
+                    join c in db.tExamQuestionnaire on a.tExamQuestionnaireID equals c.tExamQuestionnaireID
+                    where a.tExamTestID == TestID
+                    select new
+                    {
+                        a.tExamTest_QuestionnaireID,
+                        a.tExamTestID,
+                        a.tExamQuestionnaireID,
+                        a.CreatDate,
+                        a.CreatUser,
+                        a.ModifDate,
+                        a.ModifUser,
+                        b.Description,
+                        Desc2 = c.Description
+                    }).Select(u => new mExamTest_Questionnaire_Display()
+                    {
+                        _ID = u.tExamTest_QuestionnaireID,
+                        _Test = u.Description,
+                        _ID_Test = u.tExamTestID,
+                        _Questionnaire = u.Desc2,
+                        _ID_Questionnaire = u.tExamQuestionnaireID
+                    }).ToList();
+        }
+
         [HttpPost("postTest_Questionnaire/{user}")]
         public async void postTest_Questionnaire(mExamTest_Questionnaire_Display pExamTest_QuestionnaireDisplay, int user)
         {

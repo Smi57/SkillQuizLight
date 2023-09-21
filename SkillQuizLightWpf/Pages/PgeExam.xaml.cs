@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http.Json;
+using Azure.Core;
 
 namespace SkillQuizLightWpf.Pages
 {
@@ -27,160 +28,147 @@ namespace SkillQuizLightWpf.Pages
         public PgeExam()
         {
             InitializeComponent();
-            refreshDataGridDom();
-            refreshDataGridSub();
-            refreshDataGridSubToDom();
+            refreshDgdTest();
+            refreshDgdUser_Test();
+            refreshDgdUser();
             Tools.vPageDataProcessingStatus01 = Tools.cStatAdd;
+            Tools.vPageDataProcessingStatus02 = Tools.cStatAdd;
         }
 
-        private void refreshDataGridDom()
+        private void refreshDgdTest()
         {
-            HttpResponseMessage response = Program.client.GetAsync("api/ExamDomain/getDomain").Result;
+            DgdTest.ItemsSource = null;
+
+            TbxTestID.Text = "";
+            TbxTestDesc.Text = "";
+            HttpResponseMessage response = Program.client.GetAsync("api/ExamTest/getTest").Result;
             if (response.IsSuccessStatusCode)
             {
-                DgDom.ItemsSource = null;
-                var vDomainList = response.Content.ReadFromJsonAsync<IEnumerable<mExamDomain_Display>>().Result;
-                DgDom.ItemsSource = vDomainList.AsEnumerable();
+                var vList = response.Content.ReadFromJsonAsync<IEnumerable<mExamTest_Display>>().Result;
+                DgdTest.ItemsSource = vList.AsEnumerable();
+            }
+            refreshDgdUser_Test();
+        }
+
+        private void refreshDgdUser()
+        {
+            DgdUser.ItemsSource = null;
+
+            HttpResponseMessage response = Program.client.GetAsync("api/User/getUser").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var vList = response.Content.ReadFromJsonAsync<IEnumerable<mUser_Display>>().Result;
+                DgdUser.ItemsSource = vList.AsEnumerable();
             }
         }
 
-        private void refreshDataGridSubToDom()
+        private void refreshDgdUser_Test()
         {
-            //HttpResponseMessage response = Program.client.GetAsync("api/User/getUser").Result;
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    DgSubToDom.ItemsSource = null;
-            //    var userList = response.Content.ReadFromJsonAsync<IEnumerable<mUserDisplay>>().Result;
-            //    DgSubToDom.ItemsSource = userList.AsEnumerable();
-            //}
-        }
+            DgdUser_Test.ItemsSource = null;
 
-        private void refreshDataGridSub()
-        {
-            //HttpResponseMessage response = Program.client.GetAsync("api/User/getUser").Result;
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    DgSub.ItemsSource = null;
-            //    var userList = response.Content.ReadFromJsonAsync<IEnumerable<mUserDisplay>>().Result;
-            //    DgSub.ItemsSource = userList.AsEnumerable();
-            //}
-        }
-
-        private void initTxtbox()
-        {
-            Tools.vPageDataProcessingStatus01 = Tools.cStatAdd;
-        }
-
-
-        private void DG1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var rowSelectedTmp = (mExamDomain_Display)DgDom.SelectedItem;
-            if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
+            var rowSelectedTmp = (mExamTest_Display)DgdTest.SelectedItem;
+            if (rowSelectedTmp != null)
             {
-                HttpResponseMessage response = Program.client.GetAsync($"api/ExamDomain/getDomainID/{rowSelectedTmp._ID}").Result;
-                //mExamDomain vDomainFind
-                //vDomainFind.settExamDomainID(response.Content.ReadFromJsonAsync<mExamDomain>().Result.gettExamDomainID());
-                string[] vIdTmp = response.Content.ReadFromJsonAsync<string[]>().Result;
-                if (response.IsSuccessStatusCode & vIdTmp[0] != "")
+                HttpResponseMessage response = Program.client.GetAsync(
+                    $"api/ExamUser_Test/getUser_Test_TestID/{rowSelectedTmp._ID}").Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    Tools.vPageDataProcessingStatus01 = Tools.cStatUpd;
+                    var vList = response.Content.ReadFromJsonAsync<IEnumerable<mUserExam_Display>>().Result;
+                    DgdUser_Test.ItemsSource = vList.AsEnumerable();
                 }
             }
         }
 
-        private void BtnDomAdd_Click(object sender, RoutedEventArgs e)
+
+        private void DgdTest_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Tools.vPageDataProcessingStatus01 != Tools.cStatAdd)
+            var rowSelectedTmp = (mExamTest_Display)DgdTest.SelectedItem;
+            if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
             {
-                initTxtbox();
+                HttpResponseMessage response = Program.client.GetAsync($"api/ExamTest/getTestID/{rowSelectedTmp._ID}").Result;
+                string[] vIdTmp = response.Content.ReadFromJsonAsync<string[]>().Result;
+                if (response.IsSuccessStatusCode & vIdTmp[0] != "")
+                {
+                    TbxTestID.Text = vIdTmp[0];
+                    TbxTestDesc.Text = vIdTmp[1];
+                    Tools.vPageDataProcessingStatus01 = Tools.cStatUpd;
+                    refreshDgdUser_Test();
+                }
             }
         }
 
-        private async void BtnDomUpd_Click(object sender, RoutedEventArgs e)
+        private void DgdUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (DomainTxt.Text == "")
-            //{
-            //    string vMsgTmp = (string)Application.Current.Resources["MsgToFilData"];
-            //    MessageBox.Show(vMsgTmp);
-            //}
-            //else
-            //{
-            //    HttpResponseMessage response = Program.client.GetAsync($"api/ExamDomain/getDomainDescription/{DomainTxt.Text}").Result;
-            //    string[] domainFind = response.Content.ReadFromJsonAsync<string[]>().Result;
-            //    if (response.IsSuccessStatusCode & domainFind[0] != null & domainFind[0] != DomainID.Text)
-            //    {
-            //        string vMsgTmp = (string)Application.Current.Resources["MsgExistData"];
-            //        MessageBox.Show(vMsgTmp);
-            //    }
-            //    else
-            //    {
-            //        switch (Tools.vPageDataProcessingStatus01)
-            //        {
-            //            case Tools.cStatAdd:
-            //                mExamDomain_Display domainTmpAdd = new mExamDomain_Display();
-            //                domainTmpAdd.Description = DomainTxt.Text;
-            //                HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync(
-            //                                    $"api/ExamDomain/postDomain/{Program.currentUser.tUserID.Value}", domainTmpAdd);
-            //                refreshDataGridDom();
-            //                initTxtbox();
-            //                break;
-
-            //            case Tools.cStatUpd:
-
-            //                mExamDomain_Display domainTmpUpd = new mExamDomain_Display();
-            //                domainTmpUpd.tExamDomainID = Convert.ToInt32(DomainID.Text);
-            //                domainTmpUpd.Description = DomainTxt.Text;
-
-            //                HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync(
-            //                                    $"api/ExamDomain/putDomain/{Program.currentUser.tUserID.Value}", domainTmpUpd);
-            //                refreshDataGridDom();
-            //                initTxtbox();
-            //                break;
-            //        }
-            //    }
-            //}
+            var rowSelectedTmp = (mUser_Display)DgdUser.SelectedItem;
+            if (rowSelectedTmp != null)
+            {
+                HttpResponseMessage response = Program.client.GetAsync($"api/User/getUserID/{rowSelectedTmp._ID}").Result;
+                mUser_Display userFind = response.Content.ReadFromJsonAsync<mUser_Display>().Result;
+                if (response.IsSuccessStatusCode & userFind._ID != null)
+                {
+                    tbxUserID.Text = userFind._ID.ToString();
+                    tbxLoginTxt.Text = userFind._Login;
+                    tbxFirstName.Text = userFind._First_Name;
+                    tbxLastName.Text = userFind._Last_Name;
+                }
+            }
         }
 
-        private async void BtnDomDel_Click(object sender, RoutedEventArgs e)
+        private async void BtnUserToTestAdd_Click(object sender, RoutedEventArgs e)
         {
-            //if (DomainTxt.Text == "")
-            //{
-            //    string vMsgTmp = (string)Application.Current.Resources["MsgDelSelData"];
-            //    MessageBox.Show(vMsgTmp);
-            //}
-            //else
-            //{
-            //    Tools.vPageDataProcessingStatus01 = Tools.cStatDel;
+            var rowSelectedTmpDgTest = (mExamTest_Display)DgdTest.SelectedItem;
+            var rowSelectedTmpDgUser = (mUser_Display)DgdUser.SelectedItem;
+            if (rowSelectedTmpDgUser == null || rowSelectedTmpDgTest == null)
+            {
+                string vMsgTmp = (string)Application.Current.Resources["MsgToFilData"];
+                MessageBox.Show(vMsgTmp);
+            }
+            else
+            {
+                int vExamTestID = Convert.ToInt32(rowSelectedTmpDgTest._ID);
+                int vExamUserID = Convert.ToInt32(rowSelectedTmpDgUser._ID);
+                HttpResponseMessage response = Program.client.GetAsync(
+                    $"api/ExamUser_Test/getUser_TestIDs?pExamUserID={vExamUserID}&pExamTestID={vExamTestID}").Result;
+                bool vTest_UserFind = response.Content.ReadFromJsonAsync<bool>().Result;
+                if (response.IsSuccessStatusCode & vTest_UserFind)
+                {
+                    string vMsgTmp = (string)Application.Current.Resources["MsgExistData"];
+                    MessageBox.Show(vMsgTmp);
+                }
+                else
+                {
 
-            //    HttpResponseMessage responseDel = await Program.client.DeleteAsync($"api/ExamDomain/delDomain/{DomainID.Text}");
-            //    refreshDataGridDom();
-            //    initTxtbox();
-            //}
-        }
+                    mUserExam_Display oTmpAdd = new mUserExam_Display();
+                    oTmpAdd._ID_Test = vExamTestID;
+                    oTmpAdd._ID_User = vExamUserID;
+                    oTmpAdd._Comment = tbxCmt.Text;
+                    oTmpAdd._Dead_line = Convert.ToDateTime(tbxDeadLine.Text);
+                    oTmpAdd._Finished_Date = Convert.ToDateTime(tbxFinishedDate.Text);
+                    HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync(
+                                        $"api/ExamUser_Test/postUser_Test/{Program.currentUser.tUserID.Value}", oTmpAdd);
+                    refreshDgdUser_Test();
 
-        private void BtnSubAdd_Click(object sender, RoutedEventArgs e)
-        {
+                }
+            }
 
         }
 
-        private void BtnSubUpd_Click(object sender, RoutedEventArgs e)
+        private async void BtnUserToTestDel_Click(object sender, RoutedEventArgs e)
         {
-
+            var rowSelectedTmpDgUserToTest = (mUserExam_Display)DgdUser_Test.SelectedItem;
+            var vTest_UserID = rowSelectedTmpDgUserToTest;
+            if (vTest_UserID == null)
+            {
+                string vMsgTmp = (string)Application.Current.Resources["MsgDelSelData"];
+                MessageBox.Show(vMsgTmp);
+            }
+            else
+            {
+                HttpResponseMessage responseDel = await Program.client.DeleteAsync(
+                    $"api/ExamUser_Test/delUser_Test/{vTest_UserID._ID}");
+                refreshDgdUser_Test();
+            }
         }
 
-        private void BtnSubDel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BtnSubToDomAdd_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void BtnSubToDomDel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -8,7 +8,7 @@
     <system:String x:Key="FirstNm">Prénom :</system:String>
     <system:String x:Key="LastNm">NOM :</system:String>
     <system:String x:Key="Comment">Commentaire :</system:String>
-    <system:String x:Key="Add">Ajouter</system:String>
+    <system:String x:Key="Add">Nouveau</system:String>
     <system:String x:Key="Save">Sauvegarder</system:String>
     <system:String x:Key="Delete">Supprimer</system:String>
     <system:String x:Key="AddLink">Ajouter liaison</system:String>

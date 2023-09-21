@@ -19,41 +19,41 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="327" Margin="735,225,0,0" VerticalAlignment="Top" Width="522">
             <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="103" VerticalAlignment="Top" Width="442" Margin="0,4,0,0"/>
         </Border>
-        <Button x:Name="BtnDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="171,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomAdd_Click" Height="20"/>
-        <Button x:Name="BtnDomUpd" Content="{DynamicResource Save}" HorizontalAlignment="Left" Margin="316,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomUpd_Click" Height="20"/>
-        <Button x:Name="BtnDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="461,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnDomDel_Click" Height="20"/>
-        <Button x:Name="BtnSubToDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="597,430,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomAdd_Click" Height="20"/>
-        <Button x:Name="BtnSubToDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="597,482,0,0" VerticalAlignment="Top" Width="110" Click="BtnSubToDomDel_Click" Height="20"/>
-        <DataGrid x:Name="DgDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="157" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="31,59,23,0"/>
-        <DataGrid x:Name="DgSubToDom" IsReadOnly ="True" ItemsSource="{Binding}" Height="155" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="752,385,40,0"/>
-        <DataGrid x:Name="DgSub" IsReadOnly ="True" ItemsSource="{Binding}" Height="151" VerticalAlignment="Top" SelectionChanged="DG1_SelectionChanged" Margin="59,399,697,0"/>
+        <Button x:Name="BtnDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="171,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnTestAdd_Click" Height="20"/>
+        <Button x:Name="BtnDomUpd" Content="{DynamicResource Save}" HorizontalAlignment="Left" Margin="316,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnTestUpd_Click" Height="20"/>
+        <Button x:Name="BtnDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="461,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnTestDel_Click" Height="20"/>
+        <Button x:Name="BtnSubToDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="597,430,0,0" VerticalAlignment="Top" Width="110" Click="BtnQuestToTestAdd_Click" Height="20"/>
+        <Button x:Name="BtnSubToDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="597,482,0,0" VerticalAlignment="Top" Width="110" Click="BtnQuestToTestDel_Click" Height="20"/>
+        <DataGrid x:Name="DgdTest" IsReadOnly ="True" ItemsSource="{Binding}" Height="157" VerticalAlignment="Top" SelectionChanged="DgdTest_SelectionChanged" Margin="31,59,23,0"/>
+        <DataGrid x:Name="DgdQuestionnaire" IsReadOnly ="True" ItemsSource="{Binding}" Height="155" VerticalAlignment="Top" SelectionChanged="DgdQuestionnaire_SelectionChanged" Margin="752,385,40,0"/>
+        <DataGrid x:Name="DgdTest_Questionnaire" IsReadOnly ="True" ItemsSource="{Binding}" Height="151" VerticalAlignment="Top" SelectionChanged="DgdTest_Questionnaire_SelectionChanged" Margin="59,399,697,0"/>
         <Label Content="Test Management" HorizontalAlignment="Left" Margin="31,12,0,0" VerticalAlignment="Top" Width="470" FontSize="36" FontFamily="Arial Rounded MT Bold" Height="56"/>
         <Label Content="Description Test :" HorizontalAlignment="Left" Margin="59,231,0,0" VerticalAlignment="Top" Width="127"/>
-        <TextBox x:Name="DomainTxt" HorizontalAlignment="Left" Margin="186,237,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="477" Height="18"/>
+        <TextBox x:Name="TbxDescription" HorizontalAlignment="Left" Margin="186,237,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="477" Height="18"/>
         <Label Content="ID :" HorizontalAlignment="Left" Margin="621,211,0,0" VerticalAlignment="Top" Width="30"/>
-        <TextBox x:Name="DomainID" HorizontalAlignment="Left" Margin="652,216,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
+        <TextBox x:Name="TbxID" HorizontalAlignment="Left" Margin="652,216,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
         <Label Content="Description questionnaire :" HorizontalAlignment="Left" Margin="752,342,0,0" VerticalAlignment="Top" Width="153"/>
-        <TextBox x:Name="SubDomainTxt" HorizontalAlignment="Left" Margin="910,344,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="257" Height="34"/>
+        <TextBox x:Name="TbxQuestionnaireDesc" HorizontalAlignment="Left" Margin="940,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="257" Height="34"/>
         <Label Content="ID :" HorizontalAlignment="Left" Margin="1172,330,0,0" VerticalAlignment="Top" Width="30"/>
-        <TextBox x:Name="SubDomainID" HorizontalAlignment="Left" Margin="1204,334,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
+        <TextBox x:Name="TbxQuestionnaireID" HorizontalAlignment="Left" Margin="1204,334,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="50" IsEnabled="False"/>
         <Label Content="Description domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Margin="795,244,0,0"/>
-        <ComboBox HorizontalAlignment="Left" Height="19" Margin="949,247,0,0" VerticalAlignment="Top" Width="252"/>
+        <ComboBox x:Name="CbxDomFilter" HorizontalAlignment="Left" Height="19" Margin="949,247,0,0" VerticalAlignment="Top" Width="252"/>
         <Label Content="Description sub domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="174" Margin="795,269,0,0"/>
-        <ComboBox HorizontalAlignment="Left" Height="20" Margin="949,272,0,0" VerticalAlignment="Top" Width="252"/>
+        <ComboBox x:Name="CbxSubDomFilter" HorizontalAlignment="Left" Height="20" Margin="949,272,0,0" VerticalAlignment="Top" Width="252"/>
         <Button Content="Filter" HorizontalAlignment="Left" Height="21" Margin="952,301,0,0" VerticalAlignment="Top" Width="133"/>
-        <CheckBox Content=" Chrono" HorizontalAlignment="Left" Margin="64,262,0,0" VerticalAlignment="Top" Width="72" Checked="CheckBox_Checked"/>
+        <CheckBox x:Name="SbxChrono" Content=" Chrono" HorizontalAlignment="Left" Margin="64,262,0,0" VerticalAlignment="Top" Width="72"/>
         <Label Content="Number of questions" HorizontalAlignment="Left" Height="32" Margin="150,257,0,0" VerticalAlignment="Top" Width="130"/>
-        <TextBox HorizontalAlignment="Left" Margin="276,261,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="59"/>
+        <TextBox x:Name="TbxNbQuestion" HorizontalAlignment="Left" Margin="276,261,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="59"/>
         <Label Content="Total time" HorizontalAlignment="Left" Height="32" Margin="364,257,0,0" VerticalAlignment="Top" Width="70"/>
-        <TextBox HorizontalAlignment="Left" Margin="432,261,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="59"/>
+        <TextBox x:Name="TbxTotTime" HorizontalAlignment="Left" Margin="432,261,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="59"/>
         <Label Content="Total points" HorizontalAlignment="Left" Height="32" Margin="529,257,0,0" VerticalAlignment="Top" Width="73"/>
-        <TextBox HorizontalAlignment="Left" Margin="604,261,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="59"/>
+        <TextBox x:Name="TbxTotPts" HorizontalAlignment="Left" Margin="604,261,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="59"/>
         <Label Content="Domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="61" Margin="59,286,0,0"/>
-        <ComboBox HorizontalAlignment="Left" Height="19" Margin="127,289,0,0" VerticalAlignment="Top" Width="231"/>
+        <ComboBox x:Name="CbxDom" HorizontalAlignment="Left" Height="19" Margin="127,289,0,0" VerticalAlignment="Top" Width="231"/>
         <Label Content="Sub domain :" HorizontalAlignment="Left" VerticalAlignment="Top" Width="81" Margin="385,286,0,0"/>
-        <ComboBox HorizontalAlignment="Left" Height="19" Margin="471,289,0,0" VerticalAlignment="Top" Width="231"/>
+        <ComboBox x:Name="CbxSubDom" HorizontalAlignment="Left" Height="19" Margin="471,289,0,0" VerticalAlignment="Top" Width="231"/>
         <Label Content="Comment :" HorizontalAlignment="Left" Height="29" Margin="59,309,0,0" VerticalAlignment="Top" Width="70"/>
-        <TextBox HorizontalAlignment="Left" Margin="127,313,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="575" Height="40"/>
+        <TextBox x:Name="TbxCmt" HorizontalAlignment="Left" Margin="127,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="575" Height="40"/>
 
 
     </Grid>
