@@ -22,7 +22,7 @@
         <Button x:Name="BtnDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="171,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnTestAdd_Click" Height="20"/>
         <Button x:Name="BtnDomUpd" Content="{DynamicResource Save}" HorizontalAlignment="Left" Margin="316,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnTestUpd_Click" Height="20"/>
         <Button x:Name="BtnDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="461,363,0,0" VerticalAlignment="Top" Width="110" Click="BtnTestDel_Click" Height="20"/>
-        <Button x:Name="BtnSubToDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="597,430,0,0" VerticalAlignment="Top" Width="110" Click="BtnQuestToTestAdd_Click" Height="20"/>
+        <Button x:Name="BtnSubToDomAdd" Content="{DynamicResource Add}" HorizontalAlignment="Left" Margin="597,430,0,0" VerticalAlignment="Top" Width="110" Click="BtnQuestToTestAdd_Click" Height="20" RenderTransformOrigin="0.5,0.5"/>
         <Button x:Name="BtnSubToDomDel" Content="{DynamicResource Delete}" HorizontalAlignment="Left" Margin="597,482,0,0" VerticalAlignment="Top" Width="110" Click="BtnQuestToTestDel_Click" Height="20"/>
         <DataGrid x:Name="DgdTest" IsReadOnly ="True" ItemsSource="{Binding}" Height="157" VerticalAlignment="Top" SelectionChanged="DgdTest_SelectionChanged" Margin="31,59,23,0"/>
         <DataGrid x:Name="DgdQuestionnaire" IsReadOnly ="True" ItemsSource="{Binding}" Height="155" VerticalAlignment="Top" SelectionChanged="DgdQuestionnaire_SelectionChanged" Margin="752,385,40,0"/>

@@ -30,6 +30,8 @@
             <ComboBoxItem Content="English"/>
             <ComboBoxItem Content="Français"/>
         </ComboBox>
+        <Label Content="Type :" HorizontalAlignment="Left" Margin="344,388,0,0" VerticalAlignment="Top" Width="66"/>
+        <ComboBox x:Name="CbxParamUserTyp" HorizontalAlignment="Left" Height="24" Margin="415,390,0,0" VerticalAlignment="Top" Width="155"/>
         <Label Content="Language :" HorizontalAlignment="Left" Margin="344,356,0,0" VerticalAlignment="Top" Width="66"/>
         <Label Content="User Management" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="470" FontSize="36" FontFamily="Arial Rounded MT Bold" Height="56"/>
     </Grid>

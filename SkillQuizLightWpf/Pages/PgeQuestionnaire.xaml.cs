@@ -178,17 +178,38 @@ namespace SkillQuizLightWpf.Pages
             if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
             {
                 HttpResponseMessage response = Program.client.GetAsync($"api/ExamQuestionnaire/getQuestionnaireID/{rowSelectedTmp._ID}").Result;
-                string[] vIdTmp = response.Content.ReadFromJsonAsync<string[]>().Result;
-                if (response.IsSuccessStatusCode & vIdTmp[0] != "")
-                {
-                    TbxID.Text = vIdTmp[0];
-                    TbxDescription.Text = vIdTmp[1];
-                    TbxWeight.Text = vIdTmp[2];
-                    TbxTotTime.Text = vIdTmp[3];
-                    TbxTotPts.Text = vIdTmp[4];
-                    TbxCmt.Text = vIdTmp[5];
-                    CbxDom.Text = vIdTmp[6];
-                    CbxSubDom.Text = vIdTmp[7];
+                //string[] vIdTmp = response.Content.ReadFromJsonAsync<string[]>().Result;
+                var vList = response.Content.ReadFromJsonAsync<IEnumerable<mExamQuestionnaire_Display>>().Result;
+                mExamQuestionnaire_Display vObjTmp = vList.ElementAt(0);
+                //if (response.IsSuccessStatusCode & vIdTmp[0] != "")
+                //{
+                //    TbxID.Text = vIdTmp[0];
+                //    TbxDescription.Text = vIdTmp[1];
+                //    TbxWeight.Text = vIdTmp[2];
+                //    TbxTotTime.Text = vIdTmp[3];
+                //    TbxTotPts.Text = vIdTmp[4];
+                //    TbxCmt.Text = vIdTmp[5];
+                //    CbxDom.Text = vIdTmp[6];
+                //    CbxSubDom.Text = vIdTmp[7];
+                if (response.IsSuccessStatusCode & vObjTmp._ID != null)
+                { 
+                    TbxID.Text = vObjTmp._ID.ToString();
+                    TbxDescription.Text = vObjTmp._Description;
+                    TbxWeight.Text = vObjTmp._Weight.ToString();
+                    TbxTotTime.Text = vObjTmp._TotalTime.ToString();
+                    TbxTotPts.Text = vObjTmp._TotalPoint.ToString();
+                    TbxCmt.Text = vObjTmp._Comment;
+                    if (vObjTmp._ID_Domain == null)
+                    { CbxDom.SelectedIndex = 0; }
+                    else
+                    { CbxDom.SelectedValue = (int)vObjTmp._ID_Domain; }
+                    if (vObjTmp._ID_Sub_Domain == null)
+                    { CbxSubDom.SelectedIndex = 0; }
+                    else
+                    { CbxSubDom.SelectedValue = (int)vObjTmp._ID_Sub_Domain; }
+                    //CbxDom.Text = vObjTmp._Domain;
+                    //CbxSubDom.Text = vObjTmp._Sub_Domain;
+
                     Tools.vPageDataProcessingStatus01 = Tools.cStatUpd;
                     refreshDataGridQuestToQuestionnaire();
                 }
@@ -265,7 +286,7 @@ namespace SkillQuizLightWpf.Pages
                         oTmpUpd._ID_Sub_Domain = Convert.ToInt32(CbxSubDom.SelectedValue.ToString());
 
                         HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync(
-                                            $"api/ExamQuestionnaireputQuestionnaire/{Program.currentUser.tUserID.Value}", oTmpUpd);
+                                            $"api/ExamQuestionnaire/putQuestionnaire/{Program.currentUser.tUserID.Value}", oTmpUpd);
                         refreshDataGridQuestionnaire();
                         initTxtbox();
                         break;

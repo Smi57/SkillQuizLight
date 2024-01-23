@@ -70,7 +70,7 @@ namespace SkillQuizLightWpf.Pages
             if (rowSelectedTmp != null)
             {
                 HttpResponseMessage response = Program.client.GetAsync(
-                    $"api/ExamUser_Test/getUser_Test_TestID/{rowSelectedTmp._ID}").Result;
+                    $"api/UserExam/getUser_Test_TestID/{rowSelectedTmp._ID}").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var vList = response.Content.ReadFromJsonAsync<IEnumerable<mUserExam_Display>>().Result;

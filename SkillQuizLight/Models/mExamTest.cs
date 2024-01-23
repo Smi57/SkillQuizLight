@@ -10,8 +10,8 @@
         private int TotalTime { get; set; }
         private int TotalPoint { get; set; }
         private string Comment { get; set; }
-        private int ExamDomainID { get; set; }
-        private int ExamSubDomainID { get; set; }
+        private int tExamDomainID { get; set; }
+        private int tExamSubDomainID { get; set; }
         private DateTime CreatDate { get; set; }
         private int CreatUser { get; set; }
         private DateTime ModifDate { get; set; }
@@ -27,8 +27,8 @@
             TotalTime = Convert.ToInt32(pDisplay._Total_Time);
             TotalPoint = Convert.ToInt32(pDisplay._Total_Point);
             Comment = pDisplay._Comment;
-            ExamDomainID = Convert.ToInt32(pDisplay._ID_Domain);
-            ExamSubDomainID = Convert.ToInt32(pDisplay._ID_Sub_Domain);
+            tExamDomainID = Convert.ToInt32(pDisplay._ID_Domain);
+            tExamSubDomainID = Convert.ToInt32(pDisplay._ID_Sub_Domain);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;
@@ -57,11 +57,11 @@
         public void setComment(string pVal) { this.Comment = pVal; }
         public string getComment() { return this.Comment; }
 
-        public void setExamDomainID(int pVal) { this.ExamDomainID = pVal; }
-        public int getExamDomainID() { return this.ExamDomainID; }
+        public void setExamDomainID(int pVal) { this.tExamDomainID = pVal; }
+        public int getExamDomainID() { return this.tExamDomainID; }
 
-        public void setExamSubDomainID(int pVal) { this.ExamSubDomainID = pVal; }
-        public int getExamSubDomainID() { return this.ExamSubDomainID; }
+        public void setExamSubDomainID(int pVal) { this.tExamSubDomainID = pVal; }
+        public int getExamSubDomainID() { return this.tExamSubDomainID; }
 
         public void setCreatDate(DateTime pCreationDate) { this.CreatDate = pCreationDate; }
         public DateTime getCreatDate() { return this.CreatDate; }

@@ -13,19 +13,32 @@ namespace SkillQuizLight.Controllers
         private Db_SkillQuizLight db = new Db_SkillQuizLight();
 
         [HttpGet("getTest_QuestionnaireIDs")]
-        public bool getTest_QuestionnaireIDs(int pExamTestID, int pExamQuestionnaireID)
+        public List<mExamTest_Questionnaire_Display> getTest_QuestionnaireIDs(int pExamTestID, int pExamQuestionnaireID)
         {
-            mExamTest_Questionnaire Test_QuestionnaireRes = new mExamTest_Questionnaire();
-            var Test_QuestionnaireTmp = db.tExamTest_Questionnaire
-                            .Where(b => b.tExamTestID == pExamTestID &&
-                                        b.tExamQuestionnaireID == pExamQuestionnaireID)
-                            .FirstOrDefault();
-            bool vResFind = false;
-            if (Test_QuestionnaireTmp != null)
-            {
-                vResFind = true;
-            }
-            return vResFind;
+            return (from a in db.tExamTest_Questionnaire
+                    join b in db.tExamTest on a.tExamTestID equals b.tExamTestID
+                    join c in db.tExamQuestionnaire on a.tExamQuestionnaireID equals c.tExamQuestionnaireID
+                    where a.tExamTestID == pExamTestID &&
+                    a.tExamQuestionnaireID == pExamQuestionnaireID
+                    select new
+                    {
+                        a.tExamTest_QuestionnaireID,
+                        a.tExamTestID,
+                        a.tExamQuestionnaireID,
+                        a.CreatDate,
+                        a.CreatUser,
+                        a.ModifDate,
+                        a.ModifUser,
+                        b.Description,
+                        Desc2 = c.Description
+                    }).Select(u => new mExamTest_Questionnaire_Display()
+                    {
+                        _ID = u.tExamTest_QuestionnaireID,
+                        _Test = u.Description,
+                        _ID_Test = u.tExamTestID,
+                        _Questionnaire = u.Desc2,
+                        _ID_Questionnaire = u.tExamQuestionnaireID
+                    }).ToList();
         }
 
         [HttpGet("getTest_Questionnaire")]

@@ -5,14 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SkillQuizLightWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="768" Width="1280" Closing="Window_Closing">
     <Grid>
         <StackPanel VerticalAlignment="Top">
+            <Menu Width="Auto" Height="20">
+                <MenuItem Header="{DynamicResource File}">
+                    <MenuItem x:Name="AppMenu" Header="H_ome" HorizontalAlignment="Left" Width="140" Click="AppMenuStart_Click" />
+                    <MenuItem x:Name="AppDisconnect" Header="D_isconnect" HorizontalAlignment="Left" Width="160" Click="Disconnect_Click" />
+                    <MenuItem x:Name="AppExit" Header="E_xit" HorizontalAlignment="Left" Width="140" Click="Exit_Click" />
+                </MenuItem>
 
+            </Menu>
         </StackPanel>
         <Grid>
-            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Loaded="MainFrame_Loaded"/>
         </Grid>
-
     </Grid>
 </Window>

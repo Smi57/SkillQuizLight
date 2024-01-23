@@ -283,7 +283,7 @@ namespace SkillQuizLightWpf.Pages
                         case Tools.cStatUpd:
 
                             mExamAnswer_Display ObjTmpUpd = new mExamAnswer_Display();
-                            ObjTmpUpd._ID = Convert.ToInt32(QuestionID.Text);
+                            ObjTmpUpd._ID = Convert.ToInt32(TbxAnswID.Text);
                             ObjTmpUpd._Description = TbxAnsw.Text;
                             if (SbxAnswOk.IsChecked.Value)
                             {

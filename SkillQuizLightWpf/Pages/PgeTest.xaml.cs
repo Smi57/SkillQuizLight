@@ -290,7 +290,7 @@ namespace SkillQuizLightWpf.Pages
         private async void BtnQuestToTestAdd_Click(object sender, RoutedEventArgs e)
         {
             var rowSelectedTmpDgTest = (mExamTest_Display)DgdTest.SelectedItem;
-            var rowSelectedTmpDgQuest = (mExamTest_Questionnaire_Display)DgdTest_Questionnaire.SelectedItem;
+            var rowSelectedTmpDgQuest = (mExamQuestionnaire_Display)DgdQuestionnaire.SelectedItem;
             if (rowSelectedTmpDgQuest == null || rowSelectedTmpDgTest == null)
             {
                 string vMsgTmp = (string)Application.Current.Resources["MsgToFilData"];
@@ -299,11 +299,11 @@ namespace SkillQuizLightWpf.Pages
             else
             {
                 int vExamTestID = Convert.ToInt32(rowSelectedTmpDgTest._ID);
-                int vExamQuestID = Convert.ToInt32(rowSelectedTmpDgQuest._ID_Questionnaire);
+                int vExamQuestID = Convert.ToInt32(rowSelectedTmpDgQuest._ID);
                 HttpResponseMessage response = Program.client.GetAsync(
                     $"api/ExamTest_Questionnaire/getTest_QuestionnaireIDs?pExamTestID={vExamTestID}&pExamQuestionnaireID={vExamQuestID}").Result;
-                bool vTest_QuestFind = response.Content.ReadFromJsonAsync<bool>().Result;
-                if (response.IsSuccessStatusCode & vTest_QuestFind)
+                var vListTest_Quest = response.Content.ReadFromJsonAsync<IEnumerable<mExamTest_Questionnaire_Display>>().Result;
+                if (response.IsSuccessStatusCode && vListTest_Quest.Count() > 0)
                 {
                     string vMsgTmp = (string)Application.Current.Resources["MsgExistData"];
                     MessageBox.Show(vMsgTmp);
@@ -315,7 +315,7 @@ namespace SkillQuizLightWpf.Pages
                     oTmpAdd._ID_Test = vExamTestID;
                     oTmpAdd._ID_Questionnaire = vExamQuestID;
                     HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync(
-                                        $"api/ExamTest_Question/postTest_Question/{Program.currentUser.tUserID.Value}", oTmpAdd);
+                                        $"api/ExamTest_Questionnaire/postTest_Questionnaire/{Program.currentUser.tUserID.Value}", oTmpAdd);
                     refreshDgdTest_Questionnaire();
 
                 }

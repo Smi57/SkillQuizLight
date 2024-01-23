@@ -27,8 +27,8 @@ namespace SkillQuizLight.Controllers
                                             TestTmp.TotalTime.ToString(),
                                             TestTmp.TotalPoint.ToString(),
                                             TestTmp.Comment.ToString(),
-                                            TestTmp.ExamDomainID.ToString(),
-                                            TestTmp.ExamSubDomainID.ToString(),
+                                            TestTmp.tExamDomainID.ToString(),
+                                            TestTmp.tExamSubDomainID.ToString(),
                                             TestTmp.CreatDate.ToString(),
                                             TestTmp.CreatUser.ToString(),
                                             TestTmp.ModifDate.ToString(),
@@ -42,8 +42,8 @@ namespace SkillQuizLight.Controllers
         {
             //return db.tExamTest.Select(u => new mExamTest_Display()
             return (from a in db.tExamTest
-                    join b in db.tExamDomain on a.ExamDomainID equals b.tExamDomainID
-                    join c in db.tExamSubDomain on a.ExamSubDomainID equals c.tExamSubDomainID
+                    join b in db.tExamDomain on a.tExamDomainID equals b.tExamDomainID
+                    join c in db.tExamSubDomain on a.tExamSubDomainID equals c.tExamSubDomainID
                     select new
                     {
                         a.tExamTestID,
@@ -54,9 +54,9 @@ namespace SkillQuizLight.Controllers
                         a.TotalPoint,
                         a.Comment,
                         Desc2 = b.Description,
-                        a.ExamDomainID,
+                        a.tExamDomainID,
                         Desc3 = c.Description,
-                        a.ExamSubDomainID,
+                        a.tExamSubDomainID,
                         a.CreatDate,
                         a.CreatUser,
                         a.ModifDate,
@@ -72,9 +72,52 @@ namespace SkillQuizLight.Controllers
                         _Total_Point = u.TotalPoint,
                         _Comment = u.Comment,
                         _Domain = u.Desc2,
-                        _ID_Domain = u.ExamDomainID,
+                        _ID_Domain = u.tExamDomainID,
                         _Sub_Domain = u.Desc3,
-                        _ID_Sub_Domain = u.ExamSubDomainID
+                        _ID_Sub_Domain = u.tExamSubDomainID
+
+                    }).ToList();
+        }
+
+        [HttpGet("getTest/{user}")]
+        public List<mExamTest_Display> getTest(int user)
+        {
+            //return db.tExamTest.Select(u => new mExamTest_Display()
+            return (from a in db.tExamTest
+                    join b in db.tExamDomain on a.tExamDomainID equals b.tExamDomainID
+                    join c in db.tExamSubDomain on a.tExamSubDomainID equals c.tExamSubDomainID
+                    join d in db.tUserExam on a.tExamTestID equals d.tExamTestID
+                    where d.tUserID == user
+                    select new
+                    {
+                        a.tExamTestID,
+                        a.Description,
+                        a.IsWithChrono,
+                        a.NbQuestionRevise,
+                        a.TotalTime,
+                        a.TotalPoint,
+                        a.Comment,
+                        Desc2 = b.Description,
+                        a.tExamDomainID,
+                        Desc3 = c.Description,
+                        a.tExamSubDomainID,
+                        a.CreatDate,
+                        a.CreatUser,
+                        a.ModifDate,
+                        a.ModifUser
+                    }).Select(u => new mExamTest_Display()
+                    {
+                        _ID = u.tExamTestID,
+                        _Description = u.Description,
+                        _Is_With_Chrono = u.IsWithChrono,
+                        _Nb_Question_Revise = u.NbQuestionRevise,
+                        _Total_Time = u.TotalTime,
+                        _Total_Point = u.TotalPoint,
+                        _Comment = u.Comment,
+                        _Domain = u.Desc2,
+                        _ID_Domain = u.tExamDomainID,
+                        _Sub_Domain = u.Desc3,
+                        _ID_Sub_Domain = u.tExamSubDomainID
 
                     }).ToList();
         }
@@ -90,8 +133,8 @@ namespace SkillQuizLight.Controllers
             vTestTmp.TotalTime = vExamTest.getTotalTime();
             vTestTmp.TotalPoint = vExamTest.getTotalPoint();
             vTestTmp.Comment = vExamTest.getComment();
-            vTestTmp.ExamDomainID = vExamTest.getExamDomainID();
-            vTestTmp.ExamSubDomainID = vExamTest.getExamSubDomainID();
+            vTestTmp.tExamDomainID = vExamTest.getExamDomainID();
+            vTestTmp.tExamSubDomainID = vExamTest.getExamSubDomainID();
             vTestTmp.CreatDate = vExamTest.getCreatDate();
             vTestTmp.CreatUser = vExamTest.getCreatUser();
             vTestTmp.ModifDate = vExamTest.getModifDate();
@@ -114,8 +157,8 @@ namespace SkillQuizLight.Controllers
             if (vExamTest.getTotalTime() > 0) { vTestTmp.TotalTime = vExamTest.getTotalTime(); }
             if (vExamTest.getTotalPoint() > 0) { vTestTmp.TotalPoint = vExamTest.getTotalPoint(); }
             if (vExamTest.getComment() != null) { vTestTmp.Comment = vExamTest.getComment(); }
-            if (vExamTest.getExamDomainID() != 0) { vTestTmp.ExamDomainID = vExamTest.getExamDomainID(); }
-            if (vExamTest.getExamSubDomainID() != 0) { vTestTmp.ExamSubDomainID = vExamTest.getExamSubDomainID(); }
+            if (vExamTest.getExamDomainID() != 0) { vTestTmp.tExamDomainID = vExamTest.getExamDomainID(); }
+            if (vExamTest.getExamSubDomainID() != 0) { vTestTmp.tExamSubDomainID = vExamTest.getExamSubDomainID(); }
             if (vExamTest.getModifDate() != null) { vTestTmp.ModifDate = vExamTest.getModifDate(); }
             if (vExamTest.getModifUser() != null) { vTestTmp.ModifUser = vExamTest.getModifUser(); }
             db.SaveChanges();

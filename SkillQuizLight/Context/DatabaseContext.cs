@@ -21,8 +21,10 @@ namespace SkillQuizLight.Context
         public DbSet<tUserQuestion> tUserQuestion { get; set; }
         public DbSet<tParamAnswerLevel> tParamAnswerLevel { get; set; }
         public DbSet<tParamLang> tParamLang { get; set; }
+        public DbSet<tParamLog> tParamLog { get; set; }
         public DbSet<tParamQuestionLevel> tParamQuestionLevel { get; set; }
         public DbSet<tParamTestStatus> tParamTestStatus { get; set; }
+        public DbSet<tParamTypeLog> tParamTypeLog { get; set; }
         public DbSet<tParamUserType> tParamUserType { get; set; }
         public DbSet<tExamAnswer> tExamAnswer { get; set; }
         public DbSet<tExamDomain_SubDomain> tExamDomain_SubDomain { get; set; }

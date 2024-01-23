@@ -43,14 +43,16 @@ namespace SkillQuizLight.Controllers
                         a.ModifDate,
                         a.ModifUser,
                         b.Description,
-                        Desc2 = c.Description
+                        Desc2 = c.Description,
+                        c.Time
                     }).Select(u => new mExamQuestionnaire_Question_Display()
                     {
                         _ID = u.tExamQuestionnaire_QuestionID,
                         _Questionnaire = u.Description,
                         _ID_Questionnaire = u.tExamQuestionnaireID,
                         _Question = u.Desc2,
-                        _ID_Question = u.tExamQuestionID
+                        _ID_Question = u.tExamQuestionID,
+                        _QuestionTime = u.Time
                     }).ToList();
         }
 
@@ -73,14 +75,16 @@ namespace SkillQuizLight.Controllers
                         a.ModifDate,
                         a.ModifUser,
                         b.Description,
-                        Desc2 = c.Description
+                        Desc2 = c.Description,
+                        c.Time
                     }).Select(u => new mExamQuestionnaire_Question_Display()
                     {
                         _ID = u.tExamQuestionnaire_QuestionID,
                         _Questionnaire = u.Description,
                         _ID_Questionnaire = u.tExamQuestionnaireID,
                         _Question = u.Desc2,
-                        _ID_Question = u.tExamQuestionID
+                        _ID_Question = u.tExamQuestionID,
+                        _QuestionTime = u.Time
                     }).ToList();
         }
 

@@ -8,14 +8,14 @@
         Title="Login" Height="263" Width="309" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="73*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="LoginTbx" HorizontalAlignment="Left" Margin="140,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox x:Name="PasswordTbx" HorizontalAlignment="Left" Margin="140,90,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Login" HorizontalAlignment="Left" Margin="35,52,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label Content="Password" HorizontalAlignment="Left" Margin="35,87,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button Content="Login" HorizontalAlignment="Left" Margin="108,150,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
+        <TextBox x:Name="LoginTbx" HorizontalAlignment="Left" Margin="140,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18"/>
+        <PasswordBox x:Name="PasswordTbx" HorizontalAlignment="Left" Margin="140,90,0,0" VerticalAlignment="Top" Width="120" Height="18"/>
+        <Label Content="Login" HorizontalAlignment="Left" Margin="35,52,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="35,87,0,0" VerticalAlignment="Top" Width="100" Height="26"/>
+        <Button Content="Login" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click" Height="20"/>
 
     </Grid>
 </Window>

@@ -26,6 +26,7 @@ namespace SkillQuizLightWpf.Pages
         {
             InitializeComponent();
             refreshDataGrid();
+            refreshCbxParamUserTyp();
             Tools.vPageDataProcessingStatus01 = Tools.cStatAdd;
         }
 
@@ -39,6 +40,19 @@ namespace SkillQuizLightWpf.Pages
                 DG1.ItemsSource = userList.AsEnumerable();
             }
         }
+
+        private void refreshCbxParamUserTyp()
+        {
+            HttpResponseMessage response = Program.client.GetAsync("api/ParamUserType/getParamUserType").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                CbxParamUserTyp.ItemsSource = null;
+                var vList = response.Content.ReadFromJsonAsync<IEnumerable<mParamUserType_Display>>().Result;
+                CbxParamUserTyp.ItemsSource = vList.AsEnumerable();
+                CbxParamUserTyp.DisplayMemberPath = "_Description";
+                CbxParamUserTyp.SelectedValuePath = "_ID";
+            }
+        }
         private void initTxtbox()
         {
             LoginID.Text = "";
@@ -47,7 +61,8 @@ namespace SkillQuizLightWpf.Pages
             LastName.Text = "";
             Email.Text = "";
             Comment.Text = "";
-            cbxLang.SelectedIndex = 0;
+            cbxLang.Text = "";
+            CbxParamUserTyp.Text = "";
             Tools.vPageDataProcessingStatus01 = Tools.cStatAdd;
         }
 
@@ -69,7 +84,11 @@ namespace SkillQuizLightWpf.Pages
                     if (userFind._ID_Lang == null)
                     {   cbxLang.SelectedIndex = 0;}
                     else
-                    {   cbxLang.SelectedIndex = (int)userFind._ID_Lang;}
+                    {   cbxLang.SelectedIndex = (int)userFind._ID_Lang; }
+                    if (userFind._ID_Type == null)
+                    { CbxParamUserTyp.SelectedIndex = 0; }
+                    else
+                    { CbxParamUserTyp.SelectedValue = (int)userFind._ID_Type; }
 
                     Tools.vPageDataProcessingStatus01 = Tools.cStatUpd;
                 }
@@ -112,7 +131,8 @@ namespace SkillQuizLightWpf.Pages
                                 Program.cResetPassword,
                                 Email.Text,
                                 Comment.Text,
-                                Convert.ToInt32(cbxLang.SelectedIndex));
+                                Convert.ToInt32(cbxLang.SelectedIndex),
+                                Convert.ToInt32(CbxParamUserTyp.SelectedValue));
                             HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync("api/User/postUser", userTmpAdd);
                             refreshDataGrid();
                             initTxtbox();
@@ -127,12 +147,13 @@ namespace SkillQuizLightWpf.Pages
                                 LastName.Text,
                                 Email.Text,
                                 Comment.Text,
-                                Convert.ToInt32(cbxLang.SelectedIndex));
+                                Convert.ToInt32(cbxLang.SelectedIndex),
+                                Convert.ToInt32(CbxParamUserTyp.SelectedValue));
                             HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync("api/User/putUser", userTmpUpd);
 
                             if (Program.currentUser.tUserID == userTmpUpd.tUserID)
                             {
-                                Program.currentUser.ParamLangID = Convert.ToInt32(cbxLang.SelectedIndex);
+                                Program.currentUser.tParamLangID = Convert.ToInt32(cbxLang.SelectedIndex);
                                 Tools.langManagement();
                             }
 
@@ -195,7 +216,8 @@ namespace SkillQuizLightWpf.Pages
                     LastName.Text,
                     Email.Text,
                     Comment.Text,
-                    Convert.ToInt32(cbxLang.SelectedIndex));
+                    Convert.ToInt32(cbxLang.SelectedIndex),
+                    Convert.ToInt32(CbxParamUserTyp.SelectedIndex));
             userTmpUpd.AccessFailedCount = 0;
             HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync("api/User/putUser", userTmpUpd);
             refreshDataGrid();

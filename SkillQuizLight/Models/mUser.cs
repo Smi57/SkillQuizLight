@@ -24,8 +24,9 @@ public class mUser
     public string? Email { get; set; }
     public string? Comment { get; set; }
     public int AccessFailedCount { get; set; }
-    public int ParamLangID { get; set; }
-    public int ParamUserTypeID { get; set; }
+    public int tParamLangID { get; set; }
+    public int tParamUserTypeID { get; set; }
+    public bool IsQuestOpen { get; set; }
     public bool IsActivate { get; set; }
     public bool IsDeleted { get; set; }
     public DateTime CreatDate { get; set; }
@@ -36,7 +37,7 @@ public class mUser
     //Constructeurs
     public mUser() { }
     public mUser(int? _UserID, string _Login, string? _FirstName, string? _LastName, string? _Password, string? _Email
-        , string? _Comment, int? pParamLangID)
+        , string? _Comment, int? pParamLangID, int? pParamUserTypeID)
     {
         this.tUserID = _UserID;
         this.Login = _Login;
@@ -46,8 +47,8 @@ public class mUser
         this.Email = _Email;
         this.Comment = _Comment;
         this.AccessFailedCount = 0;
-        this.ParamLangID = pParamLangID.Value;
-        this.ParamUserTypeID = 0;
+        this.tParamLangID = pParamLangID.Value;
+        this.tParamUserTypeID = pParamUserTypeID.Value;
         this.IsActivate = true;
         this.CreatDate = DateTime.Now;
         this.CreatUserID = Program.currentUser.tUserID.Value;
@@ -55,7 +56,7 @@ public class mUser
         this.ModifUserID = Program.currentUser.tUserID.Value;
     }
     public mUser(int? _UserID, string _Login, string? _FirstName, string? _LastName, string? _Email, string? _Comment
-        , int? pParamLangID)
+        , int? pParamLangID, int? pParamUserTypeID)
     {
         this.tUserID = _UserID;
         this.Login = _Login;
@@ -63,7 +64,8 @@ public class mUser
         this.LastName = _LastName;
         this.Email = _Email;
         this.Comment = _Comment;
-        this.ParamLangID = pParamLangID.Value;
+        this.tParamLangID = pParamLangID.Value;
+        this.tParamUserTypeID = pParamUserTypeID.Value;
         this.ModifDate = DateTime.Now;
         this.ModifUserID = Program.currentUser.tUserID.Value;
     }

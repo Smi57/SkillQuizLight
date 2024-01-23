@@ -30,7 +30,7 @@ namespace SkillQuizLightWpf.Pages
         {
             InitializeComponent();
             isStarting = true;
-            cbxLang.SelectedIndex = Program.currentUser.ParamLangID;
+            cbxLang.SelectedIndex = Program.currentUser.tParamLangID;
             isStarting = false;
         }
 
@@ -44,12 +44,13 @@ namespace SkillQuizLightWpf.Pages
         {
             if (!isStarting)
             {
-                Program.currentUser.ParamLangID = cbxLang.SelectedIndex;
+                Program.currentUser.tParamLangID = cbxLang.SelectedIndex;
 
                 mUser userTmpUpd = new mUser(
                         Convert.ToInt32(Program.currentUser.tUserID),
                         null,null,null,null,null,
-                        Convert.ToInt32(cbxLang.SelectedIndex));
+                        Convert.ToInt32(cbxLang.SelectedIndex),
+                        null);
                 HttpResponseMessage responseUpd = await Program.client.PutAsJsonAsync("api/User/putUser", userTmpUpd);
                 Tools.langManagement();
             }

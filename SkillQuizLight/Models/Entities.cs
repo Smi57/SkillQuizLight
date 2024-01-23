@@ -19,8 +19,9 @@ namespace SkillQuizLight.Models
         public string Email { get; set; }
         public string Comment { get; set; }
         public int AccessFailedCount { get; set; }
-        public int ParamLangID { get; set; }
-        public int ParamUserTypeID { get; set; }
+        public int tParamLangID { get; set; }
+        public int tParamUserTypeID { get; set; }
+        public bool IsQuestOpen { get; set; }
         public bool IsActivate { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreatDate { get; set; }
@@ -33,11 +34,12 @@ namespace SkillQuizLight.Models
         public int tUserAnswerID { get; set; }
         public string Description { get; set; }
         public string Comment { get; set; }
-        public int UserExamID { get; set; }
-        public int tExamTestID { get; set; }
-        public int ExamQuestionnaire_QuestionID { get; set; }
-        public int ExamQuestion_AnswerID { get; set; }
-        public int ParamAnswerLevelID { get; set; }
+        public bool IsSelectByUser { get; set; }
+        public int tUserExamID { get; set; }
+        public int tExamTest_QuestionnaireID { get; set; }
+        public int tExamQuestionnaire_QuestionID { get; set; }
+        public int tExamAnswerID { get; set; }
+        public int tParamAnswerLevelID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }
@@ -60,11 +62,11 @@ namespace SkillQuizLight.Models
     public class tUserQuestion
     {
         public int tUserQuestionID { get; set; }
-        public DateTime TimeOpen { get; set; }
-        public int UserExamID { get; set; }
-        public int tExamTestID { get; set; }
-        public int ExamQuestionnaire_QuestionID { get; set; }
-        public int ExamQuestion_AnswerID { get; set; }
+        public int TimeOpen { get; set; }
+        public int tUserExamID { get; set; }
+        public int tExamTest_QuestionnaireID { get; set; }
+        public int tExamQuestionnaire_QuestionID { get; set; }
+        public int tExamQuestionID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }
@@ -90,6 +92,18 @@ namespace SkillQuizLight.Models
         public DateTime ModifDate { get; set; }
         public int ModifUser { get; set; }
     }
+    public class tParamLog
+    {
+        public int tParamLogID { get; set; }
+        public int tParamTypeLogID { get; set; }
+        public string Info01 { get; set; }
+        public string Info02 { get; set; }
+        public string Info03 { get; set; }
+        public DateTime CreatDate { get; set; }
+        public int CreatUser { get; set; }
+        public DateTime ModifDate { get; set; }
+        public int ModifUser { get; set; }
+    }
     public class tParamQuestionLevel
     {
         public int tParamQuestionLevelID { get; set; }
@@ -109,6 +123,14 @@ namespace SkillQuizLight.Models
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }
         public int ModifUser { get; set; }
+    }
+    public class tParamTypeLog
+    {
+        public int tParamTypeLogID { get; set; }
+        public string Name { get; set; }
+        public string Info01 { get; set; }
+        public string Info02 { get; set; }
+        public string Info03 { get; set; }
     }
     public class tParamUserType
     {
@@ -155,9 +177,9 @@ namespace SkillQuizLight.Models
         public int Time { get; set; }
         public int Weight { get; set; }
         public string Comment { get; set; }
-        public int ParamQuestionLevelID { get; set; }
-        public int ExamDomainID { get; set; }
-        public int ExamSubDomainID { get; set; }
+        public int tParamQuestionLevelID { get; set; }
+        public int tExamDomainID { get; set; }
+        public int tExamSubDomainID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }
@@ -181,8 +203,8 @@ namespace SkillQuizLight.Models
         public int TotalPoint { get; set; }
         public int Weight { get; set; }
         public string Comment { get; set; }
-        public int ExamDomainID { get; set; }
-        public int ExamSubDomainID { get; set; }
+        public int tExamDomainID { get; set; }
+        public int tExamSubDomainID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }
@@ -216,8 +238,8 @@ namespace SkillQuizLight.Models
         public int TotalTime { get; set; }
         public int TotalPoint { get; set; }
         public string Comment { get; set; }
-        public int ExamDomainID { get; set; }
-        public int ExamSubDomainID { get; set; }
+        public int tExamDomainID { get; set; }
+        public int tExamSubDomainID { get; set; }
         public DateTime CreatDate { get; set; }
         public int CreatUser { get; set; }
         public DateTime ModifDate { get; set; }

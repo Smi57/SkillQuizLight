@@ -10,9 +10,9 @@ namespace SkillQuizLight.Models
         private int Time { get; set; }
         private int Weight { get; set; }
         private string Comment { get; set; }
-        private int ParamQuestionLevelID { get; set; }
-        private int ExamDomainID { get; set; }
-        private int ExamSubDomainID { get; set; }
+        private int tParamQuestionLevelID { get; set; }
+        private int tExamDomainID { get; set; }
+        private int tExamSubDomainID { get; set; }
         private DateTime CreatDate { get; set; }
         private int CreatUser { get; set; }
         private DateTime ModifDate { get; set; }
@@ -27,9 +27,9 @@ namespace SkillQuizLight.Models
             Time = Convert.ToInt32(pDisplay._Time);
             Weight = Convert.ToInt32(pDisplay._Weight);
             Comment = pDisplay._Comment;
-            ParamQuestionLevelID = Convert.ToInt32(pDisplay._ID_Level_Question);
-            ExamDomainID = Convert.ToInt32(pDisplay._ID_Domain);
-            ExamSubDomainID = Convert.ToInt32(pDisplay._ID_Sub_Domain);
+            tParamQuestionLevelID = Convert.ToInt32(pDisplay._ID_Level_Question);
+            tExamDomainID = Convert.ToInt32(pDisplay._ID_Domain);
+            tExamSubDomainID = Convert.ToInt32(pDisplay._ID_Sub_Domain);
             CreatDate = DateTime.Now;
             CreatUser = pUser;
             ModifDate = DateTime.Now;
@@ -52,14 +52,14 @@ namespace SkillQuizLight.Models
         public void setComment(string pVal) { this.Comment = pVal; }
         public string getComment() { return this.Comment; }
 
-        public void setParamQuestionLevelID(int pVal) { this.ParamQuestionLevelID = pVal; }
-        public int getParamQuestionLevelID() { return this.ParamQuestionLevelID; }
+        public void setParamQuestionLevelID(int pVal) { this.tParamQuestionLevelID = pVal; }
+        public int getParamQuestionLevelID() { return this.tParamQuestionLevelID; }
 
-        public void setExamDomainID(int pVal) { this.ExamDomainID = pVal; }
-        public int getExamDomainID() { return this.ExamDomainID; }
+        public void setExamDomainID(int pVal) { this.tExamDomainID = pVal; }
+        public int getExamDomainID() { return this.tExamDomainID; }
 
-        public void setExamSubDomainID(int pVal) { this.ExamSubDomainID = pVal; }
-        public int getExamSubDomainID() { return this.ExamSubDomainID; }
+        public void setExamSubDomainID(int pVal) { this.tExamSubDomainID = pVal; }
+        public int getExamSubDomainID() { return this.tExamSubDomainID; }
 
         public void setCreatDate(DateTime pCreationDate) { this.CreatDate = pCreationDate; }
         public DateTime getCreatDate() { return this.CreatDate; }

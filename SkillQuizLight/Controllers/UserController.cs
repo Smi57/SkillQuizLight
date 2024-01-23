@@ -29,7 +29,8 @@ namespace SkillQuizLight.Controllers
                 userRes.Login = userTmp.Login;
                 userRes.PasswordEncrypted = userTmp.Password;
                 userRes.AccessFailedCount = userTmp.AccessFailedCount;
-                userRes.ParamLangID = userTmp.ParamLangID;
+                userRes.tParamLangID = userTmp.tParamLangID;
+                userRes.tParamUserTypeID = userTmp.tParamUserTypeID;
             }
             return userRes;
         }
@@ -49,7 +50,8 @@ namespace SkillQuizLight.Controllers
                 userRes._Last_Name = userTmp.LastName;
                 userRes._Email = userTmp.Email;
                 userRes._Comment = userTmp.Comment;
-                userRes._ID_Lang = userTmp.ParamLangID;
+                userRes._ID_Lang = userTmp.tParamLangID;
+                userRes._ID_Type = userTmp.tParamUserTypeID;
             }
             return userRes;
         }
@@ -65,9 +67,24 @@ namespace SkillQuizLight.Controllers
                 _Last_Name = u.LastName,
                 _Email = u.Email,
                 _Comment = u.Comment,
-                _ID_Lang = u.ParamLangID,
+                _ID_Lang = u.tParamLangID,
+                _ID_Type = u.tParamUserTypeID,
                 _Access_Failed_Count = u.AccessFailedCount
             }).ToList();
+        }
+
+        [HttpGet("getIsQuestOpen/{pUserID}")]
+        public bool[] getIsQuestOpen(Int32 pUserID)
+        {
+            bool[] vIsQuestOpen = new bool[] { false };
+            var userTmp = db.tUser
+                                    .Where(b => b.tUserID == pUserID)
+                                    .FirstOrDefault();
+            if (userTmp != null)
+            {
+                vIsQuestOpen[0] = userTmp.IsQuestOpen;
+            }
+            return vIsQuestOpen;
         }
 
         [HttpPost("postUser")]
@@ -81,10 +98,10 @@ namespace SkillQuizLight.Controllers
             userTmp.Comment = userParam.Comment;
             userTmp.Password = userParam.getPassword();
             userTmp.IsActivate = userParam.IsActivate;
-            userTmp.ParamUserTypeID = userParam.ParamUserTypeID;
+            userTmp.tParamUserTypeID = userParam.tParamUserTypeID;
             userTmp.AccessFailedCount = userParam.AccessFailedCount;
-            userTmp.ParamLangID = userParam.ParamLangID;
-            userTmp.ParamUserTypeID = userParam.ParamUserTypeID;
+            userTmp.tParamLangID = userParam.tParamLangID;
+            userTmp.tParamUserTypeID = userParam.tParamUserTypeID;
             userTmp.IsActivate = userParam.IsActivate;
             userTmp.CreatDate = userParam.CreatDate;
             userTmp.CreatUserID = userParam.CreatUserID;
@@ -106,7 +123,8 @@ namespace SkillQuizLight.Controllers
             if (userParam.LastName != null) { user.LastName = userParam.LastName; }
             if (userParam.Email != null) { user.Email = userParam.Email; }
             if (userParam.Comment != null) { user.Comment = userParam.Comment; }
-            if (userParam.ParamLangID != null) { user.ParamLangID = userParam.ParamLangID; }
+            if (userParam.tParamLangID != null) { user.tParamLangID = userParam.tParamLangID; }
+            if (userParam.tParamUserTypeID != null) { user.tParamUserTypeID = userParam.tParamUserTypeID; }
             if (userParam.AccessFailedCount != null) { user.AccessFailedCount = userParam.AccessFailedCount; }
             db.SaveChanges();
         }
@@ -124,6 +142,33 @@ namespace SkillQuizLight.Controllers
             db.SaveChanges();
         }
 
+        [HttpPut("putIsQuestOpenTrue/{pId}")]
+        public async void putIsQuestOpenTrue(int pId)
+        {
+            var user = db.tUser
+                        .Where(b => b.tUserID == Convert.ToInt32(pId))
+                        .FirstOrDefault();
+            if (user != null)
+            {
+                user.IsQuestOpen = true;
+                db.SaveChanges();
+            }
+
+        }
+
+        [HttpPut("putIsQuestOpenFalse/{pId}")]
+        public async void putIsQuestOpenFalse(int pId)
+        {
+            var user = db.tUser
+                        .Where(b => b.tUserID == Convert.ToInt32(pId))
+                        .FirstOrDefault();
+            if (user != null)
+            {
+                user.IsQuestOpen = true;
+                db.SaveChanges();
+            }
+
+        }
         [HttpDelete("delUser/{ID}")]
         public void delUser(Int32 ID)
         {
@@ -131,5 +176,6 @@ namespace SkillQuizLight.Controllers
             db.tUser.Remove(userTmp);
             db.SaveChanges();
         }
+
     }
 }

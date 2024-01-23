@@ -8,7 +8,7 @@ namespace SkillQuizLight.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ExamUser_TestController : ControllerBase
+    public class UserExamController : ControllerBase
     {
         private Db_SkillQuizLight db = new Db_SkillQuizLight();
 
@@ -66,6 +66,45 @@ namespace SkillQuizLight.Controllers
                     }).ToList();
         }
 
+        [HttpGet("getUser_Test_UserID/{UserID}")]
+        public List<mUserExam_Display> getUser_Test_UserID(int UserID)
+        {
+            return (from a in db.tUserExam
+                    join b in db.tUser on a.tUserID equals b.tUserID
+                    join c in db.tExamTest on a.tExamTestID equals c.tExamTestID
+                    join d in db.tParamTestStatus on a.tParamTestStatusID equals d.tParamTestStatusID
+                    where b.tUserID == UserID
+                    select new
+                    {
+                        a.tUserExamID,
+                        a.tUserID,
+                        a.tExamTestID,
+                        a.Deadline,
+                        a.FinishedDate,
+                        a.Comment,
+                        a.tParamTestStatusID,
+                        a.CreatDate,
+                        a.CreatUser,
+                        a.ModifDate,
+                        a.ModifUser,
+                        Desc1 = b.FirstName + " " + b.LastName + " (" + b.Login + ")",
+                        Desc2 = c.Description,
+                        Desc3 = d.Description
+                    }).Select(u => new mUserExam_Display()
+                    {
+                        _ID = u.tUserExamID,
+                        _Dead_line = u.Deadline,
+                        _Finished_Date = u.FinishedDate,
+                        _Comment = u.Comment,
+                        _NameFirstNameLogin = u.Desc1,
+                        _ID_User = u.tUserID,
+                        _Test = u.Desc2,
+                        _ID_Test = u.tExamTestID,
+                        _Test_Status = u.Desc3,
+                        _ID_Test_Status = u.tParamTestStatusID,
+                    }).ToList();
+        }
+
         [HttpGet("getUser_Test_TestID/{TestID}")]
         public List<mUserExam_Display> getUser_Test_TestID(int TestID)
         {
@@ -89,7 +128,7 @@ namespace SkillQuizLight.Controllers
                         a.ModifUser,
                         Desc1 = b.FirstName + " " + b.LastName + " (" + b.Login + ")",
                         Desc2 = c.Description,
-                        Desc3 = c.Description
+                        Desc3 = d.Description
                     }).Select(u => new mUserExam_Display()
                     {
                         _ID = u.tUserExamID,
@@ -105,31 +144,31 @@ namespace SkillQuizLight.Controllers
                     }).ToList();
         }
 
-        [HttpPost("postUser_Test/{user}")]
-        public async void postUser_Test(mUserExam_Display pExamUser_TestDisplay, int user)
+        [HttpPost("postUser/{user}")]
+        public async void postUser(mUserExam_Display pExamUserDisplay, int user)
         {
-            mUserExam vExamUser_Test = new mUserExam(pExamUser_TestDisplay, user);
-            tUserExam vUser_TestTmp = new tUserExam();
-            vUser_TestTmp.tUserID = vExamUser_Test.gettUserID();
-            vUser_TestTmp.tUserExamID = vExamUser_Test.gettUserExamID();
-            vUser_TestTmp.Deadline = vExamUser_Test.getDeadline();
-            vUser_TestTmp.FinishedDate = vExamUser_Test.getFinishedDate();
-            vUser_TestTmp.Comment = vExamUser_Test.getComment();
-            vUser_TestTmp.tParamTestStatusID = vExamUser_Test.getParamTestStatusID();
-            vUser_TestTmp.CreatDate = vExamUser_Test.getCreatDate();
-            vUser_TestTmp.CreatUser = vExamUser_Test.getCreatUser();
-            vUser_TestTmp.ModifDate = vExamUser_Test.getModifDate();
-            vUser_TestTmp.ModifUser = vExamUser_Test.getModifUser();
+            mUserExam vExamUser = new mUserExam(pExamUserDisplay, user);
+            tUserExam vUserTmp = new tUserExam();
+            vUserTmp.tUserID = vExamUser.gettUserID();
+            vUserTmp.tUserExamID = vExamUser.gettUserExamID();
+            vUserTmp.Deadline = vExamUser.getDeadline();
+            vUserTmp.FinishedDate = vExamUser.getFinishedDate();
+            vUserTmp.Comment = vExamUser.getComment();
+            vUserTmp.tParamTestStatusID = vExamUser.getParamTestStatusID();
+            vUserTmp.CreatDate = vExamUser.getCreatDate();
+            vUserTmp.CreatUser = vExamUser.getCreatUser();
+            vUserTmp.ModifDate = vExamUser.getModifDate();
+            vUserTmp.ModifUser = vExamUser.getModifUser();
 
-            db.tUserExam.AddAsync(vUser_TestTmp);
+            db.tUserExam.AddAsync(vUserTmp);
             await db.SaveChangesAsync();
         }
 
-        [HttpDelete("delUser_Test/{ID}")]
-        public void delUser_Test(Int32 ID)
+        [HttpDelete("delUser/{ID}")]
+        public void delUser(Int32 ID)
         {
-            var vUser_TestTmp = db.tUserExam.Find(ID);
-            db.tUserExam.Remove(vUser_TestTmp);
+            var vUserTmp = db.tUserExam.Find(ID);
+            db.tUserExam.Remove(vUserTmp);
             db.SaveChanges();
         }
     }

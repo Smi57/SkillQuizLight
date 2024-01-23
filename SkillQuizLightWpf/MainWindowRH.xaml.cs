@@ -28,6 +28,7 @@ namespace SkillQuizLightWpf
     /// </summary>
     public partial class MainWindowRH : Window
     {
+        bool isDisconnecting = false;
 
         public MainWindowRH()
         {
@@ -61,12 +62,24 @@ namespace SkillQuizLightWpf
             this.Navigate("pages/PageHome.xaml");
             ChgPwd chgPwd = new ChgPwd();
             chgPwd.ShowDialog();
+            
         }
         private void Disconnect_Click(object sender, RoutedEventArgs e)
         {
+            //this.Navigate("pages/PageHome.xaml");
+            //Login login = new Login();
+            //login.ShowDialog();
+            //this.Hide();
+            //this.Close();
             this.Navigate("pages/PageHome.xaml");
-            Login login = new Login();
-            login.ShowDialog();
+            MainWindow mainWindow = new MainWindow();
+            //this.Show();
+            //Program.client.CancelPendingRequests();
+            mainWindow.Show();
+            this.isDisconnecting = true;
+            this.Close();
+
+
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -83,18 +96,10 @@ namespace SkillQuizLightWpf
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (this.IsLoaded)
+            int vRes = Tools.fQuitApp(this.IsLoaded, this.isDisconnecting, e);
+            if (vRes == Program.cCancel)
             {
-                string vMsgTmp = (string)Application.Current.Resources["MsgQuit"];
-                var vRes = MessageBox.Show(vMsgTmp, "", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
-                if (vRes == MessageBoxResult.Yes)
-                { Application.Current.Shutdown(); }
-                else if (vRes == MessageBoxResult.No)
-                {
-                    e.Cancel = true;
-                    this.Navigate("pages/PageHome.xaml");
-                }
-                else { e.Cancel = true; }
+                this.Navigate("pages/PageHome.xaml");
             }
         }
 
