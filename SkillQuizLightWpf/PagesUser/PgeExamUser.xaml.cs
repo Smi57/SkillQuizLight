@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http.Json;
 using SkillQuizLightWpf.Pages;
+using System.ComponentModel;
 
 namespace SkillQuizLightWpf.PagesUser
 {
@@ -67,15 +68,18 @@ namespace SkillQuizLightWpf.PagesUser
         private void DgdTest_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //var rowSelectedTmp = (mExamTest_Display)DgdTest.SelectedItem;
-            var rowSelectedTmp = (mUserExam_Display)DgdTest.SelectedItem;
-            if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
+            if (DgdTest.SelectedIndex != DgdTest.Items.Count-1)
             {
-                //HttpResponseMessage response = Program.client.GetAsync($"api/ExamTest/getTestID/{rowSelectedTmp._ID}").Result;
-                HttpResponseMessage response = Program.client.GetAsync($"api/ExamTest/getTestID/{rowSelectedTmp._ID_Test}").Result;
-                string[] vIdTmp = response.Content.ReadFromJsonAsync<string[]>().Result;
-                if (response.IsSuccessStatusCode & vIdTmp[0] != "")
+                var rowSelectedTmp = (mUserExam_Display)DgdTest.SelectedItem;
+                if (rowSelectedTmp != null & Tools.vPageDataProcessingStatus01 != Tools.cStatDel)
                 {
-                    refreshDgdTest_Questionnaire();
+                    //HttpResponseMessage response = Program.client.GetAsync($"api/ExamTest/getTestID/{rowSelectedTmp._ID}").Result;
+                    HttpResponseMessage response = Program.client.GetAsync($"api/ExamTest/getTestID/{rowSelectedTmp._ID_Test}").Result;
+                    string[] vIdTmp = response.Content.ReadFromJsonAsync<string[]>().Result;
+                    if (response.IsSuccessStatusCode && vIdTmp[0] != "")
+                    {
+                        refreshDgdTest_Questionnaire();
+                    }
                 }
             }
         }

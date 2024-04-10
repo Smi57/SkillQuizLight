@@ -59,6 +59,9 @@ namespace SkillQuizLightWpf.PagesUser
 
             string vQuestOpen = "";
             bool vIsQuestOpen = false;
+            bool vFindUserQuestion = false;
+            int vUserQuestIdTmp;
+            int vUserQuestTimeOpenTmp;
 
             //MessageBox.Show(Program.currentQuestionnaire._ID.ToString());
             TbxDescr.Content = Program.currentQuestionnaire._Description;
@@ -66,7 +69,7 @@ namespace SkillQuizLightWpf.PagesUser
             //On récupère le temps maximum du questionnaire
             vTimeMax = Convert.ToInt32(Program.currentQuestionnaire._TotalTime);
 
-            // Je récupére l'état du timer du questionnaire à l'ouverture
+            // Je récupére l'état du timer du questionnaire à l'ouvertureresponseUserQuest.IsSuccessStatusCode
             // - J'enregistre tous les temps des questions en cours dans une liste
             //getUserQuestion_IDs
             int vCurrentQuestionnaire = Convert.ToInt32(Program.currentQuestionnaire._ID);
@@ -86,41 +89,54 @@ namespace SkillQuizLightWpf.PagesUser
                     {
 
                         HttpResponseMessage responseUserQuest = Program.client.GetAsync(
-                                $"api/UserQuestion/getUserQuestion_IDs?ptQuestionnaireID={Convert.ToInt32(p._ID_Question)}" + //p._ID
+                                $"api/UserQuestion/getUserQuestion_IDs?ptExamQuestionID={Convert.ToInt32(p._ID_Question)}" + //p._ID
                                 $"&ptExamTest_QuestionnaireID={Convert.ToInt32(Program.currentTest_Questionnaire._ID)}").Result;
 
                         mUserQuestion_Display vUserQuest;
-                        if (responseUserQuest.IsSuccessStatusCode && responseUserQuest.Content.Headers.ContentLength != 0)
+                        vUserQuestIdTmp = 0;
+                        vUserQuestTimeOpenTmp = 0;
+                        if (responseUserQuest.IsSuccessStatusCode)
                         {
                             //var vList = responseUserQuest.Content.ReadFromJsonAsync<IEnumerable<mUserQuestion_Display>>().Result;
                             var vList = responseUserQuest.Content.ReadFromJsonAsync<IEnumerable<mUserQuestion_Display>>().Result;
-                            vUserQuest = vList.ElementAt(0);
-                            if (vUserQuest._TimeOpen != 0)
+                            if (vList.Count() != 0)
                             {
-                                vIsQuestOpen = true;
-                            }
-                            else if (vIsQuestOpen && vQuestOpen == "")
-                            {
-                                vQuestOpen = vUserQuest._ID.ToString();
+                                vFindUserQuestion = true;
+                                vUserQuest = vList.ElementAt(0);
+                                if (vUserQuest._TimeOpen != 0)
+                                {
+                                    vIsQuestOpen = true;
+                                }
+                                else if (vIsQuestOpen && vQuestOpen == "")
+                                {
+                                    vQuestOpen = vUserQuest._ID.ToString();
+                                }
+                                vUserQuestIdTmp = Convert.ToInt32(vUserQuest._ID);
+                                vUserQuestTimeOpenTmp = Convert.ToInt32(vUserQuest._TimeOpen);
                             }
                         }
-                        else
+                        if (vFindUserQuestion == false)
                         {
                             vUserQuest = new mUserQuestion_Display();
-
                             vUserQuest._tUserExamID = Program.currentUserExam._ID;
                             //vUserQuest._tExamQuestionnaire_QuestionID = Program.currentQuestionnaire._ID;
                             vUserQuest._tExamTest_QuestionnaireID = Program.currentTest_Questionnaire._ID;
                             vUserQuest._tExamQuestionnaire_QuestionID = p._ID;
                             vUserQuest._TimeOpen = 0;
-                            vUserQuest._tExamQuestionID = p._ID;
+                            vUserQuest._tExamQuestionID = p._ID_Question;
                             aSyncPostPutUserQuestion(vUserQuest);
+                            responseUserQuest = Program.client.GetAsync(
+                                    $"api/UserQuestion/getUserQuestion_IDs?ptExamQuestionID={Convert.ToInt32(p._ID_Question)}" + //p._ID
+                                    $"&ptExamTest_QuestionnaireID={Convert.ToInt32(Program.currentTest_Questionnaire._ID)}").Result;
+                            var vList = responseUserQuest.Content.ReadFromJsonAsync<IEnumerable<mUserQuestion_Display>>().Result;
+                            vUserQuest = vList.ElementAt(0);
+                            vUserQuestIdTmp = Convert.ToInt32(vUserQuest._ID);
                         }
                         vTimeOpenQuests.Add(new TimeOpenQuest()
                         {
-                            ID = Convert.ToInt16(vUserQuest._ID),
-                            tQuestionID = Convert.ToInt32(vUserQuest._tExamQuestionID),
-                            TimeOpen = Convert.ToInt32(vUserQuest._TimeOpen)
+                            ID = Convert.ToInt32(vUserQuestIdTmp),
+                            tQuestionID = Convert.ToInt32(p._ID_Question),
+                            TimeOpen = Convert.ToInt32(vUserQuestTimeOpenTmp)
                         }); ;
                     }
                     int vSumTimeOpen = vTimeOpenQuests.Sum(p => p.TimeOpen);
@@ -134,7 +150,18 @@ namespace SkillQuizLightWpf.PagesUser
             initAnsw();
             if (vIsQuestOpen)
             {
-                displayQuestAnsw(vQuestOpen,true);
+                HttpResponseMessage respParamLog = Program.client.GetAsync($"api/ParamLog/getParamLogID?ptUserID=" +
+                $"{Program.currentUser.tUserID}&pNameTypLog={Program.cNmTypLogIsQuestOpenUser}").Result;
+                var vListParamLog = respParamLog.Content.ReadFromJsonAsync<IEnumerable<mParamLog_Display>>().Result;
+                if (vListParamLog.Count()!=0 )
+                {
+                    vQuestOpen = vListParamLog.ElementAt(0)._Info03;
+                    displayQuestAnsw(vQuestOpen, true);
+                }
+                else
+                {
+                    displayQuestAnsw();
+                }
             }
             else
             {
@@ -178,13 +205,13 @@ namespace SkillQuizLightWpf.PagesUser
                 }
             }
         }
-
+                
         public async void aSyncPostPutUserQuestion(mUserQuestion_Display pUserQuest, bool pPost = true)
         {
             if (pPost)
             {
-                HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync(
-                                $"api/UserQuestion/postUserQuestion/{Program.currentUser.tUserID.Value}", pUserQuest);
+                HttpResponseMessage responseAdd = Program.client.PostAsJsonAsync(
+                                $"api/UserQuestion/postUserQuestion/{Program.currentUser.tUserID.Value}", pUserQuest).Result;
             }
             else
             {
@@ -229,8 +256,8 @@ namespace SkillQuizLightWpf.PagesUser
         }
         public async void aSyncDelParamLog()
         {
-            HttpResponseMessage responseDel = await Program.client.DeleteAsync("api/ParamLog/delParamLog/pTypLogID?" +
-                $"oUser={Program.currentUser}&pNameTypLog={Program.cNmTypLogIsQuestOpenUser}");
+            HttpResponseMessage responseDel = await Program.client.DeleteAsync("api/ParamLog/delParamLog?" +
+                $"pNameTypLog={Program.cNmTypLogIsQuestOpenUser}&ptUserID={Program.currentUser.tUserID}");
         }
 
         private void initAnsw()
@@ -256,14 +283,16 @@ namespace SkillQuizLightWpf.PagesUser
         private int displayQuestAnsw(string pID = "", bool pDown = false)
         {
             int vValReturn = cNothingDetected;
+            mExamQuestionnaire_Question_Display oCurrentQuestForLog;
+
 
             HttpResponseMessage response = Program.client.GetAsync(
                 //$"api/ExamQuestion/getQuestion_IdQuestionaire/{Program.currentQuestionnaire._ID}").Result;
                 $"api/ExamQuestionnaire_Question/getQuestionnaire_Question_QuestionnaireID/{Program.currentQuestionnaire._ID}").Result;
-            if (response.IsSuccessStatusCode)
+            var vList = response.Content.ReadFromJsonAsync<IEnumerable<mExamQuestionnaire_Question_Display>>().Result;
+            if (vList.Count()!=0)
             {
                 //var vList = response.Content.ReadFromJsonAsync<IEnumerable<mExamQuestion_Display>>().Result;
-                var vList = response.Content.ReadFromJsonAsync<IEnumerable<mExamQuestionnaire_Question_Display>>().Result;
                 //oCurrentQuest = new mExamQuestion_Display();
                 oCurrentQuest = new mExamQuestionnaire_Question_Display();
                 // Si pas d'id recherche on se possitionne sur le premier
@@ -295,7 +324,6 @@ namespace SkillQuizLightWpf.PagesUser
                             // Si il n'y a pas d'enregistrement après, on revient vers le premier
                             // oCurrentQuest = vList.OrderBy(b => b._ID_Question).ElementAt(0);  //._ID 
                             vValReturn = cLastQuest;
-                            aSyncDelParamLog();
                             return vValReturn;
                             
                         }
@@ -321,10 +349,10 @@ namespace SkillQuizLightWpf.PagesUser
                 initAnsw();
                 //HttpResponseMessage respAswers = Program.client.GetAsync($"api/ExamQuestion_Answer/getQuestion_Answer_QuestionID/{oCurrentQuest._ID.ToString()}").Result;
                 HttpResponseMessage respAswers = Program.client.GetAsync($"api/ExamQuestion_Answer/getQuestion_Answer_QuestionID/{oCurrentQuest._ID_Question.ToString()}").Result;
-                if (respAswers.IsSuccessStatusCode)
+                var vListAnswers = respAswers.Content.ReadFromJsonAsync<IEnumerable<mExamQuestion_Answer_Display>>().Result;
+                if (vListAnswers.Count()!=0)
                 {
                     int i = 0;
-                    var vListAnswers = respAswers.Content.ReadFromJsonAsync<IEnumerable<mExamQuestion_Answer_Display>>().Result;
                     foreach (mExamQuestion_Answer_Display vAnsw in vListAnswers)
                     {
                         i++;
@@ -338,13 +366,27 @@ namespace SkillQuizLightWpf.PagesUser
 
                 //Création ou mise à jour du Log
                 HttpResponseMessage vRespLog = Program.client.GetAsync(
-                    $"api/ParamLog/getParamLogID/{Program.currentUser}").Result;
-                if (vRespLog.IsSuccessStatusCode)
-                {
+                    $"api/ParamLog/getParamLogID?ptUserID={Program.currentUser.tUserID}&pNameTypLog={Program.cNmTypLogIsQuestOpenUser}").Result;
                     mParamLog_Display[] vTmpParmaLog = vRespLog.Content.ReadFromJsonAsync<mParamLog_Display[]>().Result;
-                    vTmpParmaLog[0]._Info01 = Program.currentUserExam._ID.ToString();
+
+                if (vList.Where(b => b._ID_Question > Convert.ToInt32(oCurrentQuest._ID_Question)).Count() == 0)  //._ID 
+                {
+                    // Si il n'y a pas d'enregistrement après, on revient vers le premier
+                    oCurrentQuestForLog = vList.OrderBy(b => b._ID_Question).ElementAt(0);  //._ID 
+
+                }
+                else
+                {
+                    oCurrentQuestForLog = vList.Where(b => b._ID_Question >= Convert.ToInt32(oCurrentQuest._ID_Question)).OrderBy(b => b._ID_Question).ElementAt(1); //._ID   ._ID
+                }
+
+
+                if (vTmpParmaLog.Count() != 0)
+                {
+
+                    vTmpParmaLog[0]._Info01 = Program.currentTest_Questionnaire._ID_Test.ToString();
                     vTmpParmaLog[0]._Info02 = Program.currentQuestionnaire._ID.ToString();
-                    vTmpParmaLog[0]._Info03 = oCurrentQuest._ID.ToString();
+                    vTmpParmaLog[0]._Info03 = oCurrentQuestForLog._ID_Question.ToString();
                     aSyncPostPutParamLog(vTmpParmaLog[0], false);
                 }
                 else
@@ -355,9 +397,9 @@ namespace SkillQuizLightWpf.PagesUser
                     int[] vGetTypLogID = vRespGetTypLogID.Content.ReadFromJsonAsync<int[]>().Result;
 
                     oParamLogToAdd._tTypLogID = vGetTypLogID[0];
-                    oParamLogToAdd._Info01 = Program.currentTest_Questionnaire._ID.ToString();
+                    oParamLogToAdd._Info01 = Program.currentTest_Questionnaire._ID_Test.ToString();
                     oParamLogToAdd._Info02 = Program.currentQuestionnaire._ID.ToString();
-                    oParamLogToAdd._Info03 = oCurrentQuest._ID.ToString();
+                    oParamLogToAdd._Info03 = oCurrentQuestForLog._ID_Question.ToString();
                     aSyncPostPutParamLog(oParamLogToAdd);
                 }
 
@@ -376,10 +418,10 @@ namespace SkillQuizLightWpf.PagesUser
 
             //HttpResponseMessage respAswers = Program.client.GetAsync($"api/ExamQuestion_Answer/getQuestion_Answer_QuestionID/{oCurrentQuest._ID.ToString()}").Result;
             HttpResponseMessage respAswers = Program.client.GetAsync($"api/ExamQuestion_Answer/getQuestion_Answer_QuestionID/{oCurrentQuest._ID_Question.ToString()}").Result;
-            if (respAswers.IsSuccessStatusCode)
+            var vListAnswers = respAswers.Content.ReadFromJsonAsync<IEnumerable<mExamQuestion_Answer_Display>>().Result;
+            if (vListAnswers.Count()!=0)
             {
                 int i = 0;
-                var vListAnswers = respAswers.Content.ReadFromJsonAsync<IEnumerable<mExamQuestion_Answer_Display>>().Result;
                 foreach (mExamQuestion_Answer_Display vAnsw in vListAnswers)
                 {
                     if (respAswers.IsSuccessStatusCode)
@@ -404,9 +446,11 @@ namespace SkillQuizLightWpf.PagesUser
             int vRes = displayQuestAnsw(LabNumQuest.Content.ToString());
             if (vRes == cLastQuest)
             {
-                if (MessageBox.Show("Ceci était la dernière question, voulez vous mettre fin au questionnaire ?", "", MessageBoxButton.YesNoCancel) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Ceci était la dernière question, voulez vous mettre fin au questionnaire ?", "",
+                            MessageBoxButton.YesNoCancel, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     aSyncPutIsQuestOpen(false);
+                    aSyncDelParamLog();
                     Uri uri = new Uri("pagesUser/PgeExamUser.xaml", UriKind.Relative);
                     this.NavigationService.Navigate(uri);
                 }

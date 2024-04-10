@@ -14,13 +14,12 @@ namespace SkillQuizLight.Controllers
     {
         private Db_SkillQuizLight db = new Db_SkillQuizLight();
 
-        [HttpGet("getParamLogID/{pNameTypLog}")]
-        public List<mParamLog_Display> getParamLogID(mUser_Display oUser, string pNameTypLog)
+        [HttpGet("getParamLogID")]
+        public List<mParamLog_Display> getParamLogID(int ptUserID, string pNameTypLog)
         {
-
             return (from a in db.tParamLog
                     join b in db.tParamTypeLog on a.tParamTypeLogID equals b.tParamTypeLogID
-                    where b.Name == Program.cNmTypLogIsQuestOpenUser && a.CreatUser == oUser._ID
+                    where b.Name == pNameTypLog && a.CreatUser == ptUserID
                     select new
                     {
                         a.tParamLogID,
@@ -110,19 +109,19 @@ namespace SkillQuizLight.Controllers
             if (vParamLog.gettParamTypeLogID() != null) { vParamLogTmp.tParamTypeLogID = vParamLog.gettParamTypeLogID(); }
             if (vParamLog.getInfo01() != null) { vParamLogTmp.Info01 = vParamLog.getInfo01(); }
             if (vParamLog.getInfo02() != null) { vParamLogTmp.Info02 = vParamLog.getInfo02(); }
-            if (vParamLog.getInfo03() != null) { vParamLogTmp.Info02 = vParamLog.getInfo03(); }
+            if (vParamLog.getInfo03() != null) { vParamLogTmp.Info03 = vParamLog.getInfo03(); }
             if (vParamLog.getModifDate() != null) { vParamLogTmp.ModifDate = vParamLog.getModifDate(); }
             if (vParamLog.getModifUser() != null) { vParamLogTmp.ModifUser = vParamLog.getModifUser(); }
             db.SaveChanges();
         }
 
-        [HttpDelete("delParamLog/{pTypLogID}")]
-        public void delParamLog(mUser oUser, int pTypLogID)
+        [HttpDelete("delParamLog")]
+        public void delParamLog(string pNameTypLog, int ptUserID) //
         {
             (from a in db.tParamLog
             join b in db.tParamTypeLog on a.tParamTypeLogID equals b.tParamTypeLogID
-             where a.tParamTypeLogID == pTypLogID && a.CreatUser == oUser.tUserID
-            select a).ExecuteDelete();
+             where b.Name == pNameTypLog && a.CreatUser == ptUserID
+             select a).ExecuteDelete();
         }
 
     }

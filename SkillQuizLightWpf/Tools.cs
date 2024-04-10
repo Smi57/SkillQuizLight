@@ -65,7 +65,7 @@ namespace SkillQuizLightWpf
             bool[] vIsQuestOpen = vResp.Content.ReadFromJsonAsync<bool[]>().Result;
             if (vIsQuestOpen[0] == true)
             {
-                MessageBox.Show("Vous devez aller au bout du questionnaire pour pouvoir le fermer.", "", MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                MessageBox.Show("Exam en cours, vous devez aller au bout du questionnaire pour pouvoir le fermer.", "", MessageBoxButton.OK,MessageBoxImage.Exclamation);
                 e.Cancel = true;
                 return Program.cBlocked;
             }
@@ -101,7 +101,7 @@ namespace SkillQuizLightWpf
                     $"{pQuestionnaireID}").Result;
                 //Program.currentQuestionnaire = response.Content.ReadFromJsonAsync<mExamQuestionnaire>().Result;
                 var vList = response.Content.ReadFromJsonAsync<IEnumerable<mExamQuestionnaire_Display>>().Result;
-                if (response.IsSuccessStatusCode)
+                if (vList.Count() != 0)
                 {
                     Program.currentQuestionnaire = vList.ElementAt(0);
                     vRes = true;
@@ -109,11 +109,12 @@ namespace SkillQuizLightWpf
             }
             else
             {
-                HttpResponseMessage respParamLog = Program.client.GetAsync($"api/ParamLog/getParamLogID?oUser=" +
-                $"{Program.currentUser}&pNameTypLog={Program.cNmTypLogIsQuestOpenUser}").Result;
-                if (respParamLog.IsSuccessStatusCode)
+                HttpResponseMessage respParamLog = Program.client.GetAsync($"api/ParamLog/getParamLogID?ptUserID=" +
+                $"{Program.currentUser.tUserID}&pNameTypLog={Program.cNmTypLogIsQuestOpenUser}").Result;
+                var vListParamLog = respParamLog.Content.ReadFromJsonAsync<IEnumerable<mParamLog_Display>>().Result;
+                if (vListParamLog.Count()!=0)
                 {
-                    var vListParamLog = respParamLog.Content.ReadFromJsonAsync<IEnumerable<mParamLog_Display>>().Result;
+
                     HttpResponseMessage respExam = Program.client.GetAsync($"api/UserExam/getUser_Test_TestID/" +
                         $"{Convert.ToInt32(vListParamLog.ElementAt(0)._Info01)}").Result;
                     var vListExam = respExam.Content.ReadFromJsonAsync<IEnumerable<mUserExam_Display>>().Result;
@@ -121,7 +122,7 @@ namespace SkillQuizLightWpf
 
                     HttpResponseMessage respQuestionnaire = Program.client.GetAsync($"api/ExamQuestionnaire/getQuestionnaireID/" +
                         $"{Convert.ToInt32(vListParamLog.ElementAt(0)._Info02)}").Result;
-                    var vListQuestionnaire = respExam.Content.ReadFromJsonAsync<IEnumerable<mExamQuestionnaire_Display>>().Result;
+                    var vListQuestionnaire = respQuestionnaire.Content.ReadFromJsonAsync<IEnumerable<mExamQuestionnaire_Display>>().Result;
                     Program.currentQuestionnaire = vListQuestionnaire.ElementAt(0);
                     vRes = true;
                 }
@@ -132,6 +133,7 @@ namespace SkillQuizLightWpf
                     $"pExamTestID={Convert.ToInt32(Program.currentUserExam._ID_Test)}&pExamQuestionnaireID={Program.currentQuestionnaire._ID}").Result;
                 var vListTest_Quest = respTest_Quest.Content.ReadFromJsonAsync<IEnumerable<mExamTest_Questionnaire_Display>>().Result;
                 Program.currentTest_Questionnaire = vListTest_Quest.ElementAt(0);
+
             }
             return vRes;
         }

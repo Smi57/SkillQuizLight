@@ -128,7 +128,7 @@ namespace SkillQuizLightWpf.Pages
                 int vExamTestID = Convert.ToInt32(rowSelectedTmpDgTest._ID);
                 int vExamUserID = Convert.ToInt32(rowSelectedTmpDgUser._ID);
                 HttpResponseMessage response = Program.client.GetAsync(
-                    $"api/ExamUser_Test/getUser_TestIDs?pExamUserID={vExamUserID}&pExamTestID={vExamTestID}").Result;
+                    $"api/UserExam/getUser_TestIDs?pExamUserID={vExamUserID}&pExamTestID={vExamTestID}").Result;
                 bool vTest_UserFind = response.Content.ReadFromJsonAsync<bool>().Result;
                 if (response.IsSuccessStatusCode & vTest_UserFind)
                 {
@@ -142,10 +142,12 @@ namespace SkillQuizLightWpf.Pages
                     oTmpAdd._ID_Test = vExamTestID;
                     oTmpAdd._ID_User = vExamUserID;
                     oTmpAdd._Comment = tbxCmt.Text;
+                    //penser à lier à Program.cExamStatPlan
+                    oTmpAdd._ID_Test_Status = 4;
                     oTmpAdd._Dead_line = Convert.ToDateTime(tbxDeadLine.Text);
-                    oTmpAdd._Finished_Date = Convert.ToDateTime(tbxFinishedDate.Text);
+                    //oTmpAdd._Finished_Date = Convert.ToDateTime(tbxFinishedDate.Text);
                     HttpResponseMessage responseAdd = await Program.client.PostAsJsonAsync(
-                                        $"api/ExamUser_Test/postUser_Test/{Program.currentUser.tUserID.Value}", oTmpAdd);
+                                        $"api/UserExam/postUser/{Program.currentUser.tUserID.Value}", oTmpAdd);
                     refreshDgdUser_Test();
 
                 }

@@ -48,8 +48,8 @@
         public void settUserID(int pVal) { this.tUserID = pVal; }
         public int gettUserID() { return this.tUserID; }
 
-        public void setExamTestID(int pVal) { this.tExamTestID = pVal; }
-        public int getExamTestID() { return this.tExamTestID; }
+        public void settExamTestID(int pVal) { this.tExamTestID = pVal; }
+        public int gettExamTestID() { return this.tExamTestID; }
 
         public void setParamTestStatusID(int pVal) { this.tParamTestStatusID = pVal; }
         public int getParamTestStatusID() { return this.tParamTestStatusID; }

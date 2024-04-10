@@ -67,6 +67,24 @@ namespace SkillQuizLightWpf
             //login.Close();
             login.Hide();
 
+            //Gestion log
+            HttpResponseMessage respParamLog = Program.client.GetAsync($"api/ParamLog/getParamLogID?ptUserID=" +
+            $"{Program.currentUser.tUserID}&pNameTypLog={Program.cNmTypLogIsQuestOpenUser}").Result;
+            var vListParamLog = respParamLog.Content.ReadFromJsonAsync<IEnumerable<mParamLog_Display>>().Result;
+            if (vListParamLog.Count()!=0)
+            {
+                
+                MessageBox.Show("Une connection pendant un examen a été interrompue, un mail a été envoyé à l'assignateur de l'examen," + 
+                    " veuillez le contacter en cas de problème récurrant. Sinon vous pouvez reprendre à la questionnaire : " + 
+                    vListParamLog.ElementAt(0)._Info02 + " à la question en cours.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                //this.Navigate("pagesUser/PgeQuest.xaml");
+                if (Tools.fLauchPgeQuest() && Program.vCurrentPge != "PgeQuest")
+                {
+                    this.Navigate("pagesUser/PgeQuest.xaml");
+                }
+            }
+
+
         }
         public void Navigate(string page)
         {
@@ -85,7 +103,7 @@ namespace SkillQuizLightWpf
             //login.ShowDialog();
             //this.Close();
             //Program.client.CancelPendingRequests();
-            this.Navigate("PagesUser/PgeExamUser.xaml");
+            this.Navigate("Pages/PageHome.xaml");
             MainWindow mainWindow = new MainWindow();
             //this.Show();
             mainWindow.Show();
@@ -100,6 +118,7 @@ namespace SkillQuizLightWpf
         {
             Application.Current.Shutdown();
         }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             int vRes = Tools.fQuitApp(this.IsLoaded, this.isDisconnecting,e);

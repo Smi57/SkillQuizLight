@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SkillQuizLight.Context;
 using SkillQuizLight.Models;
+using System.Xml;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,11 +15,10 @@ namespace SkillQuizLight.Controllers
         private Db_SkillQuizLight db = new Db_SkillQuizLight();
 
         [HttpGet("getUserQuestion_IDs")]
-        public List<mUserQuestion_Display> getUserQuestion_IDs(int ptQuestionnaireID, int ptExamTest_QuestionnaireID)
+        public List<mUserQuestion_Display> getUserQuestion_IDs(int ptExamQuestionID, int ptExamTest_QuestionnaireID)
         {
             return (from a in db.tUserQuestion
-                    where a.tExamQuestionID == ptQuestionnaireID
-                    && a.tExamTest_QuestionnaireID == ptExamTest_QuestionnaireID
+                    where a.tExamQuestionID == ptExamQuestionID && a.tExamTest_QuestionnaireID == ptExamTest_QuestionnaireID
                     select new
                     {
                         a.tUserQuestionID,
@@ -50,11 +51,11 @@ namespace SkillQuizLight.Controllers
         }
 
 
-        [HttpGet("getUserQuestion/{ptExamTest_QuestionnaireID}")]
-        public List<mUserQuestion_Display> getUserQuestion(int ptExamTest_QuestionnaireID)
+        [HttpGet("getUserQuestion/{ptUSerQuestionID}")]
+        public List<mUserQuestion_Display> getUserQuestion(int ptUSerQuestionID)
         {
             return (from a in db.tUserQuestion
-                    where a.tExamTest_QuestionnaireID == ptExamTest_QuestionnaireID
+                    where a.tUserQuestionID == ptUSerQuestionID
                     select new
                     {
                         a.tUserQuestionID,

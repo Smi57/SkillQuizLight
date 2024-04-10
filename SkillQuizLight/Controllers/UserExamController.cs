@@ -150,7 +150,7 @@ namespace SkillQuizLight.Controllers
             mUserExam vExamUser = new mUserExam(pExamUserDisplay, user);
             tUserExam vUserTmp = new tUserExam();
             vUserTmp.tUserID = vExamUser.gettUserID();
-            vUserTmp.tUserExamID = vExamUser.gettUserExamID();
+            vUserTmp.tExamTestID = vExamUser.gettExamTestID();
             vUserTmp.Deadline = vExamUser.getDeadline();
             vUserTmp.FinishedDate = vExamUser.getFinishedDate();
             vUserTmp.Comment = vExamUser.getComment();

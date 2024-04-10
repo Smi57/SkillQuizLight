@@ -18,6 +18,10 @@ namespace SkillQuizLight
         public const string cResetPassword = "Bingo";
         public const string cNmTypLogIsQuestOpenUser = "IsQuestOpenUser";
 
+        public const string cExamStatTest = "Drafted";
+        public const string cExamStatPlan = "Planned";
+        public const string cExamStatEnd = "Finished";
+
         public const int cCancel = 0;
         public const int cQuit = 1;
         public const int cBlocked = 2;

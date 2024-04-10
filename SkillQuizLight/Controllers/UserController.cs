@@ -164,7 +164,7 @@ namespace SkillQuizLight.Controllers
                         .FirstOrDefault();
             if (user != null)
             {
-                user.IsQuestOpen = true;
+                user.IsQuestOpen = false;
                 db.SaveChanges();
             }
 
